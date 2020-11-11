@@ -1,25 +1,62 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { Component } from 'react';
+import { RegisterForm } from  './components/RegisterForm';
+import { artistData } from './artistData';
+import { Artists } from './components/Artists'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+class App extends Component {
+  state = {
+    name: "",
+    alias: "",
+    email: "",
+    usrType: "",
+    phone: "",
+    location: "",
+    password: "",
+    artists: artistData,
+  };
+
+  handleChange = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value }, () => console.log('current', this.state))
+    console.log(this.state)
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const { name, alias, location, email, phone, password } = this.state
+    const newArtist = {
+      name,
+      alias,
+      location,
+      email,
+      phone,
+      password,
+    };
+
+    this.setState({
+      artists: [ newArtist, ...this.state.artists ]
+    })
+  }
+  render() {
+    const { name, alias, location, email, phone, artists } = this.state
+    return (
+      <div className="App">
+        <RegisterForm
+          name={name}
+          alias={alias}
+          location={location}
+          email={email}
+          phone={phone}          
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+        />
+        <Artists
+          artists={artists}
+        />
+      </div>
+    );
+  }
+  }    
 
 export default App;
