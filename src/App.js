@@ -1,62 +1,32 @@
-import './App.css';
-import React, { Component } from 'react';
-import { RegisterForm } from  './components/RegisterForm';
-import { artistData } from './artistData';
-import { Artists } from './components/Artists'
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  Redirect
+} from 'react-router-dom'
+import Home from './components/Home.js'
+import { Login } from './components/Login.js'
 
-class App extends Component {
-  state = {
-    name: "",
-    alias: "",
-    email: "",
-    usrType: "",
-    phone: "",
-    location: "",
-    password: "",
-    artists: artistData,
-  };
-
-  handleChange = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value }, () => console.log('current', this.state))
-    console.log(this.state)
-  }
-
-  handleSubmit = e => {
-    e.preventDefault();
-    const { name, alias, location, email, phone, password } = this.state
-    const newArtist = {
-      name,
-      alias,
-      location,
-      email,
-      phone,
-      password,
-    };
-
-    this.setState({
-      artists: [ newArtist, ...this.state.artists ]
-    })
-  }
-  render() {
-    const { name, alias, location, email, phone, artists } = this.state
-    return (
-      <div className="App">
-        <RegisterForm
-          name={name}
-          alias={alias}
-          location={location}
-          email={email}
-          phone={phone}          
-          handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
-        />
-        <Artists
-          artists={artists}
-        />
-      </div>
-    );
-  }
-  }    
+function App() {
+  return (
+    <Router>
+      <header>
+        <nav>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/Login">Login</Link></li>
+          </ul>
+        </nav>
+      </header>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/Login" component={Login} />
+        {/*<Route path="*" component={NotFound} />*/}
+        <Redirect from="*" to="/" />
+      </Switch>
+    </Router>
+  );
+}
 
 export default App;
