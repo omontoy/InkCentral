@@ -22,7 +22,6 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/Login" component={Login} />
-        {/*<Route path="*" component={NotFound} />*/}
         <Redirect from="*" to="/" />
       </Switch>
     </Router>
