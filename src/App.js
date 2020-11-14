@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 import Home from './components/Home.js'
 import { Login } from './components/Login.js'
+import { RegisterForm } from './components/RegisterForm.js'
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <nav>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/Login">Login</Link></li>
+            <li><Link to="/Login">Login</Link></li>           
           </ul>
         </nav>
       </header>
