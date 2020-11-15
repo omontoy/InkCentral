@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 import Home from './components/Home.js'
 import { Login } from './components/Login.js'
-import { RegisterForm } from './components/RegisterForm.js'
+import { Register } from './components/Register.js'
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/Login" component={Login} />
-        <Route exact path="/Register" component={RegisterForm} />
+        <Route exact path="/Register" component={Register} />
         <Redirect from="*" to="/" />
       </Switch>
     </Router>
