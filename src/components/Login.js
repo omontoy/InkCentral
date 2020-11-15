@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { artistData } from '../artistData'
+import { clientData } from '../clientData'
 import { Link } from 'react-router-dom'
 
 
@@ -7,7 +8,8 @@ export class Login extends Component {
   state = {
     email: "",
     password: "",
-    artists: artistData
+    artists: artistData,
+    clients: clientData
   }
   handleChange = e => {
     const { name, value } = e.target
@@ -16,10 +18,15 @@ export class Login extends Component {
   handleLogin = e => {
     e.preventDefault()
     const { email, password } = this.state
-    const artist = this.state.artists
-    let mailConfirm = artist.filter(art => art.email === email &&
-      art.password === password)
-    alert(mailConfirm.length > 0
+    const artists = this.state.artists 
+    const clients = this.state.clients
+
+    const clientConfirm = clients.filter(client => client.email === email 
+                                             && client.password === password)
+    const artistConfirm = artists.filter(artist => artist.email === email 
+                                             && artist.password === password)
+    
+    alert(clientConfirm.length > 0 || artistConfirm.length > 0
       ? "Usuario Logeado" : "Usuario y/o contraseña incorrectos")
   }
   render() {
