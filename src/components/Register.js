@@ -9,7 +9,7 @@ export class Register extends Component {
     name:"",
     alias:"",
     email:"",
-    userType:"",
+    userType: "Client",
     phone:"",
     location:"",
     password:"",
@@ -33,15 +33,21 @@ export class Register extends Component {
       location,
       password
     }
-  
-    this.setState({
-      artists: [newUser,...this.state.artists]
-    })
+    if(userType === "Client"){
+      this.setState({
+        clients: [newUser,...this.state.clients]
+      })
+    } else {
+      this.setState({
+        artists: [newUser,...this.state.artists]
+      })
+    }
+    
   }
 
   render(){
-    // console.log(this.state.artists);
-    const { name, alias, email, phone, location, password, artists } = this.state
+    console.log(this.state.clients);
+    const { name, alias, email, userType, phone, location, password, artists } = this.state
     return(
       <div className="App">    
         <form onSubmit={this.handleRegister}>
@@ -99,6 +105,7 @@ export class Register extends Component {
             name="userType" 
             onChange={this.handleChange}
             value="Client"
+            defaultChecked
           />
           <br></br>
           <br></br>
@@ -112,7 +119,10 @@ export class Register extends Component {
           />
           <br></br>
           <br></br>
-          <label htmlFor="phone">Phone</label>
+          <label htmlFor="phone" 
+                 hidden={
+                  userType === "Client" && true
+                 }>Phone</label>
           <br></br>
           <input 
             type="tel" 
@@ -122,10 +132,16 @@ export class Register extends Component {
             placeholder="10 digits"
             onChange={this.handleChange}
             value={phone}
+            hidden= {
+             userType === "Client" && true
+            }
           />
           <br></br>
           <br></br>
-          <label htmlFor="location">Location</label>
+          <label htmlFor="location" 
+                 hidden={
+                  userType === "Client" && true
+                 }>Location</label>
           <br></br>
           <input 
             type="text" 
@@ -133,6 +149,9 @@ export class Register extends Component {
             name="location" 
             onChange={this.handleChange}
             value={location}
+            hidden= {
+              userType === "Client" && true
+            }
           />
           <br></br>
           <br></br>
