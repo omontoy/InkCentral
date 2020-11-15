@@ -17,12 +17,27 @@ export class Register extends Component {
     const { name, value } = e.target
     this.setState({ [name]:value })
   }
-  handleRegister = e => {
-      e.preventDefault()
 
+  handleRegister = e => {
+    e.preventDefault();
+    const { name, alias, email, userType, phone, location, password } = this.state
+    const newUser = {
+      name, 
+      alias,
+      email,
+      userType,
+      phone, 
+      location,
+      password
+    }
+  
+    this.setState({
+      artists: [newUser,...this.state.artists]
+    })
   }
+
   render(){
-      console.log(this.state);
+    console.log(this.state.artists);
     const { name, alias, email, phone, location, password } = this.state
     return(
       <div className="App">    
