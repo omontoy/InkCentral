@@ -1,5 +1,6 @@
 import React, { Component } from 'react' 
 import { artistData } from '../artistData'
+import { clientData } from '../clientData'
 import { Artists } from './Artists'
 
 
@@ -13,6 +14,7 @@ export class Register extends Component {
     location:"",
     password:"",
     artists: artistData,
+    clients: clientData
   }
   handleChange = e => {
     const { name, value } = e.target
@@ -138,6 +140,7 @@ export class Register extends Component {
         </form>
         <br></br>
         <br></br>
+        <hr/>
         <Artists
           artists={ artists }
         /> 
