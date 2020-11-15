@@ -1,5 +1,6 @@
 export const artistData = [
     {
+      id:1,
       name: 'Juan Ortega',
       alias: 'JuanoTattoo',
       location: 'Bogotá',
@@ -8,6 +9,7 @@ export const artistData = [
       phone: '1234567890'
     },
     {
+      id:2,
       name: 'Pedro Martínez',
       alias: 'PedroTattoo',
       location: 'Bogotá',
@@ -16,6 +18,7 @@ export const artistData = [
       phone: '1234567890'
     },
     {
+      id:3,
       name: 'Miguel Orejuela',
       alias: 'MikeTattoo',
       location: 'Bogotá',
@@ -24,6 +27,7 @@ export const artistData = [
       phone: '1234567890'
     },
     {
+      id:4,
       name: 'Jackeline Mejía',
       alias: 'JackieTattoo',
       location: 'Bogotá',
@@ -32,6 +36,7 @@ export const artistData = [
       phone: '1234567890'
     },
     {
+      id:5,
       name: 'Jessica Polo',
       alias: 'JessyTattoo',
       location: 'Bogotá',
@@ -40,6 +45,7 @@ export const artistData = [
       phone: '1234567890'
     },
     {
+      id:6,
       name: 'Giovanny Ramírez',
       alias: 'Gio',
       location: 'Bogotá',
