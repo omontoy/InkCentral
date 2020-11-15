@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { artistData } from '../artistData'
 import { clientData } from '../clientData'
 import { Artists } from './Artists'
+import { v4 as  uuid_v4 } from 'uuid'
 
 
 export class Register extends Component {
@@ -25,6 +26,7 @@ export class Register extends Component {
     e.preventDefault();
     const { name, alias, email, userType, phone, location, password } = this.state
     const newUser = {
+      id: uuid_v4(),
       name, 
       alias,
       email,
@@ -121,7 +123,7 @@ export class Register extends Component {
           <br></br>
           <label htmlFor="phone" 
                  hidden={
-                  userType === "Client" && true
+                   userType === "Client" && true
                  }>Phone</label>
           <br></br>
           <input 
@@ -133,14 +135,14 @@ export class Register extends Component {
             onChange={this.handleChange}
             value={phone}
             hidden= {
-             userType === "Client" && true
+              userType === "Client" && true
             }
           />
           <br></br>
           <br></br>
           <label htmlFor="location" 
                  hidden={
-                  userType === "Client" && true
+                   userType === "Client" && true
                  }>Location</label>
           <br></br>
           <input 

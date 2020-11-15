@@ -1,27 +1,29 @@
+import { v4 as uuid_v4 } from 'uuid'
+
 export const clientData = [
   {
-    id:1,
+    id:uuid_v4(),
     name: 'Ivan',
     alias: 'Ivancho',
     email: 'ivan@email.com',
     password: '1234',
   },
   {
-    id:2,
+    id:uuid_v4(),
     name: 'Giovanny',
     alias: 'Gio',
     email: 'gio@email.com',
     password: '5678',
   },
   {
-    id:3,
+    id:uuid_v4(),
     name: 'Diego',
     alias: 'Guti',
     email: 'guti@email.com',
     password: '9012',
   },
   {
-    id:4,
+    id:uuid_v4(),
     name: 'Orlando',
     alias: 'monto',
     email: 'monto@email.com',
