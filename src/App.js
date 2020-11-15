@@ -23,6 +23,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/Login" component={Login} />
+        <Route exact path="/Register" component={RegisterForm} />
         <Redirect from="*" to="/" />
       </Switch>
     </Router>

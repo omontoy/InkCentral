@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { artistData } from '../artistData'
+import { Link } from 'react-router-dom'
+
 
 export class Login extends Component {
   state = {
@@ -50,6 +52,10 @@ export class Login extends Component {
           <br></br>
           <br></br>
           <button>Login</button>
+          <br></br>
+          <br></br>
+          <hr/>
+          <Link to="/Register">Register</Link>
         </form>
       </div>
     )
