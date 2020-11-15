@@ -18,8 +18,10 @@ export class Login extends Component {
   handleLogin = e => {
     e.preventDefault()
     const { email, password } = this.state
-    const artists = this.state.artists 
-    const clients = this.state.clients
+    // const artists = this.state.artists 
+    // const clients = this.state.clients
+
+    const { artists, clients } = this.state
 
     const clientConfirm = clients.filter(client => client.email === email 
                                              && client.password === password)
@@ -36,6 +38,7 @@ export class Login extends Component {
         <form onSubmit={this.handleLogin} >
           <label htmlFor="email">E-mail</label>
           <br></br>
+          <br></br>
           <input
             type="email"
             id="email"
@@ -47,6 +50,7 @@ export class Login extends Component {
           <br></br>
           <br></br>
           <label htmlFor="password">Password</label>
+          <br></br>
           <br></br>
           <input 
             type="password"

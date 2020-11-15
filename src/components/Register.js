@@ -48,12 +48,13 @@ export class Register extends Component {
   }
 
   render(){
-    console.log(this.state.clients);
+    
     const { name, alias, email, userType, phone, location, password, artists } = this.state
     return(
       <div className="App">    
         <form onSubmit={this.handleRegister}>
           <label htmlFor="name">Name</label>
+          <br></br>
           <br></br>
           <input
             type="text"
@@ -67,6 +68,7 @@ export class Register extends Component {
           <br></br>
           <label htmlFor="alias">Alias</label>
           <br></br>
+          <br></br>
           <input
             type="text"
             id="alias"
@@ -77,6 +79,7 @@ export class Register extends Component {
           <br></br>
           <br></br>
           <label htmlFor="email">Email</label>
+          <br></br>
           <br></br>
           <input
             type="email"
@@ -90,6 +93,7 @@ export class Register extends Component {
           <br></br>
           <label htmlFor="password">Password</label>
           <br></br>
+          <br></br>
           <input
             type="password"
             id="password"
@@ -101,6 +105,8 @@ export class Register extends Component {
           <br></br>
           <br></br>
           <label htmlFor="client">Client</label>
+          <br></br>
+          <br></br>
           <input 
             type="radio" 
             id="client" 
@@ -112,6 +118,8 @@ export class Register extends Component {
           <br></br>
           <br></br>
           <label htmlFor="artist">Artist</label>
+          <br></br>
+          <br></br>
           <input 
             type="radio" 
             id="artist" 
@@ -125,6 +133,7 @@ export class Register extends Component {
                  hidden={
                    userType === "Client" && true
                  }>Phone</label>
+          <br></br>
           <br></br>
           <input 
             type="tel" 
@@ -144,6 +153,7 @@ export class Register extends Component {
                  hidden={
                    userType === "Client" && true
                  }>Location</label>
+          <br></br>
           <br></br>
           <input 
             type="text" 
