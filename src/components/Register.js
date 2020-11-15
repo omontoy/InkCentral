@@ -1,5 +1,6 @@
 import React, { Component } from 'react' 
 import { artistData } from '../artistData'
+import { Artists } from './Artists'
 
 
 export class Register extends Component {
@@ -37,8 +38,8 @@ export class Register extends Component {
   }
 
   render(){
-    console.log(this.state.artists);
-    const { name, alias, email, phone, location, password } = this.state
+    // console.log(this.state.artists);
+    const { name, alias, email, phone, location, password, artists } = this.state
     return(
       <div className="App">    
         <form onSubmit={this.handleRegister}>
@@ -90,7 +91,6 @@ export class Register extends Component {
           <br></br>
           <br></br>
           <label htmlFor="client">Client</label>
-          {/* <br></br> */}
           <input 
             type="radio" 
             id="client" 
@@ -101,7 +101,6 @@ export class Register extends Component {
           <br></br>
           <br></br>
           <label htmlFor="artist">Artist</label>
-          {/* <br></br> */}
           <input 
             type="radio" 
             id="artist" 
@@ -137,6 +136,11 @@ export class Register extends Component {
           <br></br>
           <button>Register</button>
         </form>
+        <br></br>
+        <br></br>
+        <Artists
+          artists={ artists }
+        /> 
       </div>
       
       
