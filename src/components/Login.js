@@ -17,11 +17,9 @@ export class Login extends Component {
   }
   handleLogin = e => {
     e.preventDefault()
-    const { email, password } = this.state
-    // const artists = this.state.artists 
-    // const clients = this.state.clients
-
-    const { artists, clients } = this.state
+    const { email, password, artists, clients } = this.state
+    
+    // const { artists, clients } = this.state
 
     const clientConfirm = clients.filter(client => client.email === email 
                                              && client.password === password)
