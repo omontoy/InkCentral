@@ -1,5 +1,8 @@
+import { v4 as uuid_v4 } from 'uuid'
+
 export const artistData = [
     {
+      id: uuid_v4(),
       name: 'Juan Ortega',
       alias: 'JuanoTattoo',
       location: 'Bogotá',
@@ -8,6 +11,7 @@ export const artistData = [
       phone: '1234567890'
     },
     {
+      id: uuid_v4(),
       name: 'Pedro Martínez',
       alias: 'PedroTattoo',
       location: 'Bogotá',
@@ -16,6 +20,7 @@ export const artistData = [
       phone: '1234567890'
     },
     {
+      id: uuid_v4(),
       name: 'Miguel Orejuela',
       alias: 'MikeTattoo',
       location: 'Bogotá',
@@ -24,6 +29,7 @@ export const artistData = [
       phone: '1234567890'
     },
     {
+      id: uuid_v4(),
       name: 'Jackeline Mejía',
       alias: 'JackieTattoo',
       location: 'Bogotá',
@@ -32,6 +38,7 @@ export const artistData = [
       phone: '1234567890'
     },
     {
+      id: uuid_v4(),
       name: 'Jessica Polo',
       alias: 'JessyTattoo',
       location: 'Bogotá',
@@ -40,6 +47,7 @@ export const artistData = [
       phone: '1234567890'
     },
     {
+      id: uuid_v4(),
       name: 'Giovanny Ramírez',
       alias: 'Gio',
       location: 'Bogotá',

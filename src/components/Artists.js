@@ -5,9 +5,10 @@ export function Artists ({ artists }) {
     <section className="artists">
       {!!artists && 
          artists.length > 0 && 
-         artists.map(({ name, alias, location, email, phone }) => {
+         artists.map(({ id, name, alias, location, email, phone }) => {
            return (
              <Artist
+               key={id} 
                name={name}
                alias={alias}
                location={location}
