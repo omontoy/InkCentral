@@ -4,12 +4,12 @@ import { artistData } from '../artistData';
 import { Artists } from './Artists'
 
 class Home extends Component {
-	state = {
-		artists: artistData
-	}
-	render() {
+  state = {
+    artists: artistData
+  }
+  render() {
     return (
-      <div className="App">
+      <div className="main">
         <Artists
           artists={this.state.artists}
         />        

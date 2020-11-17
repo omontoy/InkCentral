@@ -8,6 +8,7 @@ import {
 import Home from './components/Home.js'
 import { Login } from './components/Login.js'
 import { Register } from './components/Register.js'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
