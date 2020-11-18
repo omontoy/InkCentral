@@ -12,13 +12,10 @@ import Button from 'react-bootstrap/Button';
 
 export class Register extends Component {
   state = {
-    name:"",
-    alias:"",
     email:"",
     userType: "Client",
-    phone:"",
-    location:"",
     password:"",
+    confirmPassword:"",
     artists: artistData,
     clients: clientData
   }
@@ -27,38 +24,41 @@ export class Register extends Component {
     this.setState({ [name]:value })
   }
   handleRegister = e => {
+    
     e.preventDefault();
-    const { name, alias, email, userType, phone, location, password } = this.state
-    const newUser = {
-      id: uuid_v4(),
-      name, 
-      alias,
-      email,
-      userType,
-      phone, 
-      location,
-      password
-    }
-    if(userType === "Client"){
-      this.setState({
-        clients: [newUser,...this.state.clients]
-      })
+    const { email, userType, password, confirmPassword } = this.state
+    if(password === confirmPassword) {
+      const newUser = {
+        id: uuid_v4(),
+        email,
+        userType,
+        password
+      }
+      if(userType === "Client"){
+        this.setState({
+          clients: [newUser,...this.state.clients]
+        })
+      } else {
+        this.setState({
+          artists: [newUser,...this.state.artists]
+        })
+      }    
     } else {
-      this.setState({
-        artists: [newUser,...this.state.artists]
-      })
-    }    
+      alert('Password and Confirm Password field must be equal')
+    }
+    
+    
   }
   render(){    
-    const { name, alias, email, userType, 
-            phone, location, password, artists } = this.state
+    
+    const { email, password, confirmPassword, artists } = this.state
             
     return(
       <div className="main">      
         <Container>
           <Row className="justify-content-md-center">
             <Col md="4">
-              <Form className="registerForm">
+              <Form onSubmit={this.handleRegister} className="registerForm">
                 <h1>Sign Up</h1>
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label>Email address</Form.Label>
@@ -91,20 +91,27 @@ export class Register extends Component {
                     placeholder="Confirm Password" 
                     name="confirmPassword"
                     onChange={this.handleChange}
-                    value={password}
+                    value={confirmPassword}
                     required
                   />
                 </Form.Group>
-
-                <Form.Group controlId="formBasicCheckbox">
-                  <Form.Check type="radio" label="Artist" />
-                  <Form.Check type="radio" label="Client" />
+                <Form.Group controlId="formBasicCheckBox" className="userTypeRadio" >
+                  <Form.Check 
+                    type="radio" 
+                    label="Artist" 
+                    name="userType" 
+                    value="Artist" 
+                    onChange={this.handleChange}/>
+                  <Form.Check 
+                    type="radio" 
+                    label="Client" 
+                    name="userType" 
+                    value="Client"
+                    onChange={this.handleChange}/>
                 </Form.Group>
-
                 <Button variant="success" type="submit" className="form-control">
                   Sign Up
                 </Button>
-
                 <br></br>
                 <br></br>
                 <hr>

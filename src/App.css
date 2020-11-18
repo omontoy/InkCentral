@@ -12,4 +12,10 @@
 .registerForm {
   height: 560px;
 }
+.userTypeRadio {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+
+}
 
