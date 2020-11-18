@@ -1,11 +1,27 @@
-export function Artist ({ name, alias, location, email, phone }) {
+import Card from 'react-bootstrap/Card'
+import ListGroup from 'react-bootstrap/ListGroup'
+
+
+export function Artist ({ name, alias, location, email, phone,image }) {
   return (
-    <div className="artist">
-      <h2>{name}</h2>
-      <h4>{alias}</h4>
-      <p>{location}</p>
-      <p>{email}</p>
-      <p>{phone}</p>
-    </div>
+      <Card style={{ width: '18rem' }}>
+        <Card.Img variant="top" src={image} />
+        <Card.Body>
+          <Card.Title>{name}</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">{alias}</Card.Subtitle>
+          <Card.Text>
+          <ListGroup variant="flush">
+            <ListGroup.Item>{location}</ListGroup.Item>
+            <ListGroup.Item>{email}</ListGroup.Item>
+            <ListGroup.Item>{phone}</ListGroup.Item>
+          </ListGroup>
+          </Card.Text>
+          <Card.Link href="#">Go Back</Card.Link>
+          <Card.Link href="#">See more</Card.Link>
+        </Card.Body>
+      </Card>     
   )
 }
+
+
+

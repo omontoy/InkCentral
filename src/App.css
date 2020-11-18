@@ -1,4 +1,6 @@
 .main {
+  display: flex;
+  justify-content: center;
   text-align: center;
   
 }
@@ -16,6 +18,14 @@
   display: flex;
   justify-content: space-around;
   flex-direction: row;
+
+}
+.cardsAlign {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 900px;
 
 }
 

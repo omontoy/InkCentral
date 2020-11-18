@@ -1,4 +1,5 @@
 import { v4 as uuid_v4 } from 'uuid'
+import gorila from './images/gorila.jpeg'
 
 export const artistData = [
     {
@@ -8,7 +9,8 @@ export const artistData = [
       location: 'Bogotá',
       email: 'juan@email.com',
       password: '1234',
-      phone: '1234567890'
+      phone: '1234567890',
+      image: gorila,
     },
     {
       id: uuid_v4(),
@@ -17,7 +19,8 @@ export const artistData = [
       location: 'Bogotá',
       email: 'pedro@email.com',
       password: '5678',
-      phone: '1234567890'
+      phone: '1234567890',
+      image: gorila,
     },
     {
       id: uuid_v4(),
@@ -26,7 +29,8 @@ export const artistData = [
       location: 'Bogotá',
       email: 'miguel@email.com',
       password: '9012',
-      phone: '1234567890'
+      phone: '1234567890',
+      image: gorila,
     },
     {
       id: uuid_v4(),
@@ -35,7 +39,8 @@ export const artistData = [
       location: 'Bogotá',
       email: 'jackie@email.com',
       password: '3456',
-      phone: '1234567890'
+      phone: '1234567890',
+      image: gorila,
     },
     {
       id: uuid_v4(),
@@ -44,7 +49,8 @@ export const artistData = [
       location: 'Bogotá',
       email: 'jesik@email.com',
       password: '7890',
-      phone: '1234567890'
+      phone: '1234567890',
+      image: gorila,
     },
     {
       id: uuid_v4(),
@@ -53,6 +59,7 @@ export const artistData = [
       location: 'Bogotá',
       email: 'gio@email.com',
       password: '2468',
-      phone: '3132585029'
+      phone: '3132585029',
+      image: gorila,
     }    
   ];
