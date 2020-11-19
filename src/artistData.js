@@ -61,5 +61,5 @@ export const artistData = [
       password: '2468',
       phone: '3132585029',
       image: gorila,
-    }    
+    }
   ];

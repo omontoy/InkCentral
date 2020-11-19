@@ -7,6 +7,8 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import '../App.css';
+import swal from 'sweetalert';
+
 
 export class Login extends Component {
   state = {
@@ -15,22 +17,27 @@ export class Login extends Component {
     artists: artistData,
     clients: clientData
   }
+
   handleChange = e => {
     const { name, value } = e.target
     this.setState({[name]: value})
   }
+
   handleLogin = e => {
     e.preventDefault()
     const { email, password, artists, clients } = this.state
       
-    const clientConfirm = clients.filter(client => client.email === email 
-                        && client.password === password)
-    const artistConfirm = artists.filter(artist => artist.email === email 
-                        && artist.password === password)
+    const clientConfirm = clients.filter( client => 
+      client.email === email && client.password === password )
+    
+    const artistConfirm = artists.filter( artist => 
+      artist.email === email && artist.password === password )
       
-    alert(clientConfirm.length > 0 || artistConfirm.length > 0
-        ? "Usuario Logeado" : "Usuario y/o contraseña incorrectos")
+    clientConfirm.length > 0 || artistConfirm.length > 0
+        ? swal("WELCOME !!", "Logged user !!", "success") : 
+        swal("SORRY !!", "Wrong user or password", "error")
   }
+
   render() {
     const { email, password } = this.state
     return(
@@ -85,6 +92,3 @@ export class Login extends Component {
     )
   } 
 }
-
-
-

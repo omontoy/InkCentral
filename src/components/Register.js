@@ -1,4 +1,4 @@
-import React, { Component } from 'react' 
+import React, { Component } from 'react'
 import { artistData } from '../artistData'
 import { clientData } from '../clientData'
 import { Artists } from './Artists'
@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button';
-
+import swal from 'sweetalert';
 
 export class Register extends Component {
   state = {
@@ -24,7 +24,7 @@ export class Register extends Component {
     this.setState({ [name]:value })
   }
   handleRegister = e => {
-    
+
     e.preventDefault();
     const { email, userType, password, confirmPassword } = this.state
     if(password === confirmPassword) {
@@ -38,24 +38,26 @@ export class Register extends Component {
         this.setState({
           clients: [newUser,...this.state.clients]
         })
+        swal("WELCOME !!", "Client created !!", "success")
       } else {
         this.setState({
           artists: [newUser,...this.state.artists]
         })
-      }    
+        swal("WELCOME !!", "Artist created !!", "success")
+      }
     } else {
-      alert('Password and Confirm Password field must be equal')
+      swal("SORRY !!", "Password and Confirm Password fields must be equal", "error")
     }
-    
-    
+
+
   }
-  render(){    
-    
+  render(){
+
     const { email, password, confirmPassword, artists } = this.state
-            
+
     return(
       <div>
-        <div className="main">      
+        <div className="main">
           <Container>
             <Row className="justify-content-md-center">
               <Col md="4">
@@ -63,9 +65,9 @@ export class Register extends Component {
                   <h1>Sign Up</h1>
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control 
-                      type="email" 
-                      placeholder="Enter email" 
+                    <Form.Control
+                      type="email"
+                      placeholder="Enter email"
                       name="email"
                       onChange={this.handleChange}
                       value={email}
@@ -75,9 +77,9 @@ export class Register extends Component {
 
                   <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control 
-                      type="password" 
-                      placeholder="Password" 
+                    <Form.Control
+                      type="password"
+                      placeholder="Password"
                       name="password"
                       onChange={this.handleChange}
                       value={password}
@@ -87,9 +89,9 @@ export class Register extends Component {
 
                   <Form.Group>
                     <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control 
-                      type="password" 
-                      placeholder="Confirm Password" 
+                    <Form.Control
+                      type="password"
+                      placeholder="Confirm Password"
                       name="confirmPassword"
                       onChange={this.handleChange}
                       value={confirmPassword}
@@ -97,16 +99,16 @@ export class Register extends Component {
                     />
                   </Form.Group>
                   <Form.Group controlId="formBasicCheckBox" className="userTypeRadio" >
-                    <Form.Check 
-                      type="radio" 
-                      label="Artist" 
-                      name="userType" 
-                      value="Artist" 
+                    <Form.Check
+                      type="radio"
+                      label="Artist"
+                      name="userType"
+                      value="Artist"
                       onChange={this.handleChange}/>
-                    <Form.Check 
-                      type="radio" 
-                      label="Client" 
-                      name="userType" 
+                    <Form.Check
+                      type="radio"
+                      label="Client"
+                      name="userType"
                       value="Client"
                       onChange={this.handleChange}/>
                   </Form.Group>
@@ -122,17 +124,14 @@ export class Register extends Component {
               </Col>
             </Row>
           </Container>
-          
+
         </div>
         <div className="main">
           <Artists
             artists={ artists }
-          /> 
+          />
         </div>
-      </div>    
+      </div>
     )
   }
 }
-
-
-
