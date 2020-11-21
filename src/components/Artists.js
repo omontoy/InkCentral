@@ -6,12 +6,12 @@ export function Artists ({ artists }) {
     <section className="cardsAlign">
       {!!artists && 
          artists.length > 0 && 
-         artists.map(({ id, name, alias, location, email, phone, image }) => {
+         artists.map(({ _id, name, nickname, location, email, phone, image }) => {
            return (
              <Artist
-               key={id} 
+               key={_id} 
                name={name}
-               alias={alias}
+               nickname={nickname}
                location={location}
                email={email}
                phone={phone}
