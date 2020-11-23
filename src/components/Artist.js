@@ -2,13 +2,13 @@ import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 
 
-export function Artist ({ name, alias, location, email, phone,image }) {
+export function Artist ({ name, nickname, location, email, phone,image }) {
   return (
       <Card style={{ width: '18rem' }}>
         <Card.Img variant="top" src={image} />
         <Card.Body>
           <Card.Title>{name}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">{alias}</Card.Subtitle>
+          <Card.Subtitle className="mb-2 text-muted">{nickname}</Card.Subtitle>
           <Card.Text>
           <ListGroup variant="flush">
             <ListGroup.Item>{location}</ListGroup.Item>
