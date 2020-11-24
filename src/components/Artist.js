@@ -9,13 +9,13 @@ export function Artist ({ name, nickname, location, email, phone,image }) {
         <Card.Body>
           <Card.Title>{name}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">{nickname}</Card.Subtitle>
-          <Card.Text>
+          
           <ListGroup variant="flush">
             <ListGroup.Item>{location}</ListGroup.Item>
             <ListGroup.Item>{email}</ListGroup.Item>
             <ListGroup.Item>{phone}</ListGroup.Item>
           </ListGroup>
-          </Card.Text>
+          
           <Card.Link href="#">Go Back</Card.Link>
           <Card.Link href="#">See more</Card.Link>
         </Card.Body>

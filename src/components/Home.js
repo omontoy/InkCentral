@@ -15,9 +15,10 @@ class Home extends Component {
       baseURL: 'http://localhost:8000',
       url: '/artists'      
     })
-      .then(( {data}  ) => {
+      .then(( response  ) => {
+        const { data } = response.data
         this.setState({
-          artists: data.data,
+          artists: data,
           loading: false,
         })
       })
@@ -30,10 +31,11 @@ class Home extends Component {
       .finally()
   }
   render() {
+    const { artists }  = this.state;
     return (
       <div className="main">
         <Artists
-          artists={this.state.artists}
+          artists={ artists }
         />        
       </div>
     );

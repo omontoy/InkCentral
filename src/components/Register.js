@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import { artistData } from '../artistData'
 import { clientData } from '../clientData'
-import { Artists } from './Artists'
 import { v4 as  uuid_v4 } from 'uuid'
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container'
@@ -9,6 +7,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button';
 import swal from 'sweetalert';
+import axios from 'axios';
 
 export class Register extends Component {
   state = {
@@ -16,7 +15,6 @@ export class Register extends Component {
     userType: "Client",
     password:"",
     confirmPassword:"",
-    artists: artistData,
     clients: clientData
   }
   handleChange = e => {
@@ -24,7 +22,6 @@ export class Register extends Component {
     this.setState({ [name]:value })
   }
   handleRegister = e => {
-
     e.preventDefault();
     const { email, userType, password, confirmPassword } = this.state
     if(password === confirmPassword) {
@@ -40,20 +37,29 @@ export class Register extends Component {
         })
         swal("WELCOME !!", "Client created !!", "success")
       } else {
-        this.setState({
-          artists: [newUser,...this.state.artists]
+        axios({
+          method:'POST',
+          baseURL:'http://localhost:8000',
+          url:'/artists', 
+          data: { email, password }
         })
-        swal("WELCOME !!", "Artist created !!", "success")
+          .then((response) => {
+            const { message } = response.data
+            this.props.history.push('/')
+            swal("Welcome!!",`${message}`,"success")
+          }) 
+          .catch((err)=>{
+            swal("Sorry!!","Artist Could Not Be Created ", "error")
+          })
       }
     } else {
       swal("SORRY !!", "Password and Confirm Password fields must be equal", "error")
     }
 
-
   }
   render(){
 
-    const { email, password, confirmPassword, artists } = this.state
+    const { email, password, confirmPassword } = this.state
 
     return(
       <div>
@@ -124,12 +130,6 @@ export class Register extends Component {
               </Col>
             </Row>
           </Container>
-
-        </div>
-        <div className="main">
-          <Artists
-            artists={ artists }
-          />
         </div>
       </div>
     )
