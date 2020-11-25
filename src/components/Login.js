@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { artistData } from '../artistData'
-import { clientData } from '../clientData'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container'
@@ -8,14 +6,13 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import '../App.css';
 import swal from 'sweetalert';
+import axios from 'axios';
 
 
 export class Login extends Component {
   state = {
     email: "",
-    password: "",
-    artists: artistData,
-    clients: clientData
+    password: ""
   }
 
   handleChange = e => {
@@ -23,19 +20,22 @@ export class Login extends Component {
     this.setState({[name]: value})
   }
 
-  handleLogin = e => {
-    e.preventDefault()
-    const { email, password, artists, clients } = this.state
-      
-    const clientConfirm = clients.filter( client => 
-      client.email === email && client.password === password )
-    
-    const artistConfirm = artists.filter( artist => 
-      artist.email === email && artist.password === password )
-      
-    clientConfirm.length > 0 || artistConfirm.length > 0
-        ? swal("WELCOME !!", "Logged user !!", "success") : 
-        swal("SORRY !!", "Wrong user or password", "error")
+  handleLogin = async e => {
+    e.preventDefault();
+    try{
+      const { email, password } = this.state
+      const { data: { token } } = await axios({
+        method: 'POST',
+        baseURL: 'http://localhost:8000',
+        url: '/artists/login',
+        data: { email, password }
+      });
+      localStorage.setItem('token', token)
+      this.props.history.push('/');
+      swal("WELCOME !!", `${email}`, "success")
+    } catch({ response: { data }}){
+      swal("SOOOORRY",`${data.message}`,"error")
+    }
   }
 
   render() {
