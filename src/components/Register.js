@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { clientData } from '../clientData'
-import { v4 as  uuid_v4 } from 'uuid'
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -15,48 +13,48 @@ export class Register extends Component {
     userType: "Client",
     password:"",
     confirmPassword:"",
-    clients: clientData
   }
+
   handleChange = e => {
     const { name, value } = e.target
     this.setState({ [name]:value })
   }
-  handleRegister = e => {
+
+  handleRegister = async e => {
     e.preventDefault();
     const { email, userType, password, confirmPassword } = this.state
     if(password === confirmPassword) {
-      const newUser = {
-        id: uuid_v4(),
-        email,
-        userType,
-        password
-      }
-      if(userType === "Client"){
-        this.setState({
-          clients: [newUser,...this.state.clients]
-        })
-        swal("WELCOME !!", "Client created !!", "success")
-      } else {
-        axios({
-          method:'POST',
-          baseURL:'http://localhost:8000',
-          url:'/artists', 
-          data: { email, password }
-        })
-          .then((response) => {
-            const { message } = response.data
-            this.props.history.push('/')
-            swal("Welcome!!",`${message}`,"success")
-          }) 
-          .catch((err)=>{
-            swal("Sorry!!","Artist Could Not Be Created ", "error")
+      try {
+        if(userType === "Client"){
+          const response = await axios({
+            method: 'POST',
+            baseURL:'http://localhost:8000',
+            url:'/clients', 
+            data: { email, password }
           })
+          const { message } = response.data
+          this.props.history.push('/')
+          swal("Welcome!!",`${message}`,"success")
+        } else {
+          const response = await axios({
+            method:'POST',
+            baseURL:'http://localhost:8000',
+            url:'/artists', 
+            data: { email, password }
+          })
+          const { message } = response.data
+          this.props.history.push('/')
+          swal("Welcome!!",`${message}`,"success")        
+        }
       }
+      catch({ response: { data }}) {
+        swal("Sorry!!", `${data.message}`,"error")
+      } 
     } else {
       swal("SORRY !!", "Password and Confirm Password fields must be equal", "error")
     }
-
   }
+
   render(){
 
     const { email, password, confirmPassword } = this.state
@@ -116,6 +114,7 @@ export class Register extends Component {
                       label="Client"
                       name="userType"
                       value="Client"
+                      checked
                       onChange={this.handleChange}/>
                   </Form.Group>
                   <Button variant="success" type="submit" className="form-control">
@@ -123,8 +122,7 @@ export class Register extends Component {
                   </Button>
                   <br></br>
                   <br></br>
-                  <hr>
-                  </hr>
+                  <hr></hr>
                   <Button href="/Login" variant="info" >Login</Button>
                 </Form>
               </Col>

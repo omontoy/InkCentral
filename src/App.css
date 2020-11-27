@@ -8,18 +8,18 @@
 .loginForm, .registerForm {
   background-color: darkgrey;
   border-radius: 20px;
-  height: 525px;
+  height: 482px;
   padding: 25px;
 }
 
 .registerForm {
   height: 530px;
 }
+
 .userTypeRadio {
   display: flex;
   justify-content: space-around;
   flex-direction: row;
-
 }
 .cardsAlign {
   display: flex;
@@ -27,7 +27,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   width: 900px;
-
 }
 
 .user-type {
