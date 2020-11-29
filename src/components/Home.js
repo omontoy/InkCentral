@@ -9,29 +9,30 @@ class Home extends Component {
     loading: true,
     error: null,
   }
-  componentDidMount(){
-    axios({
-      method: 'GET',
-      baseURL: 'http://localhost:8000',
-      url: '/artists'      
-    })
-      .then(( response  ) => {
-        const { data } = response.data
-        this.setState({
-          artists: data,
-          loading: false,
-        })
+  async componentDidMount() {
+    try {
+      const response = await axios({
+        method: 'GET',
+        baseURL: 'http://localhost:8000',
+        url: '/artists/'
       })
-      .catch((err) => {
-        this.setState({
-          error: err,
-          loading: false,
-        })
+      const { data } = response.data
+      this.setState({
+        artists: data,
+        loading: false
       })
-      .finally()
+    }
+    catch (err) {
+      this.setState({
+        loading: false,
+        error: err
+      })
+    }
   }
   render() {
-    const { artists }  = this.state;
+    const { artists, loading, error }  = this.state;
+    if (loading) return <h1>Artists Data is still loading...</h1>
+    if (error) return <h1>Something went wrong with Artists Data</h1>
     return (
       <div className="main">
         <Artists
@@ -39,7 +40,7 @@ class Home extends Component {
         />        
       </div>
     );
-  }
+  }  
 }
 
 export default Home;
