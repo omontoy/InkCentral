@@ -28,8 +28,18 @@
   flex-wrap: wrap;
   width: 900px;
 }
+.artistCards,.cardImage {
+  width: 18rem;
+  margin-bottom: 15px;
+}
+
+.cardImage {
+  height: 200px;
+  object-fit: cover;
+}
 
 .user-type {
   display: flex;
   justify-content: space-around;
 }
+
