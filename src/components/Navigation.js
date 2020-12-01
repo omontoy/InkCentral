@@ -13,8 +13,8 @@ export class Navigation extends Component {
         <Navbar.Brand href="/">InkCentral</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/Login">Login</Nav.Link>
-          <Nav.Link href="/Register">Register</Nav.Link>
+          <Nav.Link href="/login">Login</Nav.Link>
+          <Nav.Link href="/register">Register</Nav.Link>
         </Nav>
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />

@@ -14,7 +14,7 @@ class Home extends Component {
       const response = await axios({
         method: 'GET',
         baseURL: 'http://localhost:8000',
-        url: '/artists/'
+        url: '/artists'
       })
       const { data } = response.data
       this.setState({
@@ -37,10 +37,10 @@ class Home extends Component {
       <div className="main">
         <Artists
           artists={ artists }
-        />        
+        />
       </div>
     );
-  }  
+  }
 }
 
 export default Home;
