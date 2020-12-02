@@ -4,13 +4,8 @@ import React, { Component } from 'react';
 export class ArtistProfile extends Component {
 
   componentDidMount() {
-    
     const token = localStorage.getItem('token')
-    console.dir(token);
-    console.log(this.props);
-    console.log(this.props.match.params.artistId);
-
-    
+  
   }
 
     render(){
