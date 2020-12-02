@@ -26,32 +26,32 @@ export class Register extends Component {
     if(password === confirmPassword) {
       try {
         if(userType === "Client"){
-          const response = await axios({
+          const { data: { token} } = await axios({
             method: 'POST',
             baseURL:'http://localhost:8000',
             url:'/clients', 
             data: { email, password }
-          })
-          const { message } = response.data
+          });
+          localStorage.setItem('token', token)
           this.props.history.push('/')
-          swal("Welcome!!",`${message}`,"success")
+          swal("Welcome!!",`${email}`,"success")
         } else {
-          const response = await axios({
+          const { data: {token} } = await axios({
             method:'POST',
             baseURL:'http://localhost:8000',
             url:'/artists', 
             data: { email, password }
-          })
-          const { message } = response.data
+          });
+          localStorage.setItem('token', token)
           this.props.history.push('/')
-          swal("Welcome!!",`${message}`,"success")        
+          swal("Welcome!!",`${email}`,"success")        
         }
       }
       catch({ response: { data }}) {
         swal("Sorry!!", `${data.message}`,"error")
       } 
     } else {
-      swal("SORRY !!", "Password and Confirm Password fields must be equal", "error")
+      swal("Sorry!!", "Password and Confirm Password fields must be equal", "error")
     }
   }
 

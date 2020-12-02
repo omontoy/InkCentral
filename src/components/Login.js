@@ -43,11 +43,11 @@ export class Login extends Component {
         });
         localStorage.setItem('token', token)
         this.props.history.push('/');
-        swal("WELCOME !!", `${email}`, "success")
+        swal("Welcome !!", `${email}`, "success")
       }      
     } 
     catch({ response: { data }}){
-      swal("SOOOORRY",`${data.message}`,"error")
+      swal("Sorry!!",`${data.message}`,"error")
     }
   }
 
