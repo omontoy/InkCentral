@@ -4,11 +4,9 @@ import swal from 'sweetalert';
 
 
 export class ArtistProfile extends Component {
-  state = {
-    email: "",
-    name: ""
-  }
- async componentDidMount() {
+  state = {}
+
+  async componentDidMount() {
     try {
       const token = localStorage.getItem('token')
       const response = await axios({ 
@@ -19,27 +17,32 @@ export class ArtistProfile extends Component {
           Authorization: `Bearer ${token}`
         }
       })
-      const { data } = response.data;
+      const { data } = response.data;     
       this.setState({ 
-        email: data.email,
-        name: data.name
+        ...data
       })
     } 
     catch( { response: { data } }){
       swal("Sorry!!", `${data.message}`,"error")
     }
   }
-    render(){
-    const { email, name } = this.state 
-      return(
-        <div className='main'>
-          <p>
-            {email}
-          </p>
-          <p>
-            {name}
-          </p>
-        </div>
-      )
-    }
+
+  render(){
+    const { email, name, nickname, location, phone, updatedAt, image } = this.state
+    return(
+      <div className='main'>
+        <ul>
+          <li>{email}</li>
+          <li>{name}</li>
+          <li>{nickname}</li>
+          <li>{location}</li>
+          <li>{updatedAt}</li>
+          <li>{phone}</li>
+          <li>
+            <img src={image} alt='tattoo image'/>
+          </li>
+        </ul>
+      </div>
+    )
   }
+}
