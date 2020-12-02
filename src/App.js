@@ -10,6 +10,7 @@ import { Register } from './components/Register.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navigation } from './components/Navigation'
 import { ArtistForm } from './components/ArtistForm'
+import { ArtistProfile } from './components/ArtistProfile'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/artistForm" component={ArtistForm} />
+          <Route exact path="/artist/:artistId" component={ArtistProfile} />
           <Redirect from="*" to="/" />
         </Switch>
       </Router>
