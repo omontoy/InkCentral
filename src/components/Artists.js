@@ -1,7 +1,9 @@
 import { Artist } from './Artist';
+
 import '../App.css';
 
 export function Artists ({ artists }) {
+  
   return (
     <section className="cardsAlign">
       {!!artists && 
@@ -10,6 +12,7 @@ export function Artists ({ artists }) {
            return (
              <Artist
                key={_id} 
+               id={_id}
                name={name}
                nickname={nickname}
                location={location}
