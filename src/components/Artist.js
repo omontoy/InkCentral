@@ -1,14 +1,17 @@
 import Card from 'react-bootstrap/Card'
+import { useHistory } from 'react-router-dom'
 
 
 
-export function Artist ({id, name, nickname, email,image }) {
+export function Artist ({ id, name, nickname, email, image}) {
+  let history = useHistory();
+
   function handleClick(){
     const token = localStorage.getItem('token')
     if(!token){
-      window.location.href = '/login'
+      history.push('/login')
     } else {
-      window.location.href = `/artist/${id}`
+      history.push(`/artist/${id}`)
     }
   }
   return (

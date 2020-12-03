@@ -4,7 +4,15 @@ import swal from 'sweetalert';
 
 
 export class ArtistProfile extends Component {
-  state = {}
+  state = {
+    email:"",
+    name:"", 
+    nickname:"", 
+    location:"", 
+    phone:"", 
+    updatedAt:"", 
+    image:""
+  }
 
   async componentDidMount() {
     try {
@@ -19,7 +27,13 @@ export class ArtistProfile extends Component {
       })
       const { data } = response.data;     
       this.setState({ 
-        ...data
+        email: data.email,
+        name: data.name, 
+        nickname: data.nickname, 
+        location: data.location, 
+        phone: data.phone, 
+        updatedAt: data.updatedAt, 
+        image: data.image
       })
     } 
     catch( { response: { data } }){
@@ -39,7 +53,7 @@ export class ArtistProfile extends Component {
           <li>{updatedAt}</li>
           <li>{phone}</li>
           <li>
-            <img src={image} alt='tattoo image'/>
+            <img src={image} alt='tattoo example'/>
           </li>
         </ul>
       </div>
