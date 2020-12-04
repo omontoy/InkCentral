@@ -1,39 +1,26 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import swal from 'sweetalert';
+import { inkCentralServer } from '../utils/apiaxios';
 
 
 export class ArtistProfile extends Component {
   state = {
-    email:"",
-    name:"", 
-    nickname:"", 
-    location:"", 
-    phone:"", 
-    updatedAt:"", 
-    image:""
+    artist: {}
   }
 
   async componentDidMount() {
     try {
       const token = localStorage.getItem('token')
-      const response = await axios({ 
+      const response = await inkCentralServer({ 
         method: "GET",
-        baseURL: "http://localhost:8000",
         url: `/artists/profile/${this.props.match.params.artistId}`,
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
-      const { data } = response.data;     
-      this.setState({ 
-        email: data.email,
-        name: data.name, 
-        nickname: data.nickname, 
-        location: data.location, 
-        phone: data.phone, 
-        updatedAt: data.updatedAt, 
-        image: data.image
+      const { data } = response.data;          
+      this.setState({
+        artist: { ...data }
       })
     } 
     catch( { response: { data } }){
@@ -42,7 +29,8 @@ export class ArtistProfile extends Component {
   }
 
   render(){
-    const { email, name, nickname, location, phone, updatedAt, image } = this.state
+
+    const { email, name, location, phone, nickname, updatedAt, image } = this.state.artist
     return(
       <div className='main'>
         <ul>
