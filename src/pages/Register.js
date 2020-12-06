@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button';
 import swal from 'sweetalert';
-import axios from 'axios';
+import { inkCentralServer } from '../utils/apiaxios'
 
 export function Register() {
 
@@ -32,9 +32,8 @@ export function Register() {
     if (password === confirmPassword) {
       try {
         if (userType === "Client") {
-          const { data: { token } } = await axios({
+          const { data: { token } } = await inkCentralServer({
             method: 'POST',
-            baseURL: 'http://localhost:8000',
             url: '/clients',
             data: { email, password }
           });
@@ -42,9 +41,8 @@ export function Register() {
           history.push('/')
           swal("Welcome!!", `${email}`, "success")
         } else {
-          const { data: { token } } = await axios({
+          const { data: { token } } = await inkCentralServer({
             method: 'POST',
-            baseURL: 'http://localhost:8000',
             url: '/artists',
             data: { email, password }
           });
