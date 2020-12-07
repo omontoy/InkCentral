@@ -6,26 +6,26 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button';
 import swal from 'sweetalert';
-import { inkCentralServer } from '../utils/apiaxios'
-import { regArtist } from '../store/artistReducer'
+import { regArtist, regClient } from '../store/registerReducer'
 import { useSelector, useDispatch } from 'react-redux'
 
 export function Register() {
 
   const history = useHistory()
   const dispatch = useDispatch()
+
   const { loading, register } = useSelector(
-    ({ artistReducer: { loading, register }}) => {
+    ({ registerReducer: { loading, register } }) => {
       return { loading, register }
     })
 
-  useEffect(()=> {
+  useEffect(() => {
     const token = localStorage.getItem('token')
-    if(token) {      
+    if (token) {
       history.push('/')
       swal("Welcome!!", `${email}`, "success")
     }
-  },[register])
+  }, [register])
 
   const [regForm, setRegForm] = useState({
     email: "",
@@ -42,19 +42,15 @@ export function Register() {
   }
 
   const handleRegister = async (e) => {
-    e.preventDefault(); 
-       
+    e.preventDefault();
+
     const { email, password, confirmPassword, userType } = regForm
     if (password === confirmPassword) {
-         if (userType === "Client") {
-          const { data: { token } } = await inkCentralServer({
-            method: 'POST',
-            url: '/clients',
-            data: { email, password }
-          });
-        } else {                 
-          dispatch(regArtist(email, password))
-        } 
+      if (userType === "Client") {
+        dispatch(regClient(email, password))
+      } else {
+        dispatch(regArtist(email, password))
+      }
     } else {
       swal("Sorry!!", "Password and Confirm Password fields must be equal", "error")
     }
@@ -121,7 +117,7 @@ export function Register() {
                     onChange={handleChange} />
                 </Form.Group>
                 <Button variant="success" type="submit" className="form-control"
-                        disabled={loading}>
+                  disabled={loading}>
                   Sign Up
                 </Button>
                 <br></br>
