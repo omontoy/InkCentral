@@ -1,93 +1,90 @@
-import swal from 'sweetalert'
 import { inkCentralServer } from '../utils/apiaxios'
+
+const ARTISTS_LOADING = 'ARTISTS_LOADING'
+const ARTISTS_SUCCESS = 'ARTISTS_SUCCESS'
+const ARTISTS_FAILURE = 'ARTISTS_FAILURE'
 
 const ARTIST_LOADING = 'ARTIST_LOADING'
 const ARTIST_SUCCESS = 'ARTIST_SUCCESS'
 const ARTIST_FAILURE = 'ARTIST_FAILURE'
 
-const ARTIST_REGLOAD = 'ARTIST_REGLOAD'
-const ARTIST_REGDONE = 'ARTIST_REGDONE'
-const ARTIST_REGFAIL = 'ARTIST_REGFAIL'
-
 export function getArtists() {
-  return async function (dispatch) {
-    dispatch({ type: ARTIST_LOADING })
+  return async function(dispatch) {  
+    dispatch({ type: ARTISTS_LOADING })  
     try {
       const response = await inkCentralServer({
         method: 'GET',
         url: '/artists'
       })
       const { data } = response.data
-      dispatch({ type: ARTIST_SUCCESS, payload: data })
+      dispatch({ type: ARTISTS_SUCCESS, payload: data })
     }
-    catch (error) {
-      dispatch({ type: ARTIST_FAILURE, payload: error })
+    catch(error) {
+      dispatch({ type: ARTISTS_FAILURE, payload: error })
     }
   }
 }
 
-export function regArtist(email, password) {
-  return async function (dispatch) {
-    dispatch({ type: ARTIST_REGLOAD })
+export function getArtist(artistId){
+  return async function(dispatch) {
+    dispatch({ type: ARTIST_LOADING })
     try {
-      const { data: { token } } = await inkCentralServer({
-        method: 'POST',
-        url: '/artists',
-        data: { email, password },
+      const token = localStorage.getItem('token')
+      const response = await inkCentralServer({
+        method: 'GET',
+        url: `/artists/profile/${artistId}`,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
-      localStorage.setItem('token', token)
-      dispatch({ type: ARTIST_REGDONE })      
+      const { data } = response.data;
+      dispatch({ type: ARTIST_SUCCESS, payload: data })
     }
-    catch ({ response: { data } }) {
-      dispatch({ type: ARTIST_REGFAIL, payload: data.message })
-      swal("Sorry", `${data.message}`, "error")
+    catch(error){
+      dispatch({ type: ARTISTS_FAILURE, payload: error })
     }
   }
 }
 
 const initialState = {
   artists: [],
+  artist: {},
   loading: false,
   error: null,
-  errorReg: null,
-  register: false,
 }
 
 function artistReducer(state = initialState, action) {
-  switch (action.type) {
-    case ARTIST_LOADING:
+  switch(action.type) {
+    case ARTISTS_LOADING:
       return {
         ...state,
         loading: true
       }
-    case ARTIST_SUCCESS:
+    case ARTIST_LOADING:
+      return {
+        ...state
+      }
+    case ARTISTS_SUCCESS:
       return {
         ...state,
         artists: action.payload,
         loading: false
       }
-    case ARTIST_FAILURE:
+    case ARTIST_SUCCESS:
+      return {
+        ...state,
+        artist: action.payload
+      }
+    case ARTISTS_FAILURE:
       return {
         ...state,
         error: action.payload
       }
-    case ARTIST_REGLOAD:
+    case ARTIST_FAILURE:
       return {
         ...state,
-        loading: true
-      }
-    case ARTIST_REGDONE:
-      return {
-        ...state,
-        loading: false,
-        register: true,
-      }
-    case ARTIST_REGFAIL:
-      return {
-        ...state,
-        loading: false,
-        errorReg: action.payload
-      }
+        error: action.payload
+      }    
     default:
       return state
   }
