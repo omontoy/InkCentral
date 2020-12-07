@@ -5,13 +5,12 @@ import { useHistory } from 'react-router-dom'
 
 export function Artist ({ id, name, nickname, email, image}) {
   let history = useHistory();
-
   function handleClick(){
     const token = localStorage.getItem('token')
     if(!token){
       history.push('/login')
     } else {
-      history.push(`/artist/${id}`)
+      history.push(`/artists/${id}`)
     }
   }
   return (
