@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container'
@@ -7,10 +7,25 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button';
 import swal from 'sweetalert';
 import { inkCentralServer } from '../utils/apiaxios'
+import { regArtist } from '../store/artistReducer'
+import { useSelector, useDispatch } from 'react-redux'
 
 export function Register() {
 
   const history = useHistory()
+  const dispatch = useDispatch()
+  const { loading, register } = useSelector(
+    ({ artistReducer: { loading, register }}) => {
+      return { loading, register }
+    })
+
+  useEffect(()=> {
+    const token = localStorage.getItem('token')
+    if(token) {      
+      history.push('/')
+      swal("Welcome!!", `${email}`, "success")
+    }
+  },[register])
 
   const [regForm, setRegForm] = useState({
     email: "",
@@ -27,33 +42,19 @@ export function Register() {
   }
 
   const handleRegister = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
+       
     const { email, password, confirmPassword, userType } = regForm
     if (password === confirmPassword) {
-      try {
-        if (userType === "Client") {
+         if (userType === "Client") {
           const { data: { token } } = await inkCentralServer({
             method: 'POST',
             url: '/clients',
             data: { email, password }
           });
-          localStorage.setItem('token', token)
-          history.push('/')
-          swal("Welcome!!", `${email}`, "success")
-        } else {
-          const { data: { token } } = await inkCentralServer({
-            method: 'POST',
-            url: '/artists',
-            data: { email, password }
-          });
-          localStorage.setItem('token', token)
-          history.push('/')
-          swal("Welcome!!", `${email}`, "success")
-        }
-      }
-      catch ({ response: { data } }) {
-        swal("Sorry!!", `${data.message}`, "error")
-      }
+        } else {                 
+          dispatch(regArtist(email, password))
+        } 
     } else {
       swal("Sorry!!", "Password and Confirm Password fields must be equal", "error")
     }
@@ -116,10 +117,11 @@ export function Register() {
                     label="Client"
                     name="userType"
                     value="Client"
-                    checked
+                    defaultChecked
                     onChange={handleChange} />
                 </Form.Group>
-                <Button variant="success" type="submit" className="form-control">
+                <Button variant="success" type="submit" className="form-control"
+                        disabled={loading}>
                   Sign Up
                 </Button>
                 <br></br>
