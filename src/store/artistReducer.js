@@ -24,6 +24,7 @@ export function getArtists() {
     }
   }
 }
+
 export function getArtist(artistId){
   return async function(dispatch) {
     dispatch({ type: ARTIST_LOADING })
@@ -49,7 +50,7 @@ const initialState = {
   artists: [],
   artist: {},
   loading: false,
-  error: null
+  error: null,
 }
 
 function artistReducer(state = initialState, action) {
@@ -83,7 +84,7 @@ function artistReducer(state = initialState, action) {
       return {
         ...state,
         error: action.payload
-      }
+      }    
     default:
       return state
   }
