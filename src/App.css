@@ -28,16 +28,33 @@
   flex-wrap: wrap;
   width: 900px;
 }
+.cardTitle{
+  text-align: center;
+}
+.imgTitle{
+    color: black;
+    color: rgba(0,0, 0, 0.7);
+}
 .artistCards,.cardImage {
   width: 18rem;
   margin-bottom: 15px;
 }
 
-.cardImage {
+.cardImage, .artistProfileImage {
   height: 200px;
   object-fit: cover;
 }
-
+.artistProfileContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 56px 115px 115px;
+  width: 85%;
+  
+}
+.jumbo {
+  background-image: url('./images/cartographer.png');
+}
 .user-type {
   display: flex;
   justify-content: space-around;
