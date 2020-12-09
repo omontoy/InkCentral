@@ -15,9 +15,8 @@ import  ArtistProfile  from './pages/ArtistProfile'
 function App() {
   return (
     <div>
-      <Navigation />
-
       <Router>
+        <Navigation />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
