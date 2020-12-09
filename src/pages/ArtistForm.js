@@ -1,152 +1,140 @@
-import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getLoggedArtist, updateArtist } from '../store/artistReducer';
 import swal from 'sweetalert';
-import axios from 'axios';
 
-export class ArtistForm extends Component {
-  state = {
-    email: "",
+
+export function ArtistForm() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { artist, isUpdate } = useSelector(
+    ({ artistReducer: { artist, isUpdate } })=> {
+      return { artist, isUpdate }
+    }
+  )
+  const [ updateForm, setUpdateForm ] = useState({ 
     name: "",
     nickname: "",
-    location: "",
-    phone: ""
+    phone: "",
+    location: ""
+  })
+  
+  const handleChange = e => {
+    setUpdateForm({
+      ...updateForm,
+      [e.target.name]: e.target.value
+    })
   }
-
-  handleChange = e => {
-    const { name, value } = e.target
-    this.setState({ [name]:value })
-  }
-
-  handleArtistForm = async e => {
+  const handleUpdate = async e =>{
     e.preventDefault()
-    const { name, nickname, location, phone } = this.state
-    const token = localStorage.getItem('token')
-    try {
-      const response = await axios({
-        method:'PUT',
-        baseURL:'http://localhost:8000',
-        url:'/artists/profile',
-        data: { name, nickname, location, phone },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        }
-      })
-      const { message } = response.data
-      this.props.history.push('/')
-      swal("Actualizado!!",`${message}`,"success")
-    }
-    catch({ response: { data }}) {
-      swal("Sorry!!", `${data.message}`,"error")
-    }
+    let { name, nickname, phone, location } = updateForm
+    name === "" && (name = artist.name )
+    nickname === "" && (nickname = artist.nickname )
+    phone === "" && (phone = artist.phone)
+    location === "" && (location = artist.location)
+
+    dispatch(updateArtist(name, nickname, phone, location))
   }
 
-  async componentDidMount() {
-    try {
-      const token = localStorage.getItem('token')
-      const response = await axios({
-        method: 'GET',
-        baseURL: 'http://localhost:8000',
-        url: '/artists/profile',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        }
-      })
-      const { data } = response.data
-      this.setState({
-        email: data.email,
-        name: data.name,
-        location: data.location,
-        nickname: data.nickname,
-        phone: data.phone
-      })
+  useEffect(()=>{
+    if(isUpdate){
+      history.push('/')
+      swal("Your data has been updated",`${name}`,"success")
+    } 
+    else {
+      dispatch(getLoggedArtist())
     }
-    catch({ response: { data }}) {
-      swal("Sorry!!", `${data.message}`,"error")
-    }
-  }
+  }, [isUpdate, dispatch, history]);
 
-  render(){
-    const { email, name, nickname, location, phone } = this.state
 
-    return(
-      <div>
-        <div className="main">
-          <Container>
-            <Row className="justify-content-md-center">
-              <Col md="4">
-                <Form onSubmit={this.handleArtistForm} className="registerForm">
-                  <h2>Artist Form</h2>
+  const { name, email, nickname, phone, location } = updateForm
+  
 
-                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Full name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Full name"
-                      name="name"
-                      onChange={this.handleChange}
-                      value={name}
-                      required
-                    />
-                  </Form.Group>
+  return(
+    <div >
+      <div className="main">
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col md="4">
+              <Form  className="updateForm" onSubmit={handleUpdate} >
+                <h2>Update Form</h2>
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label><em>Current name stored: {artist.name}</em></Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Update your name here"
+                    name="name"
+                    onChange={handleChange}
+                    value={name}
+                  />
+                  
+                </Form.Group>
 
-                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                      type="email"
-                      name="email"
-                      onChange={this.handleChange}
-                      value={email}
-                      disabled
-                      required
-                    />
-                  </Form.Group>
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    placeholder={artist.email}
+                    onChange={handleChange}
+                    value={email}
+                    disabled
+                  />
+                </Form.Group>
 
-                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Nickname</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Nickname"
-                      name="nickname"
-                      onChange={this.handleChange}
-                      value={nickname}
-                    />
-                  </Form.Group>
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label><em>Current nickname stored: {artist.nickname}</em></Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Update your nickname here"
+                    name="nickname"
+                    onChange={handleChange}
+                    value={nickname}
+                    
+                  />
+                </Form.Group>
 
-                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Cell phone</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Cell phone"
-                      name="phone"
-                      onChange={this.handleChange}
-                      value={phone}
-                    />
-                  </Form.Group>
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label><em>Current phone stored: {artist.phone} </em></Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Update your phone here"
+                    name="phone"
+                    onChange={handleChange}
+                    value={phone}
+                    
+                  />
+                </Form.Group>
 
-                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Location</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Location"
-                      name="location"
-                      onChange={this.handleChange}
-                      value={location}
-                    />
-                  </Form.Group>
-
-                  <Button variant="warning" type="submit" className="form-control">
-                    Edit
-                  </Button>
-                </Form>
-              </Col>
-            </Row>
-          </Container>
-        </div>
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label><em>Current location stored: {artist.location} </em></Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Update your location here"
+                    name="location"
+                    onChange={handleChange}
+                    value={location}
+                  
+                  />                  
+                </Form.Group>
+                <Button variant="warning" type="submit" className="form-control" style={{ marginTop: '5px' }}>
+                  Update
+                </Button>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
       </div>
-    )
-  }
+    </div>
+  )
 }
+
+
+
+

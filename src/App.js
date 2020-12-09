@@ -9,7 +9,7 @@ import { Login } from './pages/Login.js'
 import { Register } from './pages/Register.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navigation } from './components/Navigation'
-import { ArtistForm } from './pages/ArtistForm'
+import { ArtistForm }  from './pages/ArtistForm'
 import  ArtistProfile  from './pages/ArtistProfile'
 
 function App() {
