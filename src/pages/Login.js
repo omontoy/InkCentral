@@ -7,17 +7,23 @@ import Col from 'react-bootstrap/Col'
 import '../App.css';
 import swal from 'sweetalert';
 import { useHistory } from "react-router-dom"
-import { artistLogin, clientLogin } from '../store/loginReducer';
+import { artistLogin, clientLogin, cleanuperror } from '../store/loginReducer';
 import { useDispatch, useSelector } from 'react-redux'
 
 export function Login(){
   const history = useHistory();
   const dispatch = useDispatch();
-  const { login, loading } = useSelector(
-    ({ loginReducer: { login, loading }}) => {
-      return { login, loading }
+  const { login, loading, errorLog } = useSelector(
+    ({ loginReducer: { login, loading, errorLog }}) => {
+      return { login, loading, errorLog }
     }
-  )
+  )  
+  useEffect(() => {
+    if(errorLog){
+      swal("Sorry!!",`${ errorLog.message }`,"error")
+      dispatch( cleanuperror( errorLog ) )
+    }
+  },[errorLog])
   useEffect(() => {
     const token = localStorage.getItem('token')
     if(token){
@@ -87,7 +93,7 @@ export function Login(){
                 label="Client"
                 name="userType"
                 value="Client"
-                checked
+                defaultChecked
                 onChange={handleChange}/>
             </Form.Group>
             <Button 

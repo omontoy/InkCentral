@@ -1,5 +1,4 @@
 import { inkCentralServer } from '../utils/apiaxios'
-import swal from 'sweetalert';
 
 const ARTIST_LOGINLOAD = 'ARTIST_LOGINLOAD'
 const ARTIST_LOGINDONE = 'ARTIST_LOGINDONE'
@@ -8,6 +7,7 @@ const ARTIST_LOGINFAIL = 'ARTIST_LOGINFAIL'
 const CLIENT_LOGINLOAD = 'CLIENT_LOGINLOAD'
 const CLIENT_LOGINDONE = 'CLIENT_LOGINDONE'
 const CLIENT_LOGINFAIL = 'CLIENT_LOGINFAIL'
+const CLEANERROR = 'CLEANERROR'
 
 export function clientLogin( email, password ){
   return async function(dispatch){
@@ -21,8 +21,7 @@ export function clientLogin( email, password ){
         localStorage.setItem('token', token)            
         dispatch({ type: CLIENT_LOGINDONE })                                             
     }catch({ response: {data }}){
-      dispatch({ type: CLIENT_LOGINFAIL, payload: data.message })
-      swal("Sorry!!",`${ data.message }`,"error")
+      dispatch({ type: CLIENT_LOGINFAIL, payload: data })
     }            
   }
 }
@@ -38,9 +37,13 @@ export function artistLogin( email, password){
       localStorage.setItem('token', token)       
       dispatch({ type: ARTIST_LOGINDONE })
     }catch({ response: { data }}){
-      dispatch({ type: ARTIST_LOGINFAIL, payload: data.message })
-      swal("Sorry!!",`${ data.message }`,"error")
+      dispatch({ type: ARTIST_LOGINFAIL, payload: data })
     }
+  }
+}
+export function cleanuperror(){
+  return async function (dispatch){
+    dispatch({ type: CLEANERROR })
   }
 }
 const initialState = {
@@ -84,6 +87,12 @@ function loginReducer( state= initialState, action){
         loading: false,
         errorLog: action.payload
       }  
+    case CLEANERROR:
+      return {
+        ...state,
+        loading: false,
+        errorLog: null
+      }
     default:
       return state
   }
