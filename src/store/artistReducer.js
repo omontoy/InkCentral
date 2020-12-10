@@ -15,6 +15,7 @@ const ARTIST_LOGGED_FAILED = 'ARTIST_LOGGED_FAILED'
 const ARTIST_UPDATE_LOADING='ARTIST_UPDATE_LOADING'
 const ARTIST_UPDATE_SUCCESS = 'ARTIST_UPDATE_SUCCESS'
 const ARTIST_UPDATE_FAILED='ARTIST_UPDATE_FAILED'
+const CHANGE_INPUT='CHANGE_INPUT'
 
 export function getArtists() {
   return async function(dispatch) {  
@@ -94,6 +95,15 @@ export function updateArtist(name, nickname, phone, location){
     }
   }
 }
+export function changeInput(name, value){
+  return function (dispatch){
+    dispatch({
+      type: CHANGE_INPUT,
+      payload: {[name]: value }
+    })
+  }
+
+}
 
 
 const initialState = {
@@ -165,6 +175,11 @@ function artistReducer(state = initialState, action) {
       return {
         ...state,
         error: action.payload
+      }
+    case CHANGE_INPUT:
+      return {
+        ...state,
+        artist: action.payload
       }
     default:
       return state

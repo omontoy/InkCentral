@@ -5,8 +5,8 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { getLoggedArtist, updateArtist } from '../store/artistReducer';
+import { useEffect } from 'react';
+import { getLoggedArtist, updateArtist, changeInput } from '../store/artistReducer';
 import swal from 'sweetalert';
 
 
@@ -18,34 +18,20 @@ export function ArtistForm() {
       return { artist, isUpdate }
     }
   )
-  const [ updateForm, setUpdateForm ] = useState({ 
-    name: "",
-    nickname: "",
-    phone: "",
-    location: ""
-  })
   
   const handleChange = e => {
-    setUpdateForm({
-      ...updateForm,
-      [e.target.name]: e.target.value
-    })
+    dispatch(changeInput(e.target.name, e.target.value))
   }
   const handleUpdate = async e =>{
-    e.preventDefault()
-    let { name, nickname, phone, location } = updateForm
-    name === "" && (name = artist.name )
-    nickname === "" && (nickname = artist.nickname )
-    phone === "" && (phone = artist.phone)
-    location === "" && (location = artist.location)
-
+    e.preventDefault()    
+    const { name, nickname, phone, location } = artist
     dispatch(updateArtist(name, nickname, phone, location))
   }
 
   useEffect(()=>{
     if(isUpdate){
       history.push('/')
-      swal("Your data has been updated",`${name}`,"success")
+      swal("Your data has been updated",`${artist.name}`,"success")
     } 
     else {
       dispatch(getLoggedArtist())
@@ -53,7 +39,7 @@ export function ArtistForm() {
   }, [isUpdate, dispatch, history]);
 
 
-  const { name, email, nickname, phone, location } = updateForm
+  const { name, email, nickname, phone, location } = artist
   
 
   return(
@@ -65,10 +51,10 @@ export function ArtistForm() {
               <Form  className="updateForm" onSubmit={handleUpdate} >
                 <h2>Update Form</h2>
                 <Form.Group controlId="formBasicEmail">
-                  <Form.Label><em>Current name stored: {artist.name}</em></Form.Label>
+                  <Form.Label>Full Name</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Update your name here"
+                    placeholder="Full Name"
                     name="name"
                     onChange={handleChange}
                     value={name}
@@ -81,7 +67,7 @@ export function ArtistForm() {
                   <Form.Control
                     type="email"
                     name="email"
-                    placeholder={artist.email}
+                    placeholder="email"
                     onChange={handleChange}
                     value={email}
                     disabled
@@ -89,10 +75,10 @@ export function ArtistForm() {
                 </Form.Group>
 
                 <Form.Group controlId="formBasicEmail">
-                  <Form.Label><em>Current nickname stored: {artist.nickname}</em></Form.Label>
+                  <Form.Label>Nickname</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Update your nickname here"
+                    placeholder="Nickname"
                     name="nickname"
                     onChange={handleChange}
                     value={nickname}
@@ -101,10 +87,10 @@ export function ArtistForm() {
                 </Form.Group>
 
                 <Form.Group controlId="formBasicEmail">
-                  <Form.Label><em>Current phone stored: {artist.phone} </em></Form.Label>
+                  <Form.Label>Phone</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Update your phone here"
+                    placeholder="Phone number"
                     name="phone"
                     onChange={handleChange}
                     value={phone}
@@ -113,10 +99,10 @@ export function ArtistForm() {
                 </Form.Group>
 
                 <Form.Group controlId="formBasicEmail">
-                  <Form.Label><em>Current location stored: {artist.location} </em></Form.Label>
+                  <Form.Label>Location</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Update your location here"
+                    placeholder="Location"
                     name="location"
                     onChange={handleChange}
                     value={location}

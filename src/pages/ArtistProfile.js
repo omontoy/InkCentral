@@ -61,10 +61,10 @@ function ArtistProfile() {
             </Card.Text>
           </Card.Body>
           <ListGroup className="list-group-flush">
-            <ListGroup.Item><i class="fab fa-2x fa-instagram"></i></ListGroup.Item>
-            <ListGroup.Item><i class="fab fa-2x fa-facebook"></i></ListGroup.Item>
-            <ListGroup.Item><i class="fab fa-2x fa-linkedin"></i></ListGroup.Item>
-            <ListGroup.Item><i class="fab fa-2x fa-discord"></i></ListGroup.Item>
+            <ListGroup.Item><i className="fab fa-2x fa-instagram"></i></ListGroup.Item>
+            <ListGroup.Item><i className="fab fa-2x fa-facebook"></i></ListGroup.Item>
+            <ListGroup.Item><i className="fab fa-2x fa-linkedin"></i></ListGroup.Item>
+            <ListGroup.Item><i className="fab fa-2x fa-discord"></i></ListGroup.Item>
           </ListGroup>
           <Card.Body>
             <Card.Link href="#">Contact</Card.Link>

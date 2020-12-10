@@ -41,6 +41,7 @@
 .artistCards,.cardImage {
   width: 18rem;
   margin-bottom: 15px;
+  cursor: pointer;
 }
 
 .cardImage, .artistProfileImage {
