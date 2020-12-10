@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import swal from 'sweetalert';
 import { regArtist, regClient } from '../store/registerReducer'
 import { useSelector, useDispatch } from 'react-redux'
+import { LinkContainer } from 'react-router-bootstrap'
 
 export function Register() {
 
@@ -123,7 +124,9 @@ export function Register() {
                 <br></br>
                 <br></br>
                 <hr></hr>
-                <Button href="/Login" variant="info" >Login</Button>
+                <LinkContainer to="/login" variant="info">
+                  <Button>Login</Button>
+                </LinkContainer>
               </Form>
             </Col>
           </Row>

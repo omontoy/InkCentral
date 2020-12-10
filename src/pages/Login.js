@@ -9,6 +9,7 @@ import swal from 'sweetalert';
 import { useHistory } from "react-router-dom"
 import { artistLogin, clientLogin, cleanuperror } from '../store/loginReducer';
 import { useDispatch, useSelector } from 'react-redux'
+import { LinkContainer } from 'react-router-bootstrap'
 
 export function Login(){
   const history = useHistory();
@@ -17,7 +18,7 @@ export function Login(){
     ({ loginReducer: { login, loading, errorLog }}) => {
       return { login, loading, errorLog }
     }
-  )  
+  )
   useEffect(() => {
     if(errorLog){
       swal("Sorry!!",`${ errorLog.message }`,"error")
@@ -49,7 +50,7 @@ export function Login(){
       dispatch(clientLogin(email, password))
     } else {
       dispatch(artistLogin(email, password))
-    }      
+    }
   }
   const { email, password } = loginForm
   return(
@@ -61,24 +62,24 @@ export function Login(){
             <h1>Login</h1>
             <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control 
-              type="email" 
+            <Form.Control
+              type="email"
               placeholder="Enter email"
               name="email"
               value={email}
-              required 
+              required
               onChange={handleChange}
-            />   
+            />
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control 
-              type="password" 
+            <Form.Control
+              type="password"
               placeholder="Password"
               name="password"
               value={password}
               required
-              onChange={handleChange} 
+              onChange={handleChange}
             />
             </Form.Group>
             <Form.Group controlId="formBasicCheckBox" className="userTypeRadio" >
@@ -96,21 +97,23 @@ export function Login(){
                 defaultChecked
                 onChange={handleChange}/>
             </Form.Group>
-            <Button 
-              className="form-control" 
-              variant="primary" 
-              type="submit" 
+            <Button
+              className="form-control"
+              variant="primary"
+              type="submit"
               disabled= {loading}> Login </Button>
             <Button variant="link">Forgot your password?</Button>
             <br></br>
             <br></br>
             <hr></hr>
-            <Button href="/Register" variant="dark" >Register</Button>
+            <LinkContainer to="/register" variant="dark">
+              <Button>Register</Button>
+            </LinkContainer>
             </Form>
-              
+
           </Col>
         </Row>
       </Container>
     </div>
-  ) 
+  )
 }
