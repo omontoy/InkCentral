@@ -8,21 +8,22 @@ const CLIENT_LOGINLOAD = 'CLIENT_LOGINLOAD'
 const CLIENT_LOGINDONE = 'CLIENT_LOGINDONE'
 const CLIENT_LOGINFAIL = 'CLIENT_LOGINFAIL'
 const CLEANERROR = 'CLEANERROR'
+const CLEANLOGIN = 'CLEANLOGIN'
 
 export function clientLogin( email, password ){
   return async function(dispatch){
     dispatch({ type: CLIENT_LOGINLOAD })
-    try{ 
+    try{
         const { data: { token } } = await inkCentralServer({
           method: 'POST',
-          url: '/clients/login',    
-          data: { email, password }      
-        }); 
-        localStorage.setItem('token', token)            
-        dispatch({ type: CLIENT_LOGINDONE })                                             
+          url: '/clients/login',
+          data: { email, password }
+        });
+        localStorage.setItem('token', token)
+        dispatch({ type: CLIENT_LOGINDONE })
     }catch({ response: {data }}){
       dispatch({ type: CLIENT_LOGINFAIL, payload: data })
-    }            
+    }
   }
 }
 export function artistLogin( email, password){
@@ -31,10 +32,10 @@ export function artistLogin( email, password){
     try{
       const { data: { token } } = await inkCentralServer({
         method: 'POST',
-        url: '/artists/login', 
-        data: { email, password }         
+        url: '/artists/login',
+        data: { email, password }
       });
-      localStorage.setItem('token', token)       
+      localStorage.setItem('token', token)
       dispatch({ type: ARTIST_LOGINDONE })
     }catch({ response: { data }}){
       dispatch({ type: ARTIST_LOGINFAIL, payload: data })
@@ -46,6 +47,13 @@ export function cleanuperror(){
     dispatch({ type: CLEANERROR })
   }
 }
+
+export function cleanLogin() {
+  return async function(dispatch) {
+    dispatch({ type: CLEANLOGIN  })
+  }
+}
+
 const initialState = {
   errorLog: null,
   login: false,
@@ -86,12 +94,18 @@ function loginReducer( state= initialState, action){
         ...state,
         loading: false,
         errorLog: action.payload
-      }  
+      }
     case CLEANERROR:
       return {
         ...state,
         loading: false,
         errorLog: null
+      }
+    case CLEANLOGIN:
+      return {
+        ...state,
+        login: true,
+        loading: false
       }
     default:
       return state

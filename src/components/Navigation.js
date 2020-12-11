@@ -3,13 +3,34 @@ import Nav from 'react-bootstrap/Nav'
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import {cleanLogin} from '../store/loginReducer'
 
 export function Navigation() {
 
-  const handleClick = () => localStorage.clear();
+  const history = useHistory()
+  const dispatch = useDispatch()
+
+  const { login } = useSelector(
+    ({ loginReducer: {login}}) => {
+      return { login }
+    }
+  )
+
+  const handleClick = () => {
+    localStorage.clear();
+    dispatch( cleanLogin() )
+  }
 
   const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    history.push('/')
+  }, [login])
 
   return(
     <Navbar fixed="top" bg="dark" variant="dark">
