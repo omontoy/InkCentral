@@ -11,6 +11,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navigation } from './components/Navigation'
 import { ArtistForm }  from './pages/ArtistForm'
 import  ArtistProfile  from './pages/ArtistProfile'
+import { ClientForm }  from './pages/ClientForm'
+
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
           <Route exact path="/register" component={Register} />
           <Route exact path="/artistForm" component={ArtistForm} />
           <Route exact path="/artists/:artistId" component={ArtistProfile} />
+          <Route exact path="/clientForm" component={ClientForm} />
           <Redirect from="*" to="/" />
         </Switch>
       </Router>
