@@ -87,7 +87,6 @@ export function changeInput(name, value) {
 }
 
 const initialState = {
-  //clients: [],
   client: {},
   loading: false,
   error: null,
