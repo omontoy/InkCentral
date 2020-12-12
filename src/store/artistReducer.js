@@ -75,7 +75,6 @@ export function getLoggedArtist(){
       dispatch({ type: ARTIST_LOGGED_SUCCESS, payload: data })
     }
     catch(error){
-      console.dir(error)
       if(error.response.status === 401) {
         localStorage.removeItem('token');
       }
