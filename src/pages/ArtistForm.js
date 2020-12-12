@@ -20,10 +20,10 @@ export function ArtistForm() {
   )
   
   const handleChange = e => {
-    dispatch(changeInput(e.target.name, e.target.value))
+    dispatch(changeInput(e.target, artist))
   }
   const handleUpdate = async e =>{
-    e.preventDefault()    
+    e.preventDefault() 
     const { name, nickname, phone, location } = artist
     dispatch(updateArtist(name, nickname, phone, location))
   }
@@ -32,6 +32,7 @@ export function ArtistForm() {
     if(isUpdate){
       history.push('/')
       swal("Your data has been updated",`${artist.name}`,"success")
+      // dispatch(cleanIsUpdate())
     } 
     else {
       dispatch(getLoggedArtist())

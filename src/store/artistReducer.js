@@ -16,6 +16,7 @@ const ARTIST_UPDATE_LOADING='ARTIST_UPDATE_LOADING'
 const ARTIST_UPDATE_SUCCESS = 'ARTIST_UPDATE_SUCCESS'
 const ARTIST_UPDATE_FAILED='ARTIST_UPDATE_FAILED'
 const CHANGE_INPUT='CHANGE_INPUT'
+const CLEAN_IS_UPDATE = 'CLEAN_IS_UPDATE'
 
 export function getArtists() {
   return async function(dispatch) {  
@@ -95,16 +96,16 @@ export function updateArtist(name, nickname, phone, location){
     }
   }
 }
-export function changeInput(name, value){
+export function changeInput(target, artist){
   return function (dispatch){
+    let data = Object.assign({}, artist, { [target.name]: target.value })
     dispatch({
       type: CHANGE_INPUT,
-      payload: {[name]: value }
+      payload: data
     })
   }
 
 }
-
 
 const initialState = {
   artists: [],
