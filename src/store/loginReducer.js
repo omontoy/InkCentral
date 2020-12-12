@@ -104,7 +104,7 @@ function loginReducer( state= initialState, action){
     case CLEANLOGIN:
       return {
         ...state,
-        login: true,
+        login: false,
         loading: false
       }
     default:
