@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getLoggedArtist, updateArtist, changeInput } from '../store/artistReducer';
+import { getLoggedArtist, updateArtist, changeInput, cleanIsUpdate } from '../store/artistReducer';
 import swal from 'sweetalert';
 
 
@@ -30,9 +30,9 @@ export function ArtistForm() {
 
   useEffect(()=>{
     if(isUpdate){
-      history.push('/')
       swal("Your data has been updated",`${artist.name}`,"success")
-      // dispatch(cleanIsUpdate())
+      dispatch(cleanIsUpdate())
+      history.push('/')
     } 
     else {
       dispatch(getLoggedArtist())

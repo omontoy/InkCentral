@@ -16,7 +16,8 @@ const ARTIST_UPDATE_LOADING='ARTIST_UPDATE_LOADING'
 const ARTIST_UPDATE_SUCCESS = 'ARTIST_UPDATE_SUCCESS'
 const ARTIST_UPDATE_FAILED='ARTIST_UPDATE_FAILED'
 const CHANGE_INPUT='CHANGE_INPUT'
-const CLEAN_IS_UPDATE = 'CLEAN_IS_UPDATE'
+const CLEAN_ERROR = 'CLEAN_ERROR'
+const CLEAN_ISUPDATE = 'CLEAN_ISUPDATE'
 
 export function getArtists() {
   return async function(dispatch) {  
@@ -30,6 +31,7 @@ export function getArtists() {
       dispatch({ type: ARTISTS_SUCCESS, payload: data })
     }
     catch(error) {
+      
       dispatch({ type: ARTISTS_FAILURE, payload: error })
     }
   }
@@ -51,6 +53,9 @@ export function getArtist(artistId){
       dispatch({ type: ARTIST_SUCCESS, payload: data })
     }
     catch(error){
+      if(error.response.status === 401) {
+        localStorage.removeItem('token');
+      }
       dispatch({ type: ARTISTS_FAILURE, payload: error })
     }
   }
@@ -105,6 +110,16 @@ export function changeInput(target, artist){
     })
   }
 
+}
+export function cleanuperror(){
+  return async function(dispatch) {
+    dispatch({ type: CLEAN_ERROR  })
+  }
+}
+export function cleanIsUpdate(){
+  return async function(dispatch) {
+    dispatch({ type: CLEAN_ISUPDATE })
+  }
 }
 
 const initialState = {
@@ -181,6 +196,16 @@ function artistReducer(state = initialState, action) {
       return {
         ...state,
         artist: action.payload
+      }
+    case CLEAN_ERROR:
+      return {
+        ...state,
+        error: null
+      }
+    case CLEAN_ISUPDATE:
+      return {
+        ...state,
+        isUpdate: false
       }
     default:
       return state
