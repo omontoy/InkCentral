@@ -31,7 +31,6 @@ export function getArtists() {
       dispatch({ type: ARTISTS_SUCCESS, payload: data })
     }
     catch(error) {
-      
       dispatch({ type: ARTISTS_FAILURE, payload: error })
     }
   }
@@ -76,6 +75,10 @@ export function getLoggedArtist(){
       dispatch({ type: ARTIST_LOGGED_SUCCESS, payload: data })
     }
     catch(error){
+      console.dir(error)
+      if(error.response.status === 401) {
+        localStorage.removeItem('token');
+      }
       dispatch({ type: ARTIST_LOGGED_FAILED, payload: error })
     }
   }
@@ -126,7 +129,8 @@ const initialState = {
   artists: [],
   artist: {},
   loading: false,
-  error: null,
+  error_artists: null,
+  error_artist: null,
   isUpdate: false
 }
 
@@ -139,7 +143,8 @@ function artistReducer(state = initialState, action) {
       }
     case ARTIST_LOADING:
       return {
-        ...state
+        ...state,
+        loading: true
       }
     case ARTISTS_SUCCESS:
       return {
@@ -155,12 +160,12 @@ function artistReducer(state = initialState, action) {
     case ARTISTS_FAILURE:
       return {
         ...state,
-        error: action.payload
+        error_artists: action.payload
       }
     case ARTIST_FAILURE:
       return {
         ...state,
-        error: action.payload
+        error_artist: action.payload
       }    
     case ARTIST_LOGGED_LOADING:
       return {
@@ -175,7 +180,7 @@ function artistReducer(state = initialState, action) {
     case ARTIST_LOGGED_FAILED:
       return {
         ...state,
-        error: action.payload
+        error_artist: action.payload
       }
     case ARTIST_UPDATE_LOADING:
       return {
@@ -190,7 +195,7 @@ function artistReducer(state = initialState, action) {
     case ARTIST_UPDATE_FAILED:
       return {
         ...state,
-        error: action.payload
+        error_artist: action.payload
       }
     case CHANGE_INPUT:
       return {
@@ -200,7 +205,8 @@ function artistReducer(state = initialState, action) {
     case CLEAN_ERROR:
       return {
         ...state,
-        error: null
+        error_artist: null,
+        error_artists: null
       }
     case CLEAN_ISUPDATE:
       return {

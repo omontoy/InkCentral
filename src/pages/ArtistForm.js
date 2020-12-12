@@ -6,16 +6,16 @@ import Button from 'react-bootstrap/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getLoggedArtist, updateArtist, changeInput, cleanIsUpdate } from '../store/artistReducer';
+import { getLoggedArtist, updateArtist, changeInput, cleanIsUpdate  } from '../store/artistReducer';
 import swal from 'sweetalert';
 
 
 export function ArtistForm() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { artist, isUpdate } = useSelector(
-    ({ artistReducer: { artist, isUpdate } })=> {
-      return { artist, isUpdate }
+  const { artist, isUpdate, error_artist } = useSelector(
+    ({ artistReducer: { artist, isUpdate, error_artist } })=> {
+      return { artist, isUpdate, error_artist }
     }
   )
   
@@ -29,15 +29,15 @@ export function ArtistForm() {
   }
 
   useEffect(()=>{
-    if(isUpdate){
-      swal("Your data has been updated",`${artist.name}`,"success")
-      dispatch(cleanIsUpdate())
-      history.push('/')
-    } 
-    else {
-      dispatch(getLoggedArtist())
-    }
-  }, [isUpdate, dispatch, history]);
+      if(isUpdate){
+        swal("Your data has been updated",`${artist.name}`,"success")
+        dispatch(cleanIsUpdate())
+        history.push('/')
+      } 
+      else {   
+        dispatch(getLoggedArtist(error_artist))
+      }
+  }, [isUpdate, dispatch, history] );
 
 
   const { name, email, nickname, phone, location } = artist

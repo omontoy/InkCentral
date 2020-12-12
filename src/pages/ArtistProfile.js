@@ -16,20 +16,20 @@ function ArtistProfile() {
   let { artistId } = useParams();
   const dispatch = useDispatch()
   const history = useHistory();
-  const { artist, error } = useSelector(
-    ({artistReducer: { artist, error }})=> {
-      return { artist, error }
+  const { artist, error_artist } = useSelector(
+    ({artistReducer: { artist, error_artist }})=> {
+      return { artist, error_artist }
     })
   useEffect(()=>{
     dispatch(getArtist(artistId))
   }, [dispatch, artistId ]);
   useEffect(() => {
-    if(error){
-      swal("Sorry!!",`${ error.response.statusText } Please Login again`,"error")
+    if(error_artist){
+      swal("Sorry!!",`${ error_artist.response.statusText } Please Login again`,"error")
       dispatch( cleanuperror() )
       history.push('/login');
     }
-  },[error])
+  },[error_artist])
     
   return(
     <div className='artistProfileContainer'>
