@@ -8,7 +8,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import {cleanLogin} from '../store/loginReducer'
+import { cleanLogin } from '../store/loginReducer'
 
 export function Navigation() {
 
