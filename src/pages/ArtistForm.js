@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getLoggedArtist, updateArtist, changeInput, cleanIsUpdate  } from '../store/artistReducer';
+import { getLoggedArtist, updateArtist, changeInput, cleanIsUpdate, cleanuperror  } from '../store/artistReducer';
 import swal from 'sweetalert';
 
 
@@ -39,10 +39,16 @@ export function ArtistForm() {
       }
   }, [isUpdate, dispatch, history] );
 
+  useEffect(()=>{
+    if(error_artist){
+      swal("Sorry!!",`${error_artist.response.statusText} Please Login again`, "error")
+      dispatch( cleanuperror() )
+      history.push('/login')
+    }
+  }, [error_artist])
 
   const { name, email, nickname, phone, location } = artist
   
-
   return(
     <div >
       <div className="main">

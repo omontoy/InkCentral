@@ -1,12 +1,15 @@
 import Card from 'react-bootstrap/Card'
 import { useHistory } from 'react-router-dom'
-
-
+import { useDispatch } from 'react-redux'
+import { getArtist } from '../store/artistReducer'
 
 export function Artist ({ id, name, nickname, email, image}) {
   let history = useHistory();
+  const dispatch = useDispatch();
+  const token = localStorage.getItem('token')
+
   function handleClick(){
-    const token = localStorage.getItem('token')
+    dispatch(getArtist(id))
     if(!token){
       history.push('/login')
     } else {

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getArtist, cleanuperror } from '../store/artistReducer';
+import { cleanuperror } from '../store/artistReducer';
 import Card from 'react-bootstrap/Card';
 import CardColumns from 'react-bootstrap/CardColumns';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -11,18 +11,14 @@ import swal from 'sweetalert';
 
 
 
-
 function ArtistProfile() {
-  let { artistId } = useParams();
   const dispatch = useDispatch()
   const history = useHistory();
   const { artist, error_artist } = useSelector(
-    ({artistReducer: { artist, error_artist }})=> {
+    ({ artistReducer: { artist, error_artist }})=> {
       return { artist, error_artist }
     })
-  useEffect(()=>{
-    dispatch(getArtist(artistId))
-  }, [dispatch, artistId ]);
+  
   useEffect(() => {
     if(error_artist){
       swal("Sorry!!",`${ error_artist.response.statusText } Please Login again`,"error")

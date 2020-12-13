@@ -55,7 +55,7 @@ export function getArtist(artistId){
       if(error.response.status === 401) {
         localStorage.removeItem('token');
       }
-      dispatch({ type: ARTISTS_FAILURE, payload: error })
+      dispatch({ type: ARTIST_FAILURE, payload: error })
     }
   }
 }
