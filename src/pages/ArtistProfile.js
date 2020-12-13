@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getArtist } from '../store/artistReducer';
+import { getArtist, cleanuperror } from '../store/artistReducer';
 import Card from 'react-bootstrap/Card';
 import CardColumns from 'react-bootstrap/CardColumns';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container';
+import swal from 'sweetalert';
 
 
 
@@ -14,18 +15,21 @@ import Container from 'react-bootstrap/Container'
 function ArtistProfile() {
   let { artistId } = useParams();
   const dispatch = useDispatch()
-  const { artist, error } = useSelector(
-    ({artistReducer: { artist, error }})=> {
-      return { artist, error }
+  const history = useHistory();
+  const { artist, error_artist } = useSelector(
+    ({artistReducer: { artist, error_artist }})=> {
+      return { artist, error_artist }
     })
   useEffect(()=>{
     dispatch(getArtist(artistId))
   }, [dispatch, artistId ]);
-  
-  if(error) return <h1 className="main">
-                      Ooops! Something went wrong with the chosen artist data request!!
-                      Please login again
-                    </h1>
+  useEffect(() => {
+    if(error_artist){
+      swal("Sorry!!",`${ error_artist.response.statusText } Please Login again`,"error")
+      dispatch( cleanuperror() )
+      history.push('/login');
+    }
+  },[error_artist])
     
   return(
     <div className='artistProfileContainer'>

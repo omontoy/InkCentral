@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col'
 import '../App.css';
 import swal from 'sweetalert';
 import { useHistory } from "react-router-dom"
-import { artistLogin, clientLogin, cleanuperror } from '../store/loginReducer';
+import { artistLogin, clientLogin, cleanuperror, cleanLogin } from '../store/loginReducer';
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 
@@ -28,10 +28,12 @@ export function Login(){
   useEffect(() => {
     const token = localStorage.getItem('token')
     if(token){
-      history.push('/')
       swal("Welcome!!",`${ email }`,"success")
+      dispatch(cleanLogin())
+      history.push('/')
     }
   },[login])
+  
   const [ loginForm, setLoginForm ] = useState({
     email: "",
     userType: "Client",

@@ -16,6 +16,8 @@ const ARTIST_UPDATE_LOADING='ARTIST_UPDATE_LOADING'
 const ARTIST_UPDATE_SUCCESS = 'ARTIST_UPDATE_SUCCESS'
 const ARTIST_UPDATE_FAILED='ARTIST_UPDATE_FAILED'
 const CHANGE_INPUT='CHANGE_INPUT'
+const CLEAN_ERROR = 'CLEAN_ERROR'
+const CLEAN_ISUPDATE = 'CLEAN_ISUPDATE'
 
 export function getArtists() {
   return async function(dispatch) {  
@@ -50,6 +52,9 @@ export function getArtist(artistId){
       dispatch({ type: ARTIST_SUCCESS, payload: data })
     }
     catch(error){
+      if(error.response.status === 401) {
+        localStorage.removeItem('token');
+      }
       dispatch({ type: ARTISTS_FAILURE, payload: error })
     }
   }
@@ -70,6 +75,9 @@ export function getLoggedArtist(){
       dispatch({ type: ARTIST_LOGGED_SUCCESS, payload: data })
     }
     catch(error){
+      if(error.response.status === 401) {
+        localStorage.removeItem('token');
+      }
       dispatch({ type: ARTIST_LOGGED_FAILED, payload: error })
     }
   }
@@ -95,22 +103,33 @@ export function updateArtist(name, nickname, phone, location){
     }
   }
 }
-export function changeInput(name, value){
+export function changeInput(target, artist){
   return function (dispatch){
+    let data = Object.assign({}, artist, { [target.name]: target.value })
     dispatch({
       type: CHANGE_INPUT,
-      payload: {[name]: value }
+      payload: data
     })
   }
 
 }
-
+export function cleanuperror(){
+  return async function(dispatch) {
+    dispatch({ type: CLEAN_ERROR  })
+  }
+}
+export function cleanIsUpdate(){
+  return async function(dispatch) {
+    dispatch({ type: CLEAN_ISUPDATE })
+  }
+}
 
 const initialState = {
   artists: [],
   artist: {},
   loading: false,
-  error: null,
+  error_artists: null,
+  error_artist: null,
   isUpdate: false
 }
 
@@ -123,7 +142,8 @@ function artistReducer(state = initialState, action) {
       }
     case ARTIST_LOADING:
       return {
-        ...state
+        ...state,
+        loading: true
       }
     case ARTISTS_SUCCESS:
       return {
@@ -139,12 +159,12 @@ function artistReducer(state = initialState, action) {
     case ARTISTS_FAILURE:
       return {
         ...state,
-        error: action.payload
+        error_artists: action.payload
       }
     case ARTIST_FAILURE:
       return {
         ...state,
-        error: action.payload
+        error_artist: action.payload
       }    
     case ARTIST_LOGGED_LOADING:
       return {
@@ -159,7 +179,7 @@ function artistReducer(state = initialState, action) {
     case ARTIST_LOGGED_FAILED:
       return {
         ...state,
-        error: action.payload
+        error_artist: action.payload
       }
     case ARTIST_UPDATE_LOADING:
       return {
@@ -174,12 +194,23 @@ function artistReducer(state = initialState, action) {
     case ARTIST_UPDATE_FAILED:
       return {
         ...state,
-        error: action.payload
+        error_artist: action.payload
       }
     case CHANGE_INPUT:
       return {
         ...state,
         artist: action.payload
+      }
+    case CLEAN_ERROR:
+      return {
+        ...state,
+        error_artist: null,
+        error_artists: null
+      }
+    case CLEAN_ISUPDATE:
+      return {
+        ...state,
+        isUpdate: false
       }
     default:
       return state
