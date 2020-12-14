@@ -8,7 +8,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import swal from 'sweetalert';
-
+import { Comments } from '../components/Comments'
 
 
 function ArtistProfile() {
@@ -81,6 +81,7 @@ function ArtistProfile() {
           </Card.Body>
         </Card>
       </CardColumns>
+      <Comments notes={artist.notes} />
     </div>
   )
 }
