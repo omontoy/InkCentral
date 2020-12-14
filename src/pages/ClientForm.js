@@ -9,7 +9,9 @@ import { useEffect } from 'react';
 import {
   getLoggedClient,
   updateClient,
-  changeInput
+  changeInput,
+  cleanIsUpdate,
+  cleanuperror
 } from '../store/clientReducer';
 import swal from 'sweetalert';
 
@@ -17,15 +19,16 @@ import swal from 'sweetalert';
 export function ClientForm() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { client, isUpdate } = useSelector(
-    ({ clientReducer: { client, isUpdate } }) => {
-      return { client, isUpdate }
+  const { client, isUpdate, error_client } = useSelector(
+    ({ clientReducer: { client, isUpdate, error_client } }) => {
+      return { client, isUpdate, error_client }
     }
   )
 
   const handleChange = e => {
-    dispatch(changeInput(e.target.name, e.target.value))
+    dispatch(changeInput(e.target, client))
   }
+
   const handleUpdate = async e =>{
     e.preventDefault()
     const { name } = client
@@ -34,17 +37,28 @@ export function ClientForm() {
   }
 
   useEffect(() => {
-    if(isUpdate){
-      history.push('/')
+    if(isUpdate) {
       swal("Your data has been updated",`${client.name}`,"success")
+      dispatch(cleanIsUpdate())
+      history.push('/')
     }
     else {
       dispatch(getLoggedClient())
     }
   }, [isUpdate, dispatch, history]);
 
-  const { name, email } = client
+  useEffect(() => {
+    if(error_client) {
+      swal("Sorry!!",
+           `${error_client.response.statusText} Please Login again`,
+           "error"
+          )
+      dispatch( cleanuperror() )
+      history.push('/login')
+    }
+  }, [error_client])
 
+  const { name, email } = client
   return(
     <div >
       <div className="main">
@@ -58,7 +72,7 @@ export function ClientForm() {
                   <Form.Label>Full name</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="email"
+                    placeholder="name"
                     name="name"
                     onChange={handleChange}
                     value={name}

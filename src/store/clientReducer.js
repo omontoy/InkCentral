@@ -8,11 +8,13 @@ const CLIENT_LOGGED_LOADING = 'CLIENT_LOGGED_LOADING'
 const CLIENT_LOGGED_SUCCESS = 'CLIENT_LOGGED_SUCCESS'
 const CLIENT_LOGGED_FAILED = 'CLIENT_LOGGED_FAILED'
 
-const CLIENT_UPDATE_LOADING='CLIENT_UPDATE_LOADING'
+const CLIENT_UPDATE_LOADING ='CLIENT_UPDATE_LOADING'
 const CLIENT_UPDATE_SUCCESS = 'CLIENT_UPDATE_SUCCESS'
-const CLIENT_UPDATE_FAILED='CLIENT_UPDATE_FAILED'
+const CLIENT_UPDATE_FAILED ='CLIENT_UPDATE_FAILED'
 
 const CHANGE_INPUT = 'CHANGE_INPUT'
+const CLEAN_ERROR = 'CLEAN_ERROR'
+const CLEAN_ISUPDATE = 'CLEAN_ISUPDATE'
 
 
 export function getClient(clientId){
@@ -31,10 +33,14 @@ export function getClient(clientId){
       dispatch({ type: CLIENT_SUCCESS, payload: data })
     }
     catch(error){
+      if(error.response.status === 401) {
+        localStorage.removeItem('token')
+      }
       dispatch({ type: CLIENT_FAILURE, payload: error })
     }
   }
 }
+
 export function getLoggedClient(){
   return async function(dispatch){
     dispatch({ type: CLIENT_LOGGED_LOADING })
@@ -51,10 +57,14 @@ export function getLoggedClient(){
       dispatch({ type: CLIENT_LOGGED_SUCCESS, payload: data })
     }
     catch(error){
+      if(error.response.status === 401) {
+        localStorage.removeItem('token')
+      }
       dispatch({ type: CLIENT_LOGGED_FAILED, payload: error })
     }
   }
 }
+
 export function updateClient(name) {
   return async function(dispatch) {
     try {
@@ -77,19 +87,32 @@ export function updateClient(name) {
   }
 }
 
-export function changeInput(name, value) {
+export function changeInput(target, client) {
   return function(dispatch) {
+    let data = Object.assign({}, client, { [target.name]: target.value } )
     dispatch({
       type: CHANGE_INPUT,
-      payload: {[name]: value}
+      payload: data
     })
+  }
+}
+
+export function cleanuperror(){
+  return async function(dispatch) {
+    dispatch({ type: CLEAN_ERROR  })
+  }
+}
+
+export function cleanIsUpdate(){
+  return async function(dispatch) {
+    dispatch({ type: CLEAN_ISUPDATE })
   }
 }
 
 const initialState = {
   client: {},
   loading: false,
-  error: null,
+  error_client: null,
   isUpdate: false
 }
 
@@ -97,7 +120,8 @@ function clientReducer(state = initialState, action) {
   switch(action.type) {
     case CLIENT_LOADING:
       return {
-        ...state
+        ...state,
+        loading: true
       }
     case CLIENT_SUCCESS:
       return {
@@ -107,7 +131,7 @@ function clientReducer(state = initialState, action) {
     case CLIENT_FAILURE:
       return {
         ...state,
-        error: action.payload
+        error_client: action.payload
       }
     case CLIENT_LOGGED_LOADING:
       return {
@@ -122,7 +146,7 @@ function clientReducer(state = initialState, action) {
     case CLIENT_LOGGED_FAILED:
       return {
         ...state,
-        error: action.payload
+        error_client: action.payload
       }
     case CLIENT_UPDATE_LOADING:
       return {
@@ -137,12 +161,22 @@ function clientReducer(state = initialState, action) {
     case CLIENT_UPDATE_FAILED:
       return {
         ...state,
-        error: action.payload
+        error_client: action.payload
       }
     case CHANGE_INPUT:
       return {
         ...state,
         client: action.payload
+      }
+    case CLEAN_ERROR:
+      return {
+        ...state,
+        error_client: null
+      }
+    case CLEAN_ISUPDATE:
+      return {
+        ...state,
+        isUpdate: false
       }
     default:
       return state

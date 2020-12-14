@@ -40,7 +40,11 @@ export function Navigation() {
         { token ? (
           <>
           <LinkContainer to="/artistForm">
-            <Nav.Link>Edit my Profile</Nav.Link>
+            <Nav.Link>Artist Update</Nav.Link>
+          </LinkContainer>
+
+          <LinkContainer to="/clientForm">
+            <Nav.Link>Client Update</Nav.Link>
           </LinkContainer>
 
           <LinkContainer to="/login" onClick={handleClick}>
