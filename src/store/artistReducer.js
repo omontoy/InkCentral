@@ -220,13 +220,7 @@ function artistReducer(state = initialState, action) {
         isUpdate: false
       }
     case LOGOUT_ARTIST:
-      return {
-        ...state,
-        artist: {},
-        loading: false,
-        error_artist: null,
-        isUpdate: false
-      }
+      return initialState
     default:
       return state
   }

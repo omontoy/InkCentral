@@ -185,13 +185,7 @@ function clientReducer(state = initialState, action) {
         isUpdate: false
       }
     case LOGOUT_CLIENT:
-      return {
-        ...state,
-        client: {},
-        loading: false,
-        error_client: null,
-        isUpdate: false
-      }
+      return initialState
     default:
       return state
   }
