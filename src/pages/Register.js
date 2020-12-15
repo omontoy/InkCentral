@@ -102,6 +102,7 @@ export function Register() {
                     required
                   />
                 </Form.Group>
+
                 <Form.Group controlId="formBasicCheckBox" className="userTypeRadio" >
                   <Form.Check
                     type="radio"
@@ -117,7 +118,9 @@ export function Register() {
                     defaultChecked
                     onChange={handleChange} />
                 </Form.Group>
-                <Button variant="success" type="submit" className="form-control"
+
+                <Button variant="success" type="submit"
+                  className="form-control"
                   disabled={loading}>
                   Sign Up
                 </Button>
