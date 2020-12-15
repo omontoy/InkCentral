@@ -17,14 +17,14 @@ export function Navigation() {
   const dispatch = useDispatch()
   const token = localStorage.getItem('token');
 
-  const { login, userType } = useSelector(
-    ({ loginReducer: {login, userType}}) => {
-      return { login, userType }
+  const { userType } = useSelector(
+    ({ loginReducer: { userType }}) => {
+      return { userType }
     })
 
-  const { userTypeR, register } = useSelector(
-    ({ registerReducer: { userTypeR, register }}) => {
-        return { userTypeR, register }
+  const { userTypeR } = useSelector(
+    ({ registerReducer: { userTypeR }}) => {
+        return { userTypeR }
     })
 
   const handleClick = () => {
@@ -35,12 +35,7 @@ export function Navigation() {
     dispatch( logoutClient() )
   }
 
-  let user = null
-  if(!!userType) {
-    user = userType
-  } else {
-    user = userTypeR
-  }
+  let user = userType || userTypeR
 
   return(
     <Navbar fixed="top" bg="dark" variant="dark">
@@ -55,7 +50,7 @@ export function Navigation() {
 
         { token ? (
           <>
-            <LinkContainer to={`/${user}Form`}>
+            <LinkContainer to={`/${user}-form`}>
               <Nav.Link>User Update</Nav.Link>
             </LinkContainer>
 
