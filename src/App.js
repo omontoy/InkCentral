@@ -23,9 +23,9 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/artistForm" component={ArtistForm} />
+          <Route exact path="/artist-form" component={ArtistForm} />
           <Route exact path="/artists/:artistId" component={ArtistProfile} />
-          <Route exact path="/clientForm" component={ClientForm} />
+          <Route exact path="/client-form" component={ClientForm} />
           <Redirect from="*" to="/" />
         </Switch>
       </Router>
