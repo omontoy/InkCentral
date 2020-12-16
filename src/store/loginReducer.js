@@ -57,9 +57,10 @@ export function cleanLogin() {
 const initialState = {
   errorLog: null,
   login: false,
-  loading: false
+  loading: false,
+  userType: ""
 }
-function loginReducer( state= initialState, action){
+function loginReducer( state = initialState, action){
   switch(action.type){
     case ARTIST_LOGINLOAD:
       return {
@@ -70,7 +71,8 @@ function loginReducer( state= initialState, action){
       return {
         ...state,
         login: true,
-        loading: false
+        loading: false,
+        userType: "artist"
       }
     case ARTIST_LOGINFAIL:
       return {
@@ -87,7 +89,8 @@ function loginReducer( state= initialState, action){
       return {
         ...state,
         login: true,
-        loading: false
+        loading: false,
+        userType: "client"
       }
     case CLIENT_LOGINFAIL:
       return {
@@ -105,7 +108,8 @@ function loginReducer( state= initialState, action){
       return {
         ...state,
         login: false,
-        loading: false
+        loading: false,
+        userType: ""
       }
     default:
       return state

@@ -12,16 +12,17 @@ const ARTIST_LOGGED_LOADING = 'ARTIST_LOGGED_LOADING'
 const ARTIST_LOGGED_SUCCESS = 'ARTIST_LOGGED_SUCCESS'
 const ARTIST_LOGGED_FAILED = 'ARTIST_LOGGED_FAILED'
 
-const ARTIST_UPDATE_LOADING='ARTIST_UPDATE_LOADING'
+const ARTIST_UPDATE_LOADING = 'ARTIST_UPDATE_LOADING'
 const ARTIST_UPDATE_SUCCESS = 'ARTIST_UPDATE_SUCCESS'
-const ARTIST_UPDATE_FAILED='ARTIST_UPDATE_FAILED'
-const CHANGE_INPUT='CHANGE_INPUT'
+const ARTIST_UPDATE_FAILED = 'ARTIST_UPDATE_FAILED'
+const CHANGE_INPUT = 'CHANGE_INPUT'
 const CLEAN_ERROR = 'CLEAN_ERROR'
 const CLEAN_ISUPDATE = 'CLEAN_ISUPDATE'
+const LOGOUT_ARTIST = 'LOGOUT_ARTIST'
 
 export function getArtists() {
-  return async function(dispatch) {  
-    dispatch({ type: ARTISTS_LOADING })  
+  return async function(dispatch) {
+    dispatch({ type: ARTISTS_LOADING })
     try {
       const response = await inkCentralServer({
         method: 'GET',
@@ -124,6 +125,12 @@ export function cleanIsUpdate(){
   }
 }
 
+export function logoutArtist() {
+  return async function(dispatch) {
+    dispatch({ type: LOGOUT_ARTIST })
+  }
+}
+
 const initialState = {
   artists: [],
   artist: {},
@@ -165,7 +172,7 @@ function artistReducer(state = initialState, action) {
       return {
         ...state,
         error_artist: action.payload
-      }    
+      }
     case ARTIST_LOGGED_LOADING:
       return {
         ...state,
@@ -212,6 +219,8 @@ function artistReducer(state = initialState, action) {
         ...state,
         isUpdate: false
       }
+    case LOGOUT_ARTIST:
+      return initialState
     default:
       return state
   }

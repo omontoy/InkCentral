@@ -8,6 +8,7 @@ const ARTIST_REGFAIL = 'ARTIST_REGFAIL'
 const CLIENT_REGLOAD = 'CLIENT_REGLOAD'
 const CLIENT_REGDONE = 'CLIENT_REGDONE'
 const CLIENT_REGFAIL = 'CLIENT_REGFAIL'
+const RESET_USER_TYPE = 'RESET_USER_TYPE'
 
 export function regArtist(email, password) {
   return async function (dispatch) {
@@ -47,10 +48,17 @@ export function regClient(email, password) {
   }
 }
 
+export function resetUserType() {
+  return async function(dispatch) {
+    dispatch({ type: RESET_USER_TYPE })
+  }
+}
+
 const initialState = {
   errorReg: null,
   register: false,
-  loading: false
+  loading: false,
+  userTypeR: ""
 }
 
 function registerReducer(state = initialState, action) {
@@ -65,6 +73,7 @@ function registerReducer(state = initialState, action) {
         ...state,
         loading: false,
         register: true,
+        userTypeR: "artist"
       }
     case ARTIST_REGFAIL:
       return {
@@ -82,12 +91,19 @@ function registerReducer(state = initialState, action) {
         ...state,
         loading: false,
         register: true,
+        userTypeR: "client"
       }
     case CLIENT_REGFAIL:
       return {
         ...state,
         loading: false,
         errorReg: action.payload
+      }
+    case RESET_USER_TYPE:
+      return {
+        ...state,
+        userTypeR: "",
+        register: false
       }
     default:
       return state

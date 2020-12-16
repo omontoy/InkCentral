@@ -8,14 +8,14 @@ const CLIENT_LOGGED_LOADING = 'CLIENT_LOGGED_LOADING'
 const CLIENT_LOGGED_SUCCESS = 'CLIENT_LOGGED_SUCCESS'
 const CLIENT_LOGGED_FAILED = 'CLIENT_LOGGED_FAILED'
 
-const CLIENT_UPDATE_LOADING ='CLIENT_UPDATE_LOADING'
+const CLIENT_UPDATE_LOADING = 'CLIENT_UPDATE_LOADING'
 const CLIENT_UPDATE_SUCCESS = 'CLIENT_UPDATE_SUCCESS'
-const CLIENT_UPDATE_FAILED ='CLIENT_UPDATE_FAILED'
+const CLIENT_UPDATE_FAILED = 'CLIENT_UPDATE_FAILED'
 
 const CHANGE_INPUT = 'CHANGE_INPUT'
 const CLEAN_ERROR = 'CLEAN_ERROR'
 const CLEAN_ISUPDATE = 'CLEAN_ISUPDATE'
-
+const LOGOUT_CLIENT = 'LOGOUT_CLIENT'
 
 export function getClient(clientId){
   return async function(dispatch) {
@@ -109,6 +109,12 @@ export function cleanIsUpdate(){
   }
 }
 
+export function logoutClient() {
+  return async function(dispatch) {
+    dispatch({ type: LOGOUT_CLIENT })
+  }
+}
+
 const initialState = {
   client: {},
   loading: false,
@@ -178,6 +184,8 @@ function clientReducer(state = initialState, action) {
         ...state,
         isUpdate: false
       }
+    case LOGOUT_CLIENT:
+      return initialState
     default:
       return state
   }

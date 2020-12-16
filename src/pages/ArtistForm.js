@@ -6,7 +6,13 @@ import Button from 'react-bootstrap/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getLoggedArtist, updateArtist, changeInput, cleanIsUpdate, cleanuperror  } from '../store/artistReducer';
+import {
+  getLoggedArtist,
+  updateArtist,
+  changeInput,
+  cleanIsUpdate,
+  cleanuperror
+} from '../store/artistReducer';
 import swal from 'sweetalert';
 
 
@@ -14,41 +20,42 @@ export function ArtistForm() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { artist, isUpdate, error_artist } = useSelector(
-    ({ artistReducer: { artist, isUpdate, error_artist } })=> {
+    ({ artistReducer: { artist, isUpdate, error_artist } }) => {
       return { artist, isUpdate, error_artist }
     }
   )
-  
+
   const handleChange = e => {
     dispatch(changeInput(e.target, artist))
   }
   const handleUpdate = async e =>{
-    e.preventDefault() 
+    e.preventDefault()
     const { name, nickname, phone, location } = artist
     dispatch(updateArtist(name, nickname, phone, location))
   }
 
-  useEffect(()=>{
+  useEffect(() => {
       if(isUpdate){
         swal("Your data has been updated",`${artist.name}`,"success")
         dispatch(cleanIsUpdate())
         history.push('/')
-      } 
-      else {   
-        dispatch(getLoggedArtist(error_artist))
+      }
+      else {
+        dispatch(getLoggedArtist())
       }
   }, [isUpdate, dispatch, history] );
 
-  useEffect(()=>{
+  useEffect(() => {
     if(error_artist){
-      swal("Sorry!!",`${error_artist.response.statusText} Please Login again`, "error")
+      const statusError = error_artist.response.statusText
+      swal("Sorry!!",`${statusError} Please Login again`, "error")
       dispatch( cleanuperror() )
       history.push('/login')
     }
   }, [error_artist])
 
   const { name, email, nickname, phone, location } = artist
-  
+
   return(
     <div >
       <div className="main">
@@ -66,7 +73,6 @@ export function ArtistForm() {
                     onChange={handleChange}
                     value={name}
                   />
-                  
                 </Form.Group>
 
                 <Form.Group controlId="formBasicEmail">
@@ -89,7 +95,6 @@ export function ArtistForm() {
                     name="nickname"
                     onChange={handleChange}
                     value={nickname}
-                    
                   />
                 </Form.Group>
 
@@ -101,7 +106,6 @@ export function ArtistForm() {
                     name="phone"
                     onChange={handleChange}
                     value={phone}
-                    
                   />
                 </Form.Group>
 
@@ -113,11 +117,15 @@ export function ArtistForm() {
                     name="location"
                     onChange={handleChange}
                     value={location}
-                  
-                  />                  
+                  />
                 </Form.Group>
-                <Button variant="warning" type="submit" className="form-control" style={{ marginTop: '5px' }}>
-                  Update
+
+                <Button
+                  variant="warning"
+                  type="submit"
+                  className="form-control"
+                  style={{ marginTop: '5px' }}
+                >Update
                 </Button>
               </Form>
             </Col>
@@ -127,7 +135,3 @@ export function ArtistForm() {
     </div>
   )
 }
-
-
-
-
