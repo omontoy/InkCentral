@@ -19,7 +19,7 @@ export function clientLogin( email, password ){
           url: '/clients/login',
           data: { email, password }
         });
-        localStorage.setItem('token', token)
+        sessionStorage.setItem('token', token)
         dispatch({ type: CLIENT_LOGINDONE })
     }catch({ response: {data }}){
       dispatch({ type: CLIENT_LOGINFAIL, payload: data })
@@ -35,7 +35,7 @@ export function artistLogin( email, password){
         url: '/artists/login',
         data: { email, password }
       });
-      localStorage.setItem('token', token)
+      sessionStorage.setItem('token', token)
       dispatch({ type: ARTIST_LOGINDONE })
     }catch({ response: { data }}){
       dispatch({ type: ARTIST_LOGINFAIL, payload: data })

@@ -6,7 +6,7 @@ import { getArtist } from '../store/artistReducer'
 export function Artist ({ id, name, nickname, email, image}) {
   let history = useHistory();
   const dispatch = useDispatch();
-  const token = localStorage.getItem('token')
+  const token = sessionStorage.getItem('token')
 
   function handleClick(){
     dispatch(getArtist(id))

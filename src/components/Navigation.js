@@ -5,17 +5,14 @@ import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
 import { cleanLogin } from '../store/loginReducer'
 import { resetUserType } from '../store/registerReducer'
 import { logoutArtist } from '../store/artistReducer'
 import { logoutClient } from '../store/clientReducer'
 
 export function Navigation() {
-  const history = useHistory()
   const dispatch = useDispatch()
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
 
   const { userType } = useSelector(
     ({ loginReducer: { userType }}) => {
@@ -28,13 +25,13 @@ export function Navigation() {
     })
 
   const handleClick = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     dispatch( cleanLogin() )
     dispatch( resetUserType() )
     dispatch( logoutArtist() )
     dispatch( logoutClient() )
   }
-
+  
   let user = userType || userTypeR
 
   return(

@@ -21,7 +21,7 @@ export function Register() {
     })
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
+    const token = sessionStorage.getItem('token')
     if (token) {
       history.push('/')
       swal("Welcome!!", `${email}`, "success")

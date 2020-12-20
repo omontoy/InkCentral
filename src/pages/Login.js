@@ -10,8 +10,7 @@ import { useHistory } from "react-router-dom"
 import {
   artistLogin,
   clientLogin,
-  cleanuperror,
-  cleanLogin
+  cleanuperror
 } from '../store/loginReducer';
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
@@ -33,7 +32,7 @@ export function Login(){
   },[errorLog])
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
+    const token = sessionStorage.getItem('token')
     if(token){
       swal("Welcome!!",`${ email }`,"success")
       history.push('/')
