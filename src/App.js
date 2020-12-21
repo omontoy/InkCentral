@@ -14,6 +14,13 @@ import  ArtistProfile  from './pages/ArtistProfile'
 import { ClientForm }  from './pages/ClientForm'
 
 
+function PrivateRoute(props){
+  const token = sessionStorage.getItem('token');
+  if(!token) return <Redirect to="/login" />
+  return <Route {...props } />
+}
+
+
 function App() {
   return (
     <div>
@@ -23,9 +30,9 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/artist-form" component={ArtistForm} />
-          <Route exact path="/artists/:artistId" component={ArtistProfile} />
-          <Route exact path="/client-form" component={ClientForm} />
+          <PrivateRoute exact path="/artist-form" component={ArtistForm}  />
+          <PrivateRoute exact path="/artists/:artistId" component={ArtistProfile}  />
+          <PrivateRoute exact path="/client-form" component={ClientForm}  />
           <Redirect from="*" to="/" />
         </Switch>
       </Router>
