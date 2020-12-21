@@ -10,10 +10,15 @@ export function Artist ({ id, name, nickname, email, image}) {
       return { login }
     }
   )
+  const { register } = useSelector(
+    ({ registerReducer: { register }})=> {
+      return { register }
+    }
+  )
   const token = sessionStorage.getItem('token');
 
   function handleClick(){
-    if(login){
+    if(login || register ){
       dispatch(getArtist(id))  
     }
   }
