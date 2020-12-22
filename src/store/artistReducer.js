@@ -41,7 +41,7 @@ export function getArtist(artistId){
   return async function(dispatch) {
     dispatch({ type: ARTIST_LOADING })
     try {
-      const token = localStorage.getItem('token')
+      const token = sessionStorage.getItem('token')
       const response = await inkCentralServer({
         method: 'GET',
         url: `/artists/profile/${artistId}`,
@@ -54,7 +54,7 @@ export function getArtist(artistId){
     }
     catch(error){
       if(error.response.status === 401) {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
       }
       dispatch({ type: ARTIST_FAILURE, payload: error })
     }
@@ -64,7 +64,7 @@ export function getLoggedArtist(){
   return async function(dispatch){
     dispatch({ type: ARTIST_LOGGED_LOADING })
     try {
-      const token = localStorage.getItem('token')
+      const token = sessionStorage.getItem('token')
       const response = await inkCentralServer({
         method: 'GET',
         url: '/artists/profile',
@@ -77,7 +77,7 @@ export function getLoggedArtist(){
     }
     catch(error){
       if(error.response.status === 401) {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
       }
       dispatch({ type: ARTIST_LOGGED_FAILED, payload: error })
     }
@@ -87,7 +87,7 @@ export function updateArtist(name, nickname, phone, location){
   return async function(dispatch) {
     try {
       dispatch({ type: ARTIST_UPDATE_LOADING })
-      const token = localStorage.getItem('token')
+      const token = sessionStorage.getItem('token')
       const response = await inkCentralServer({
         method: 'PUT',
         url: '/artists/profile',

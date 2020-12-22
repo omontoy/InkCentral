@@ -21,7 +21,7 @@ export function getClient(clientId){
   return async function(dispatch) {
     dispatch({ type: CLIENT_LOADING })
     try {
-      const token = localStorage.getItem('token')
+      const token = sessionStorage.getItem('token')
       const response = await inkCentralServer({
         method: 'GET',
         url: `/clients/profile/${clientId}`,
@@ -34,7 +34,7 @@ export function getClient(clientId){
     }
     catch(error){
       if(error.response.status === 401) {
-        localStorage.removeItem('token')
+        sessionStorage.removeItem('token')
       }
       dispatch({ type: CLIENT_FAILURE, payload: error })
     }
@@ -45,7 +45,7 @@ export function getLoggedClient(){
   return async function(dispatch){
     dispatch({ type: CLIENT_LOGGED_LOADING })
     try {
-      const token = localStorage.getItem('token')
+      const token = sessionStorage.getItem('token')
       const response = await inkCentralServer({
         method: 'GET',
         url: '/clients/profile',
@@ -58,7 +58,7 @@ export function getLoggedClient(){
     }
     catch(error){
       if(error.response.status === 401) {
-        localStorage.removeItem('token')
+        sessionStorage.removeItem('token')
       }
       dispatch({ type: CLIENT_LOGGED_FAILED, payload: error })
     }
@@ -69,7 +69,7 @@ export function updateClient(name) {
   return async function(dispatch) {
     try {
       dispatch({ type: CLIENT_UPDATE_LOADING })
-      const token = localStorage.getItem('token')
+      const token = sessionStorage.getItem('token')
       const response = await inkCentralServer({
         method: 'PUT',
         url: '/clients/profile',

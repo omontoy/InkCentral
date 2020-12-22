@@ -1,41 +1,49 @@
 import Card from 'react-bootstrap/Card'
-import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getArtist } from '../store/artistReducer'
+import { LinkContainer } from 'react-router-bootstrap'
 
 export function Artist ({ id, name, nickname, email, image}) {
-  let history = useHistory();
   const dispatch = useDispatch();
-  const token = localStorage.getItem('token')
+  const { login } = useSelector(
+    ({ loginReducer: { login }})=> {
+      return { login }
+    }
+  )
+  const { register } = useSelector(
+    ({ registerReducer: { register }})=> {
+      return { register }
+    }
+  )
+  const token = sessionStorage.getItem('token');
 
   function handleClick(){
-    dispatch(getArtist(id))
-    if(!token){
-      history.push('/login')
-    } else {
-      history.push(`/artists/${id}`)
+    if(login || register ){
+      dispatch(getArtist(id))  
     }
   }
   return (
-    <Card  
-      bg="dark" 
-      text="light" 
-      className='artistCards'
-      style={{ borderRadius: "25px" }}
-      onClick={handleClick}
-    >
-      <Card.Img 
-        variant="bottom" 
-        src={image} 
-        className="cardImage"
-        style={{ borderRadius: "25px", borderBottomLeftRadius: "0px", borderBottomRightRadius:"0px" }}
-      />
-      <Card.Body>
-        <Card.Title>{name}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">{nickname}</Card.Subtitle>
-        <Card.Text>{email}</Card.Text>
-      </Card.Body>
-    </Card> 
+    <LinkContainer to={!token ? '/login': `/artists/${id}`}>
+      <Card  
+        bg="dark" 
+        text="light" 
+        className='artistCards'
+        style={{ borderRadius: "25px" }}
+        onClick={handleClick}
+      >
+        <Card.Img 
+          variant="bottom" 
+          src={image} 
+          className="cardImage"
+          style={{ borderRadius: "25px", borderBottomLeftRadius: "0px", borderBottomRightRadius:"0px" }}
+        />
+        <Card.Body>
+          <Card.Title>{name}</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">{nickname}</Card.Subtitle>
+          <Card.Text>{email}</Card.Text>
+        </Card.Body>
+      </Card> 
+    </LinkContainer>
   )
 }
 

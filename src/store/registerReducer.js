@@ -19,7 +19,7 @@ export function regArtist(email, password) {
         url: '/artists',
         data: { email, password },
       })
-      localStorage.setItem('token', token)
+      sessionStorage.setItem('token', token)
       dispatch({ type: ARTIST_REGDONE })
     }
     catch ({ response: { data } }) {
@@ -38,7 +38,7 @@ export function regClient(email, password) {
         url: '/clients',
         data: { email, password },
       })
-      localStorage.setItem('token', token)
+      sessionStorage.setItem('token', token)
       dispatch({ type: CLIENT_REGDONE })
     }
     catch ({ response: { data } }) {
