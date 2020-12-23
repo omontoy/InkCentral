@@ -12,14 +12,14 @@ import { Navigation } from './components/Navigation'
 import { ArtistForm }  from './pages/ArtistForm'
 import  ArtistProfile  from './pages/ArtistProfile'
 import { ClientForm }  from './pages/ClientForm'
-
+import { Payment } from './components/Payment'
+import { Response } from './components/Response'
 
 function PrivateRoute(props){
   const token = sessionStorage.getItem('token');
   if(!token) return <Redirect to="/login" />
   return <Route {...props } />
 }
-
 
 function App() {
   return (
@@ -30,9 +30,11 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <PrivateRoute exact path="/artist-form" component={ArtistForm}  />
-          <PrivateRoute exact path="/artists/:artistId" component={ArtistProfile}  />
-          <PrivateRoute exact path="/client-form" component={ClientForm}  />
+          <Route exact path="/artist-form" component={ArtistForm} />
+          <Route exact path="/artists/:artistId" component={ArtistProfile} />
+          <Route exact path="/client-form" component={ClientForm} />
+          <Route exact path="/pay" component={Payment} />
+          <Route exact path="/response" component={Response} />
           <Redirect from="*" to="/" />
         </Switch>
       </Router>

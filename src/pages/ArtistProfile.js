@@ -9,7 +9,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import swal from 'sweetalert';
 import { Comments } from '../components/Comments'
-
+import { Payment } from '../components/Payment'
 
 function ArtistProfile() {
   const dispatch = useDispatch()
@@ -18,7 +18,7 @@ function ArtistProfile() {
     ({ artistReducer: { artist, error_artist }})=> {
       return { artist, error_artist }
     })
-  
+
   useEffect(() => {
     if(error_artist){
       swal("Sorry!!",`${ error_artist.response.statusText } Please Login again`,"error")
@@ -26,16 +26,16 @@ function ArtistProfile() {
       history.push('/login');
     }
   },[error_artist])
-    
+
   return(
     <div className='artistProfileContainer'>
       <Jumbotron className="jumbo" fluid >
         <Container>
           <h1>{artist.nickname}</h1>
-          <p>This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+          <p>This is a modified jumbotron that occupies the entire horizontal space</p>
         </Container>
       </Jumbotron>
-      
+
       <CardColumns>
         <Card className="bg-dark text-white">
           <Card.Img src={artist.image} className="artistProfileImage" alt="main tattoo" />
@@ -48,7 +48,7 @@ function ArtistProfile() {
             <p><em>The human body is the ultimate canvas...</em></p>
             <footer className="blockquote-footer">
               <small className="text-muted">
-                {artist.name} 
+                {artist.name}
               </small>
             </footer>
           </blockquote>
@@ -81,6 +81,7 @@ function ArtistProfile() {
           </Card.Body>
         </Card>
       </CardColumns>
+      <Payment />
       <Comments notes={artist.notes} />
     </div>
   )
