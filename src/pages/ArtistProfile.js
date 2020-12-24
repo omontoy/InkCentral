@@ -14,9 +14,9 @@ import { Payment } from '../components/Payment'
 function ArtistProfile() {
   const dispatch = useDispatch()
   const history = useHistory();
-  const { artist, error_artist } = useSelector(
-    ({ artistReducer: { artist, error_artist }})=> {
-      return { artist, error_artist }
+  const { artist, error_artist, loading } = useSelector(
+    ({ artistReducer: { artist, error_artist, loading }}) => {
+      return { artist, error_artist, loading }
     })
 
   useEffect(() => {
@@ -26,6 +26,8 @@ function ArtistProfile() {
       history.push('/login');
     }
   },[error_artist])
+
+  if(loading) return <h1 className='main'>Artist data is loading </h1>
 
   return(
     <div className='artistProfileContainer'>

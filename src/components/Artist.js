@@ -23,12 +23,11 @@ export function Artist ({ id, name, nickname, email, image}) {
     }
   }
   return (
-    <LinkContainer to={!token ? '/login': `/artists/${id}`}>
+    <LinkContainer to={!token ? '/login': `/artists/${id}`} style={{ borderRadius: "25px" }}>
       <Card  
         bg="dark" 
         text="light" 
         className='artistCards'
-        style={{ borderRadius: "25px" }}
         onClick={handleClick}
       >
         <Card.Img 

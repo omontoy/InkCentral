@@ -5,33 +5,45 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   getLoggedArtist,
   updateArtist,
   changeInput,
+  changeImageInput,
   cleanIsUpdate,
   cleanuperror
 } from '../store/artistReducer';
 import swal from 'sweetalert';
-
+import Modal from 'react-bootstrap/Modal';
 
 export function ArtistForm() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const { artist, isUpdate, error_artist } = useSelector(
     ({ artistReducer: { artist, isUpdate, error_artist } }) => {
       return { artist, isUpdate, error_artist }
     }
   )
-
+  const handleImageChange = e => {
+      dispatch(changeImageInput( e.target.files, artist ))
+  }
   const handleChange = e => {
     dispatch(changeInput(e.target, artist))
   }
   const handleUpdate = async e =>{
     e.preventDefault()
-    const { name, nickname, phone, location } = artist
-    dispatch(updateArtist(name, nickname, phone, location))
+    const { name, nickname, phone, location, image } = artist
+    const data = new FormData()
+    data.append('name', name);
+    data.append('nickname', nickname);
+    data.append('phone', phone);
+    data.append('location', location);
+    data.append('image', image);
+    dispatch(updateArtist( data ))
   }
 
   useEffect(() => {
@@ -119,7 +131,37 @@ export function ArtistForm() {
                     value={location}
                   />
                 </Form.Group>
-
+                <>
+                  <Button variant="primary" className="form-control" style={{ marginTop: '5px' }} onClick={handleShow}>
+                    Add Images
+                  </Button>
+                  <Modal show={show} onHide={handleClose} animation={false}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Add Images</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      Please choose your image to upload:
+                      <br></br>
+                      <label htmlFor="file">Image(s): </label>
+                      <input 
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        name="file"
+                        id="file"
+                        onChange={handleImageChange}
+                      />
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleClose}>
+                        Close
+                      </Button>
+                      
+                      
+                      
+                    </Modal.Footer>
+                  </Modal>
+                </>
                 <Button
                   variant="warning"
                   type="submit"

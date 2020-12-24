@@ -16,6 +16,7 @@ const ARTIST_UPDATE_LOADING = 'ARTIST_UPDATE_LOADING'
 const ARTIST_UPDATE_SUCCESS = 'ARTIST_UPDATE_SUCCESS'
 const ARTIST_UPDATE_FAILED = 'ARTIST_UPDATE_FAILED'
 const CHANGE_INPUT = 'CHANGE_INPUT'
+const CHANGE_IMAGE_INPUT = 'CHANGE_IMAGE_INPUT'
 const CLEAN_ERROR = 'CLEAN_ERROR'
 const CLEAN_ISUPDATE = 'CLEAN_ISUPDATE'
 const LOGOUT_ARTIST = 'LOGOUT_ARTIST'
@@ -83,7 +84,7 @@ export function getLoggedArtist(){
     }
   }
 }
-export function updateArtist(name, nickname, phone, location){
+export function updateArtist( data ){
   return async function(dispatch) {
     try {
       dispatch({ type: ARTIST_UPDATE_LOADING })
@@ -91,9 +92,10 @@ export function updateArtist(name, nickname, phone, location){
       const response = await inkCentralServer({
         method: 'PUT',
         url: '/artists/profile',
-        data: { name, nickname, location, phone },
+        data,
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
         }
       })
       const { message } = response.data
@@ -104,15 +106,23 @@ export function updateArtist(name, nickname, phone, location){
     }
   }
 }
+export function changeImageInput(target, artist){
+  return function (dispatch){
+    let data = Object.assign( {}, artist, { 'image': target[0] } )
+    dispatch({
+      type: CHANGE_IMAGE_INPUT,
+      payload: data
+    })
+  }
+}
 export function changeInput(target, artist){
   return function (dispatch){
-    let data = Object.assign({}, artist, { [target.name]: target.value })
+    let data = Object.assign( {}, artist, { [target.name]: target.value })
     dispatch({
       type: CHANGE_INPUT,
       payload: data
     })
   }
-
 }
 export function cleanuperror(){
   return async function(dispatch) {
@@ -161,7 +171,8 @@ function artistReducer(state = initialState, action) {
     case ARTIST_SUCCESS:
       return {
         ...state,
-        artist: action.payload
+        artist: action.payload,
+        loading: false
       }
     case ARTISTS_FAILURE:
       return {
@@ -204,6 +215,11 @@ function artistReducer(state = initialState, action) {
         error_artist: action.payload
       }
     case CHANGE_INPUT:
+      return {
+        ...state,
+        artist: action.payload
+      }
+    case CHANGE_IMAGE_INPUT:
       return {
         ...state,
         artist: action.payload
