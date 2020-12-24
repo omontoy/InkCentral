@@ -41,7 +41,7 @@ export function Payment() {
       tax: '0',
       tax_base: '0',
 
-      invoice: '12345',
+      invoice: '12346',
       extra1: 'extra1',
       extra2: 'extra2',
       extra3: 'extra3',
