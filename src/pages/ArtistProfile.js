@@ -12,7 +12,7 @@ import { Comments } from '../components/Comments'
 import { CommentForm } from '../components/CommentForm'
 import { Payment } from '../components/Payment'
 
-function ArtistProfile() {
+export function ArtistProfile() {
   const dispatch = useDispatch()
   const history = useHistory();
   const { artist, error_artist, loading } = useSelector(
@@ -84,10 +84,10 @@ function ArtistProfile() {
           </Card.Body>
         </Card>
       </CardColumns>
-      <Payment />
+      <Payment artist={ artist } />
+      <Comments notes={ artist.notes } />
       <CommentForm />      
-      <Comments notes={artist.notes} />
     </div>
   )
 }
-export default ArtistProfile;
+

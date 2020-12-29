@@ -29,7 +29,7 @@ export function ArtistForm() {
     }
   )
   const handleImageChange = e => {
-      dispatch(changeImageInput( e.target.files, artist ))
+    dispatch(changeImageInput( e.target.files, artist ))
   }
   const handleChange = e => {
     dispatch(changeInput(e.target, artist))

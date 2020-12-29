@@ -6,14 +6,16 @@ import Col from 'react-bootstrap/Col'
 import { getLoggedClient } from '../store/clientReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { v4 as uuid_v4 } from "uuid";
+
 
 const handler = window.ePayco.checkout.configure({
   key: process.env.REACT_APP_EPAYCO_PUBLIC_KEY,
   test: true,
 });
 
-export function Payment() {
-
+export function Payment({ artist }) {
+  const invoice_number = uuid_v4();
   const dispatch = useDispatch();
   const { client } = useSelector(
     ({ clientReducer: { client } }) => {
@@ -31,9 +33,9 @@ export function Payment() {
       external: 'false',
       autoclick: false,
 
-      amount: '20000',
+      amount: '100000',
       name: 'Tatuaje',
-      description: 'Realización de un Tatuaje',
+      description: 'Small tattoo design ',
       currency: 'cop',
 
       country: 'CO',
@@ -41,10 +43,10 @@ export function Payment() {
       tax: '0',
       tax_base: '0',
 
-      invoice: '12345',
-      extra1: 'extra1',
-      extra2: 'extra2',
-      extra3: 'extra3',
+      invoice: invoice_number,
+      extra1: artist.name,
+      extra2: client.name,
+      extra3: artist._id,
 
       response: `${process.env.REACT_APP_BASE_URL}/response`,
 
@@ -67,7 +69,7 @@ export function Payment() {
             variant="primary"
             onClick={handleClick}
           >
-            Pagar
+            Pay
           </button>
         </Col>
       </Row>
