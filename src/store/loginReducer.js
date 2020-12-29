@@ -10,6 +10,7 @@ const CLIENT_LOGINFAIL = 'CLIENT_LOGINFAIL'
 const CLEANERROR = 'CLEANERROR'
 const CLEANLOGIN = 'CLEANLOGIN'
 
+
 export function clientLogin( email, password ){
   return async function(dispatch){
     dispatch({ type: CLIENT_LOGINLOAD })
@@ -51,6 +52,11 @@ export function cleanuperror(){
 export function cleanLogin() {
   return async function(dispatch) {
     dispatch({ type: CLEANLOGIN  })
+  }
+}
+export function logClientAfterPayment(){
+  return async function(dispatch) {
+    dispatch({ type: CLIENT_LOGINDONE })
   }
 }
 

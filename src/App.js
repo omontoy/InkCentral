@@ -10,7 +10,7 @@ import { Register } from './pages/Register.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navigation } from './components/Navigation'
 import { ArtistForm }  from './pages/ArtistForm'
-import  ArtistProfile  from './pages/ArtistProfile'
+import { ArtistProfile }  from './pages/ArtistProfile'
 import { ClientForm }  from './pages/ClientForm'
 import { Payment } from './components/Payment'
 import { Response } from './components/Response'
