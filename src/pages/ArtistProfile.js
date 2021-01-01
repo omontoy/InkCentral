@@ -17,17 +17,29 @@ export function ArtistProfile() {
   const dispatch = useDispatch()
   const history = useHistory();
   const { artist, error_artist, loading } = useSelector(
-    ({ artistReducer: { artist, error_artist, loading }}) => {
+    ({ artistReducer: { artist, error_artist, loading } }) => {
       return { artist, error_artist, loading }
     })
 
+  const { userType } = useSelector(
+    ({ loginReducer: { userType } }) => {
+      return { userType }
+    })
+
+  const { userTypeR } = useSelector(
+    ({ registerReducer: { userTypeR } }) => {
+      return { userTypeR }
+    })
+
+  let user = userType || userTypeR
+
   useEffect(() => {
-    if(error_artist){
-      swal("Sorry!!",`${ error_artist.response.statusText } Please Login again`,"error")
-      dispatch( cleanuperror() )
+    if (error_artist) {
+      swal("Sorry!!", `${error_artist.response.statusText} Please Login again`, "error")
+      dispatch(cleanuperror())
       history.push('/login');
     }
-  },[error_artist])
+  }, [error_artist])
 
   if(loading) return (
     <Container>
@@ -36,7 +48,7 @@ export function ArtistProfile() {
     </Container>
   )
 
-  return(
+  return (
     <div className='artistProfileContainer'>
       <Jumbotron className="jumbo" fluid >
         <Container>
@@ -81,7 +93,7 @@ export function ArtistProfile() {
         </Card>
         <Card>
           <Card.Body>
-          <Card.Title className="cardTitle">Artist Information </Card.Title>
+            <Card.Title className="cardTitle">Artist Information </Card.Title>
             <ListGroup variant="flush">
               <ListGroup.Item>Phone: {artist.phone}</ListGroup.Item>
               <ListGroup.Item>Located at: {artist.location}</ListGroup.Item>
@@ -89,11 +101,17 @@ export function ArtistProfile() {
             </ListGroup>
           </Card.Body>
         </Card>
-      </CardColumns>
-      <Payment artist={ artist } />
+      </CardColumns>     
+      
+      { user === "client" ? (
+        <>
+          <Payment artist={ artist } />
+          <CommentForm />
+        </>
+        ) : (<></>)
+      }
+      
       <Comments notes={ artist.notes } />
-      <CommentForm />      
     </div>
   )
 }
-
