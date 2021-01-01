@@ -11,6 +11,7 @@ import swal from 'sweetalert';
 import { Comments } from '../components/Comments'
 import { CommentForm } from '../components/CommentForm'
 import { Payment } from '../components/Payment'
+import { Loader } from '../components/Loader'
 
 export function ArtistProfile() {
   const dispatch = useDispatch()
@@ -28,7 +29,12 @@ export function ArtistProfile() {
     }
   },[error_artist])
 
-  if(loading) return <h1 className='main'>Artist data is loading </h1>
+  if(loading) return (
+    <Container>
+      <h1 className="main">Artist data is loading...</h1>
+      <Loader />
+    </Container>
+  )
 
   return(
     <div className='artistProfileContainer'>

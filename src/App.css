@@ -59,6 +59,12 @@
 .jumbo {
   background-image: url('./images/cartographer.png');
 }
+.loader{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-top: 50px;
+}
 .user-type {
   display: flex;
   justify-content: space-around;

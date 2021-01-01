@@ -16,6 +16,8 @@ import {
 } from '../store/artistReducer';
 import swal from 'sweetalert';
 import Modal from 'react-bootstrap/Modal';
+import { Loader } from '../components/Loader';
+
 
 export function ArtistForm() {
   const history = useHistory();
@@ -23,9 +25,9 @@ export function ArtistForm() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const { artist, isUpdate, error_artist } = useSelector(
-    ({ artistReducer: { artist, isUpdate, error_artist } }) => {
-      return { artist, isUpdate, error_artist }
+  const { artist, isUpdate, error_artist, isUpdating } = useSelector(
+    ({ artistReducer: { artist, isUpdate, error_artist, isUpdating } }) => {
+      return { artist, isUpdate, error_artist, isUpdating }
     }
   )
   const handleImageChange = e => {
@@ -67,6 +69,13 @@ export function ArtistForm() {
   }, [error_artist])
 
   const { name, email, nickname, phone, location } = artist
+
+  if (isUpdating) return (
+    <Container>
+      <h1 className="main">Updating your profile information...</h1>
+      <Loader />
+    </Container>
+  )
 
   return(
     <div >

@@ -7,6 +7,9 @@ import { logClientAfterPayment } from '../store/loginReducer';
 import { createPayment } from '../store/actions/payment';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Jumbotron from 'react-bootstrap/Jumbotron';
+import Container from 'react-bootstrap/Container';
+import Spinner from 'react-bootstrap/Spinner';
+import { Loader } from './Loader';
 
 
 export function Response() {
@@ -48,7 +51,11 @@ export function Response() {
       } 
   }, [payLoading])
 
-  if(payLoading) return <h1 className='main'>...Just a few seconds more </h1>
+  if(payLoading) return (
+    <Container>
+      <h1 className="main">...Just a few seconds more </h1>
+      <Loader/>
+    </Container>)
   if(payError) return <h1 className='main'>Oops something went wrong!</h1>
   return (
     <div>
