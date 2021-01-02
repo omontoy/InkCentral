@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { postComment } from '../store/actions/comment';
+import { getArtist } from '../store/artistReducer';
 import { useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
@@ -15,6 +16,12 @@ export function CommentForm() {
     note: ''  
   })
 
+  const { loading } = useSelector(
+    ({ commentReducer: { loading }}) => {
+      return { loading }
+    }
+  )
+
   const { artistId } = useParams()  
   
   const handleChange = e => {
@@ -26,8 +33,14 @@ export function CommentForm() {
   const dispatch = useDispatch()
 
   const handleSubmit = async (e) => {
-    e.preventDefault() 
-    dispatch(postComment(artistId, note))
+    e.preventDefault()
+    if(!!note) {
+      await dispatch(postComment(artistId, note))
+      dispatch(getArtist(artistId))
+    }
+    setNoteText({
+      note: ''
+    }) 
   }
 
   const { note } = noteText
@@ -47,8 +60,11 @@ export function CommentForm() {
               />
               { note ? (
                 <InputGroup.Append>          
-                  <Button variant="outline-secondary" type="submit"
-                    >Comment
+                  <Button 
+                    variant="outline-secondary" 
+                    type="submit"
+                    disabled={loading}
+                  >Comment
                   </Button>
                 </InputGroup.Append>
                 ) : ( <></> )            

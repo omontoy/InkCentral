@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { getLoggedClient } from '../store/clientReducer';
+import { getLoggedArtist } from '../store/artistReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { v4 as uuid_v4 } from "uuid";
@@ -22,9 +23,16 @@ export function Payment({ artist }) {
       return { client }
     }
   )
-
+  const { userType } = useSelector(
+    ({ loginReducer: { userType } }) => {
+      return { userType }
+    }
+  )
+  
   useEffect(() => {
-    dispatch(getLoggedClient())
+    if( userType === "client"){
+      dispatch(getLoggedClient())
+    } 
   },[])
 
   function handleClick() {
@@ -57,7 +65,7 @@ export function Payment({ artist }) {
       mobilephone_billing: '3164587954'
     })
   }
-
+  
   return (
     <Container>
       <Row className="justify-content-sm-center">
