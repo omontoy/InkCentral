@@ -69,4 +69,14 @@
   display: flex;
   justify-content: space-around;
 }
+.nav-link {
+  color:darkgrey;
+}
+.brand {
+  font-family: 'Rock Salt', cursive;
+}
+.dropDownLink{
+  color: black;
+}
+
 
