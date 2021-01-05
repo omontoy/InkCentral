@@ -1,14 +1,15 @@
-import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl'
+import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
-import { LinkContainer } from 'react-router-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { cleanLogin } from '../store/loginReducer'
-import { resetUserType } from '../store/registerReducer'
-import { logoutArtist } from '../store/artistReducer'
-import { logoutClient } from '../store/clientReducer'
+import { LinkContainer } from 'react-router-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { cleanLogin } from '../store/loginReducer';
+import { resetUserType } from '../store/registerReducer';
+import { logoutArtist } from '../store/artistReducer';
+import { logoutClient } from '../store/clientReducer';
+import { UserProfileDropDownMenu } from '../components/UserProfileDropDownMenu';
 
 export function Navigation() {
   const dispatch = useDispatch()
@@ -36,42 +37,34 @@ export function Navigation() {
 
   return(
     <Navbar fixed="top" bg="dark" variant="dark">
-      <LinkContainer to="/">
-        <Navbar.Brand>InkCentral</Navbar.Brand>
-      </LinkContainer>
-
       <Nav className="mr-auto">
-        <LinkContainer to="/">
-          <Nav.Link>Home</Nav.Link>
+        <LinkContainer to="/" className="brand">
+          <Navbar.Brand>InkCentral</Navbar.Brand>
         </LinkContainer>
-
+        <Form inline>
+          <FormControl type="text" placeholder="Search tattoos" className="mr-sm-2" />
+          <Button variant="outline-light"><i class="fas fa-search"></i></Button>
+        </Form>
+      </Nav>
         { token ? (
           <>
-            <LinkContainer to={`/${user}-form`}>
-              <Nav.Link>User Update</Nav.Link>
-            </LinkContainer>
-
-            <LinkContainer to="/login" onClick={handleClick}>
-              <Nav.Link>Logout</Nav.Link>
-            </LinkContainer>
+             < UserProfileDropDownMenu 
+               user= { user }
+               handleClick={ handleClick } 
+             />
           </> ) :
           (
             <>
-              <LinkContainer to="/login">
-                <Nav.Link>Login</Nav.Link>
+              <LinkContainer to="/login" >
+                <Nav.Link><i class="fas fa-sign-in-alt"></i>   Login</Nav.Link>
               </LinkContainer>
 
               <LinkContainer to="/register">
-                <Nav.Link>Register</Nav.Link>
+                <Nav.Link><i class="fas fa-user-plus"></i>   Register</Nav.Link>
               </LinkContainer>
             </>
-        )}
-
-      </Nav>
-      <Form inline>
-        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-        <Button variant="outline-info">Search</Button>
-      </Form>
+          )
+        }
     </Navbar>
   )
 }
