@@ -46,3 +46,25 @@ export function deleteComment(id) {
     }
   }
 }
+
+export function updateComment(commentId, note) {
+  return async function(dispatch) {
+    dispatch({ type: COMMENT_LOADING })
+    try {
+      const token = sessionStorage.getItem('token')
+      const response = await inkCentralServer({
+        method: 'PUT',
+        url: `/comments/${commentId}`,
+        data: { note },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      const { data } = response.data
+      dispatch({ type: COMMENT_SUCCESS, payload: data.message })
+    }
+    catch (error) {
+      dispatch({ type: COMMENT_FAILURE, payload: error })
+    }
+  }
+}
