@@ -6,6 +6,8 @@ import { deleteComment } from '../store/actions/comment'
 import { getArtist } from '../store/artistReducer'
 import swal from 'sweetalert';
 import jwt_decode from "jwt-decode";
+import { useState } from 'react'
+import { UpdateCommentForm } from './UpdateCommentForm'
 
 export function Comment({ id, note, from, date }) {
 
@@ -27,12 +29,12 @@ export function Comment({ id, note, from, date }) {
 
   const { artistId } = useParams()
 
+  const token = sessionStorage.getItem('token')
+  const decoded = jwt_decode(token); 
+  const own = from._id === decoded.id
+  
   const delComment = (id) => {
-    
-    const token = sessionStorage.getItem('token')
-    const decoded = jwt_decode(token); 
-
-    if(user === 'client' && decoded.id === from._id) {
+    if(user === 'client' && own) {
       swal({
         title: "Are you sure to delete your comment?",
         icon: "warning",
@@ -50,20 +52,46 @@ export function Comment({ id, note, from, date }) {
     }
   }
 
+  const [update, setUpdate] = useState(false)
+
+  const updateComment = () => {
+    setUpdate(!update)
+  }
+
   return (
-    <div className="media mb-3" onDoubleClick={() => delComment(id)}>
-      <div className="media-body p-2 shadow-sm rounded bg-light border">
-        <small className="float-right text-muted">
-          {format(date)} {`(${dateComment[0]} ${dateComment[1]} ${dateComment[2]})`} 
-        </small>
-        { from.name ? (
-          <h6 className="mt-0 mb-1 text-muted">{from.name}</h6> 
-          ) : (
-            <h6 className="mt-0 mb-1 text-muted">{from.email}</h6>
-          )
-        }
-        {note}
+    <>
+      <div className="media mb-3">
+        <div className="media-body p-2 shadow-sm rounded bg-light border">
+          <small className="float-right text-muted">
+            {format(date)} 
+            {` (${dateComment[0]} ${dateComment[1]} ${dateComment[2]})`}
+            { own ? 
+              <>
+                <div className="d-flex justify-content-end">
+                  <small className="float-right text-muted">
+                    <i className="fas fa-pencil-alt xs-e" 
+                      onClick={ () => updateComment() }></i>
+                  </small>                
+                </div>
+                <div className="d-flex justify-content-end">
+                  <small className="float-right text-muted">
+                    <i className="fas fa-trash-alt xs-d" 
+                      onClick={ () => delComment(id) }></i>
+                  </small>
+                </div>
+              </> : null
+            }
+          </small>
+          { from.name ? (
+            <h6 className="mt-0 mb-1 text-muted">{from.name}</h6> 
+            ) : (
+              <h6 className="mt-0 mb-1 text-muted">{from.email}</h6>
+            )
+          }
+          {note}
+        </div>
       </div>
-    </div>
+      { update ? <UpdateCommentForm id={id}/> : null }
+    </>
   )
 }

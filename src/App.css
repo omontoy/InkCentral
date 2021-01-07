@@ -79,4 +79,18 @@
   color: black;
 }
 
+.xs-d, .xs-e {
+  font-size: 10px
+}
 
+.xs-d:hover {
+  color:red
+}
+
+.xs-e:hover {
+  color:blue
+}
+
+.comments {
+  height: 415px;
+}
