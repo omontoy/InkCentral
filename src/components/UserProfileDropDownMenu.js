@@ -1,8 +1,9 @@
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Nav from 'react-bootstrap/Nav';
+import swal from 'sweetalert';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getLoggedArtist } from '../store/artistReducer';
 import { getLoggedClient } from '../store/clientReducer';
 
@@ -19,6 +20,37 @@ export function UserProfileDropDownMenu({ user, handleLogOut }){
     }
       
   } 
+
+  const { artist } = useSelector(
+    ({ artistReducer: { artist } }) => {
+      return { artist }
+    })
+
+  const { client } = useSelector(
+    ({ clientReducer: { client } }) => {
+      return { client }
+    })
+
+  const handleDelete = () => {
+    swal({
+      title: "Are you sure to delete your profile?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then(async(willDelete) => {
+      if(willDelete && user === 'client') {
+        await dispatch(getLoggedClient())
+        console.log(client)
+      } else if (willDelete && user === 'artist') {
+        await dispatch(getLoggedArtist())
+        console.log(artist)
+      } else {
+        swal("Your profile are safe here")
+      }
+    })    
+  }
+
   return(
     <DropdownButton
       menuAlign="right"
@@ -49,7 +81,7 @@ export function UserProfileDropDownMenu({ user, handleLogOut }){
       </Dropdown.Item>
 
       <Dropdown.Divider />
-      <Dropdown.Item eventKey="5">
+      <Dropdown.Item eventKey="5" onClick={ handleDelete }>
         <Nav.Link style={{ color: "red" }}>
           <i className="fas fa-user-minus"></i>   Delete Profile
         </Nav.Link>
