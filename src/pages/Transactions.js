@@ -8,9 +8,9 @@ import { TransactionsTable } from '../components/TransactionsTable';
 
 
 export function Transactions() { 
-  const { artist, loading } = useSelector(
-    ({ artistReducer: { artist, loading }}) => {
-      return { artist, loading }
+  const { loggedArtist, loading } = useSelector(
+    ({ artistReducer: { loggedArtist, loading }}) => {
+      return { loggedArtist, loading }
     }
   )
   const { client, loadingClient } = useSelector(
@@ -24,7 +24,7 @@ export function Transactions() {
     }
   )
   
-  const { payments } = (userType === 'artist' ? artist : client)
+  const { payments } = (userType === 'artist' ? loggedArtist : client)
   
   
   if( loading || loadingClient ) return(
