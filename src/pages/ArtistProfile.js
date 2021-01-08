@@ -57,16 +57,11 @@ export function ArtistProfile() {
       <Jumbotron className="jumbo" fluid >
         <Container>
           <h1>{nickname}</h1>
-          <p>This is a modified jumbotron that occupies the entire horizontal space</p>
         </Container>
       </Jumbotron>
-
       <CardColumns>
         <Card className="bg-dark text-white">
           <Card.Img src={image} className="artistProfileImage" alt="main tattoo" />
-          <Card.ImgOverlay>
-            <Card.Title className="imgTitle">{nickname}</Card.Title>
-          </Card.ImgOverlay>
         </Card>
         <Card className="p-3">
           <blockquote className="blockquote mb-0 card-body">

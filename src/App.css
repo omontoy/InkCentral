@@ -56,6 +56,10 @@
   object-fit: cover;
 }
 
+.jumbo {
+  background-image: url('./images/cartographer.png');
+}
+
 .artistProfileContainer {
   display: flex;
   flex-direction: column;
@@ -86,10 +90,21 @@
 
 .brand {
   font-family: 'Rock Salt', cursive;
+  margin: auto;
+}  
+
+@media only screen and (max-width: 576px){
+  .searchButton {
+    width: 100%;
+    margin: auto;
+  }
+  .dropdown {
+    margin: auto;
+  }
 }
 
-.dropDownLink{
-  color: black;
+tr {
+  text-align: center;
 }
 
 .xs-d, .xs-e {
@@ -126,14 +141,12 @@
 }
 
 .fa-instagram:hover {
-   color: #c13584;
-
+  color: #c13584;
   font-weight: bold;
 }
 
 .fa-facebook:hover {
   color: #3b5998;
-
   font-weight: bold;
 }
 
@@ -158,6 +171,4 @@
   font-size: 20px;
   border: 2px solid green;
   border-radius: 5px;
-}
-
- 
+} 

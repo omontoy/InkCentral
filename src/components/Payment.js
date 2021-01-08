@@ -1,10 +1,8 @@
-import FormControl from 'react-bootstrap/FormControl'
-import Button from 'react-bootstrap/Button';
+
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { getLoggedClient } from '../store/clientReducer';
-import { getLoggedArtist } from '../store/artistReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { v4 as uuid_v4 } from "uuid";

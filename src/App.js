@@ -14,6 +14,8 @@ import { ArtistProfile }  from './pages/ArtistProfile'
 import { ClientForm }  from './pages/ClientForm'
 import { Payment } from './components/Payment'
 import { Response } from './components/Response'
+import { CustomizeProfile } from './pages/CustomizeProfile'
+import { Transactions } from './pages/Transactions'
 
 function PrivateRoute(props){
   const token = sessionStorage.getItem('token');
@@ -35,6 +37,8 @@ function App() {
           <PrivateRoute exact path="/client-form" component={ClientForm} />
           <PrivateRoute exact path="/pay" component={Payment} />
           <PrivateRoute exact path="/response" component={Response} />
+          <PrivateRoute exact path="/customize-profile" component={CustomizeProfile} />
+          <PrivateRoute exact path="/transactions" component={Transactions} />
           <Redirect from="*" to="/" />
         </Switch>
       </Router>

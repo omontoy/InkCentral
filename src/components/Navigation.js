@@ -11,6 +11,9 @@ import { logoutArtist } from '../store/artistReducer';
 import { logoutClient } from '../store/clientReducer';
 import { UserProfileDropDownMenu } from '../components/UserProfileDropDownMenu';
 
+
+
+
 export function Navigation() {
   const dispatch = useDispatch()
   const token = sessionStorage.getItem('token');
@@ -25,7 +28,7 @@ export function Navigation() {
         return { userTypeR }
     })
 
-  const handleClick = () => {
+  const handleLogOut = () => {
     sessionStorage.clear();
     dispatch( cleanLogin() )
     dispatch( resetUserType() )
@@ -36,35 +39,40 @@ export function Navigation() {
   let user = userType || userTypeR
 
   return(
-    <Navbar fixed="top" bg="dark" variant="dark">
-      <Nav className="mr-auto">
-        <LinkContainer to="/" className="brand">
-          <Navbar.Brand>InkCentral</Navbar.Brand>
-        </LinkContainer>
-        <Form inline>
-          <FormControl type="text" placeholder="Search tattoos" className="mr-sm-2" />
-          <Button variant="outline-light"><i class="fas fa-search"></i></Button>
-        </Form>
-      </Nav>
-        { token ? (
-          <>
-             < UserProfileDropDownMenu 
-               user= { user }
-               handleClick={ handleClick } 
-             />
-          </> ) :
-          (
+    <Navbar collapseOnSelect expand="lg" fixed="top" bg="dark" variant="dark">
+      <LinkContainer to="/" className="brand">
+        <Navbar.Brand>InkCentral</Navbar.Brand>
+      </LinkContainer>
+      <Navbar.Toggle />
+      <Navbar.Collapse> 
+        
+        <Nav className="mr-auto">
+          { token ? (
             <>
-              <LinkContainer to="/login" >
-                <Nav.Link><i class="fas fa-sign-in-alt"></i>   Login</Nav.Link>
-              </LinkContainer>
+              < UserProfileDropDownMenu 
+                user= { user }
+                handleLogOut = { handleLogOut } 
+                className="dropdown"
+              />
+            </> ) :
+            (
+              <>
+                <LinkContainer to="/login" >
+                  <Nav.Link><i className="fas fa-sign-in-alt"></i>   Login</Nav.Link>
+                </LinkContainer>
 
-              <LinkContainer to="/register">
-                <Nav.Link><i class="fas fa-user-plus"></i>   Register</Nav.Link>
-              </LinkContainer>
-            </>
-          )
-        }
+                <LinkContainer to="/register">
+                  <Nav.Link><i className="fas fa-user-plus"></i>   Register</Nav.Link>
+                </LinkContainer>
+              </>
+            )
+          }
+        </Nav>   
+          <Form inline className="searchform">  
+            <FormControl type="text" placeholder="Search tattoos"  className="mr-sm-2" /> 
+            <Button variant="outline-light" className="searchButton"><i className="fas fa-search"></i></Button>        
+          </Form>
+      </Navbar.Collapse>
     </Navbar>
   )
 }

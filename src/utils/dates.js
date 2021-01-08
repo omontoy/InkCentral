@@ -1,9 +1,10 @@
-export function dateOfComment(date) {
-  const commentDate = new Date(date)
-  const commentYear = commentDate.getFullYear()
+export function dateOfAction(date) {
+  const actionDate = new Date(date)
+  const actionYear = actionDate.getFullYear()
   const months = ['Jan', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
                   'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dec' ]
-  const commentMonth = months[commentDate.getMonth()];
-  const commentDay = commentDate.getDate()
-  return [commentDay, commentMonth, commentYear]
+  const actionMonth = months[actionDate.getMonth()];
+  const actionDay = actionDate.getDate()
+  return [ actionDay, actionMonth, actionYear]
 }
+
