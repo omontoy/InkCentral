@@ -5,7 +5,7 @@
   margin-top: 80px;
 }
 
-.loginForm, .registerForm, .updateForm {
+.loginForm, .registerForm {
   background-color: darkgrey;
   border-radius: 20px;
   height: 482px;
@@ -15,8 +15,11 @@
 .registerForm {
   height: 530px;
 }
-.updateForm{
-  height: 570px;
+
+.updateForm {
+  background-color: darkgrey;
+  border-radius: 20px;
+  padding: 25px;
 }
 
 .userTypeRadio {
@@ -24,6 +27,7 @@
   justify-content: space-around;
   flex-direction: row;
 }
+
 .cardsAlign {
   display: flex;
   justify-content: space-around;
@@ -31,13 +35,16 @@
   flex-wrap: wrap;
   width: 900px;
 }
+
 .cardTitle{
   text-align: center;
 }
+
 .imgTitle{
     color: black;
     color: rgba(0,0, 0, 0.7);
 }
+
 .artistCards,.cardImage {
   width: 18rem;
   margin-bottom: 15px;
@@ -48,33 +55,39 @@
   height: 200px;
   object-fit: cover;
 }
+
 .artistProfileContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 56px 115px 115px;
   width: 85%;
-  
 }
+
 .jumbo {
   background-image: url('./images/cartographer.png');
 }
+
 .loader{
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   padding-top: 50px;
 }
+
 .user-type {
   display: flex;
   justify-content: space-around;
 }
+
 .nav-link {
   color:darkgrey;
 }
+
 .brand {
   font-family: 'Rock Salt', cursive;
 }
+
 .dropDownLink{
   color: black;
 }
@@ -94,3 +107,57 @@
 .comments {
   height: 415px;
 }
+
+.social-media-icons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.network-title {
+  font-family: 'Rock Salt', cursive;
+}
+
+.contactar {
+  color: #128c7e;
+}
+
+.fa-instagram {
+  color: #833ab4;
+}
+
+.fa-instagram:hover {
+   color: #c13584;
+
+  font-weight: bold;
+}
+
+.fa-facebook:hover {
+  color: #3b5998;
+
+  font-weight: bold;
+}
+
+.fa-twitter:hover {
+  color: #00acee;
+
+  font-weight: bold;
+}
+
+.fa-whatsapp:hover {
+  color: #25D366;
+  font-weight: bold;
+}
+
+.wapp-button {
+  border-radius: 5px;
+  background-color: #f7f7f7;
+}
+
+.wapp-button:hover {
+  font-weight: bold;
+  font-size: 20px;
+  border: 2px solid green;
+  border-radius: 5px;
+}
+
+ 

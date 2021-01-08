@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { cleanuperror } from '../store/artistReducer';
 import Card from 'react-bootstrap/Card';
@@ -12,6 +12,8 @@ import { Comments } from '../components/Comments'
 import { CommentForm } from '../components/CommentForm'
 import { Payment } from '../components/Payment'
 import { Loader } from '../components/Loader'
+import ReactWhatsapp from 'react-whatsapp';
+
 
 export function ArtistProfile() {
   const dispatch = useDispatch()
@@ -48,20 +50,22 @@ export function ArtistProfile() {
     </Container>
   )
 
+    const { nickname, image, name, phone, location, email,
+            whatsapp, instagram, twitter, facebook } = artist
   return (
     <div className='artistProfileContainer'>
       <Jumbotron className="jumbo" fluid >
         <Container>
-          <h1>{artist.nickname}</h1>
+          <h1>{nickname}</h1>
           <p>This is a modified jumbotron that occupies the entire horizontal space</p>
         </Container>
       </Jumbotron>
 
       <CardColumns>
         <Card className="bg-dark text-white">
-          <Card.Img src={artist.image} className="artistProfileImage" alt="main tattoo" />
+          <Card.Img src={image} className="artistProfileImage" alt="main tattoo" />
           <Card.ImgOverlay>
-            <Card.Title className="imgTitle">{artist.nickname}</Card.Title>
+            <Card.Title className="imgTitle">{nickname}</Card.Title>
           </Card.ImgOverlay>
         </Card>
         <Card className="p-3">
@@ -69,35 +73,75 @@ export function ArtistProfile() {
             <p><em>The human body is the ultimate canvas...</em></p>
             <footer className="blockquote-footer">
               <small className="text-muted">
-                {artist.name}
+                {name}
               </small>
             </footer>
           </blockquote>
         </Card>
+
         <Card className="p-6 cardTitle" >
-          <Card.Body>
-            <Card.Title>{artist.name}</Card.Title>
-            <Card.Text>
-              Check my work out through social media too with the following links
-            </Card.Text>
-          </Card.Body>
-          <ListGroup className="list-group-flush">
-            <ListGroup.Item><i className="fab fa-2x fa-instagram"></i></ListGroup.Item>
-            <ListGroup.Item><i className="fab fa-2x fa-facebook"></i></ListGroup.Item>
-            <ListGroup.Item><i className="fab fa-2x fa-linkedin"></i></ListGroup.Item>
-            <ListGroup.Item><i className="fab fa-2x fa-discord"></i></ListGroup.Item>
-          </ListGroup>
-          <Card.Body>
-            <Card.Link href="#">Contact</Card.Link>
-          </Card.Body>
+          <div class="card-body">
+            <Card.Body>
+              <Card.Title>{name}</Card.Title>
+              <Card.Text className="network-title">
+                <h2>My Social Networks</h2>
+              </Card.Text>
+            </Card.Body>
+
+            {
+              !facebook && !instagram && !twitter 
+              && <h4>Any social network added yet</h4>
+            }
+            <div className="social-media-icons">
+              { facebook && 
+                <Link 
+                  to={{ pathname: `https://www.facebook.com/${facebook}`}} 
+                  target="_blank">
+                  <div><i className="fab fa-4x fa-facebook"></i></div>
+                </Link> 
+              }
+
+              { instagram && 
+                <Link 
+                  to={{ pathname: `https://www.instagram.com/${instagram}`}} 
+                  target="_blank">
+                  <div><i className="fab fa-4x fa-instagram"></i></div>
+                </Link> 
+              }
+
+              { twitter && 
+                <Link 
+                  to={{ pathname: `https://www.twitter.com/${twitter}`}} 
+                  target="_blank">
+                  <div><i className="fab fa-4x fa-twitter"></i></div>
+                </Link>
+              }
+            </div>
+
+            <div>
+              {
+                whatsapp &&
+                <Card.Body>
+                  <ReactWhatsapp 
+                    className="wapp-button"
+                    number={`+57 ${whatsapp}`} 
+                    message="Hola cómo estás ?">
+                    <i className="fa-2x fa fa-whatsapp contactar" />
+                    Contáctame 
+                  </ReactWhatsapp>     
+                </Card.Body>
+              }
+            </div>
+          </div>
         </Card>
+        
         <Card>
           <Card.Body>
             <Card.Title className="cardTitle">Artist Information </Card.Title>
             <ListGroup variant="flush">
-              <ListGroup.Item>Phone: {artist.phone}</ListGroup.Item>
-              <ListGroup.Item>Located at: {artist.location}</ListGroup.Item>
-              <ListGroup.Item>Email me at: {artist.email}</ListGroup.Item>
+              <ListGroup.Item>Phone: {phone}</ListGroup.Item>
+              <ListGroup.Item>Located at: {location}</ListGroup.Item>
+              <ListGroup.Item>Email me at: {email}</ListGroup.Item>
             </ListGroup>
           </Card.Body>
         </Card>
