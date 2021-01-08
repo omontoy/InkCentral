@@ -106,18 +106,18 @@ export function updateArtist( data ){
     }
   }
 }
-export function changeImageInput(target, artist){
+export function changeImageInput(target, loggedArtist){
   return function (dispatch){
-    let data = Object.assign( {}, artist, { 'image': target[0] } )
+    let data = Object.assign( {}, loggedArtist, { 'image': target[0] } )
     dispatch({
       type: CHANGE_IMAGE_INPUT,
       payload: data
     })
   }
 }
-export function changeInput(target, artist){
+export function changeInput(target, loggedArtist){
   return function (dispatch){
-    let data = Object.assign( {}, artist, { [target.name]: target.value })
+    let data = Object.assign( {}, loggedArtist, { [target.name]: target.value })
     dispatch({
       type: CHANGE_INPUT,
       payload: data
@@ -144,6 +144,7 @@ export function logoutArtist() {
 const initialState = {
   artists: [],
   artist: {},
+  loggedArtist:{},
   loading: false,
   error_artists: null,
   error_artist: null,
@@ -194,7 +195,7 @@ function artistReducer(state = initialState, action) {
     case ARTIST_LOGGED_SUCCESS:
       return {
         ...state,
-        artist: action.payload,
+        loggedArtist: action.payload,
         loading: false
       }
     case ARTIST_LOGGED_FAILED:
@@ -223,12 +224,12 @@ function artistReducer(state = initialState, action) {
     case CHANGE_INPUT:
       return {
         ...state,
-        artist: action.payload
+        loggedArtist: action.payload
       }
     case CHANGE_IMAGE_INPUT:
       return {
         ...state,
-        artist: action.payload
+        loggedArtist: action.payload
       }
     case CLEAN_ERROR:
       return {
