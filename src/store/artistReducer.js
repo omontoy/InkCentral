@@ -146,6 +146,7 @@ const initialState = {
   artist: {},
   loggedArtist:{},
   loading: false,
+  loggedArtistLoading: false,
   error_artists: null,
   error_artist: null,
   isUpdate: false,
@@ -190,13 +191,13 @@ function artistReducer(state = initialState, action) {
     case ARTIST_LOGGED_LOADING:
       return {
         ...state,
-        loading: true
+        loggedArtistLoading: true
       }
     case ARTIST_LOGGED_SUCCESS:
       return {
         ...state,
         loggedArtist: action.payload,
-        loading: false
+        loggedArtistLoading: false
       }
     case ARTIST_LOGGED_FAILED:
       return {
