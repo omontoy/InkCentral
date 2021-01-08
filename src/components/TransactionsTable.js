@@ -7,6 +7,7 @@ export function TransactionsTable({ userType, payments }){
     <Table striped bordered hover>
       <thead>
         <tr>
+          <th> Invoice #</th>
           <th>Amount (COP)</th>
           <th>Service</th>
           <th>{ userType === 'artist' ? 'Client' : 'Artist' } </th>
@@ -22,6 +23,7 @@ export function TransactionsTable({ userType, payments }){
                          amount, 
                          service, 
                          consumer, 
+                         invoiceNumber,
                          createdAt }) => {
            return(
              <TransactionArtist
@@ -30,6 +32,7 @@ export function TransactionsTable({ userType, payments }){
                amount={amount}
                service={service}
                consumer={consumer}
+               invoiceNumber={invoiceNumber}
                date={createdAt} 
              />
            )
@@ -41,6 +44,7 @@ export function TransactionsTable({ userType, payments }){
                          amount, 
                          service, 
                          provider, 
+                         invoiceNumber,
                          createdAt }) => {
            return(
              <TransactionClient
@@ -49,6 +53,7 @@ export function TransactionsTable({ userType, payments }){
                amount={amount}
                service={service}
                provider={provider}
+               invoiceNumber={invoiceNumber}
                date={createdAt} 
              />
            )

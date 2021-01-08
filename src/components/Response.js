@@ -8,7 +8,6 @@ import { createPayment } from '../store/actions/payment';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
-import Spinner from 'react-bootstrap/Spinner';
 import { Loader } from './Loader';
 
 
@@ -44,10 +43,11 @@ export function Response() {
   const artistId = payResponse['x_extra3'];
   const service = payResponse['x_description'];
   const amount = payResponse['x_amount'];
+  const invoiceNumber = payResponse['x_ref_payco'];
 
   useEffect(()=>{
       if(!payLoading){
-        dispatch(createPayment( artistId, amount, service )) 
+        dispatch(createPayment( artistId, amount, service, invoiceNumber )) 
       } 
   }, [payLoading])
 
@@ -65,6 +65,7 @@ export function Response() {
           <ListGroup.Item>{clientName}, you have purchased a: { service } </ListGroup.Item>
           <ListGroup.Item>For the amount of: ${ amount } COP </ListGroup.Item>
           <ListGroup.Item>To be completed by: { artistName } </ListGroup.Item>
+          <ListGroup.Item>Your transaction invoice number is: { invoiceNumber } </ListGroup.Item>
         </ListGroup>
     </Jumbotron>
   </div>
