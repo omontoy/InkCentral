@@ -47,6 +47,13 @@ export function UserProfileDropDownMenu({ user, handleLogOut }){
           <Nav.Link><i className="fas fa-sign-out-alt"></i>   Log Out</Nav.Link>
         </LinkContainer>
       </Dropdown.Item>
+
+      <Dropdown.Divider />
+      <Dropdown.Item eventKey="5">
+        <Nav.Link style={{ color: "red" }}>
+          <i className="fas fa-user-minus"></i>   Delete Profile
+        </Nav.Link>
+      </Dropdown.Item>
     </DropdownButton>           
   )
 }
