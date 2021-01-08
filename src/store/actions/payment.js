@@ -4,7 +4,7 @@ export const PAYMENT_LOADING = "PAYMENT_LOADING"
 export const PAYMENT_CREATED = "PAYMENT_CREATED"
 export const PAYMENT_FAILURE = 'PAYMENT_FAILURE'
 
-export function createPayment(artistId, amount, service ){
+export function createPayment(artistId, amount, service, invoiceNumber ){
   return async function(dispatch){
     dispatch({ type: PAYMENT_LOADING })
     try {
@@ -14,7 +14,8 @@ export function createPayment(artistId, amount, service ){
         url: `/payments/${artistId}`,
         data:  {
           amount,
-          service
+          service,
+          invoiceNumber
         },
         headers: {
           Authorization: `Bearer ${token}`

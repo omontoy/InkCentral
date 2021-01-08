@@ -1,10 +1,11 @@
 import { dateOfAction } from '../utils/dates'
 
 
-export function TransactionArtist({ amount, service, consumer, date }) {
+export function TransactionArtist({ amount, service, consumer, invoiceNumber, date }) {
   const transactionDate = dateOfAction(date)
   return(
     <tr>
+      <td>{ invoiceNumber }</td>
       <td>${ amount } </td>
       <td>{ service }</td>
       <td> { consumer.name }</td> 
@@ -20,11 +21,12 @@ export function TransactionArtist({ amount, service, consumer, date }) {
   )
 }
 
-export function TransactionClient({ amount, service, provider, date }) {
+export function TransactionClient({ amount, service, provider, invoiceNumber, date }) {
   const transactionDate = dateOfAction(date)
   return(
     <tr>
-      <td>${ amount } </td>
+      <td>{ invoiceNumber }</td>
+      <td>${ amount }</td>
       <td>{ service }</td>
       <td> { provider.name }</td>
       <td> { provider.email }</td>
