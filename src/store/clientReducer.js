@@ -117,7 +117,7 @@ export function logoutClient() {
 
 const initialState = {
   client: {},
-  loading: false,
+  loadingClient: false,
   error_client: null,
   isUpdate: false
 }
@@ -127,12 +127,13 @@ function clientReducer(state = initialState, action) {
     case CLIENT_LOADING:
       return {
         ...state,
-        loading: true
+        loadingClient: true
       }
     case CLIENT_SUCCESS:
       return {
         ...state,
-        client: action.payload
+        client: action.payload,
+        loadingClient: false
       }
     case CLIENT_FAILURE:
       return {
@@ -142,12 +143,13 @@ function clientReducer(state = initialState, action) {
     case CLIENT_LOGGED_LOADING:
       return {
         ...state,
-        loading: true
+        loadingClient: true
       }
     case CLIENT_LOGGED_SUCCESS:
       return {
         ...state,
-        client: action.payload
+        client: action.payload,
+        loadingClient: false
       }
     case CLIENT_LOGGED_FAILED:
       return {
@@ -157,7 +159,7 @@ function clientReducer(state = initialState, action) {
     case CLIENT_UPDATE_LOADING:
       return {
         ...state,
-        loading: true
+        loadingClient: true
       }
     case CLIENT_UPDATE_SUCCESS:
       return {

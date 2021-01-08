@@ -38,12 +38,19 @@ export function ArtistForm() {
   }
   const handleUpdate = async e =>{
     e.preventDefault()
-    const { name, nickname, phone, location, image } = artist
+    
+    const { name, nickname, phone, location, instagram, 
+            facebook, twitter, whatsapp, image } = artist
+    
     const data = new FormData()
     data.append('name', name);
     data.append('nickname', nickname);
     data.append('phone', phone);
     data.append('location', location);
+    data.append('instagram', instagram);
+    data.append('facebook', facebook);
+    data.append('twitter', twitter);
+    data.append('whatsapp', whatsapp);
     data.append('image', image);
     dispatch(updateArtist( data ))
   }
@@ -68,7 +75,8 @@ export function ArtistForm() {
     }
   }, [error_artist])
 
-  const { name, email, nickname, phone, location } = artist
+  const { name, email, nickname, phone, instagram, 
+          facebook, twitter, whatsapp, location } = artist
 
   if (isUpdating) return (
     <Container>
@@ -84,7 +92,7 @@ export function ArtistForm() {
           <Row className="justify-content-md-center">
             <Col md="4">
               <Form  className="updateForm" onSubmit={handleUpdate} >
-                <h2>Update Form</h2>
+                <h2>Update Artist Form</h2>
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label>Full Name</Form.Label>
                   <Form.Control
@@ -140,46 +148,115 @@ export function ArtistForm() {
                     value={location}
                   />
                 </Form.Group>
-                <>
-                  <Button variant="primary" className="form-control" style={{ marginTop: '5px' }} onClick={handleShow}>
-                    Add Images
-                  </Button>
-                  <Modal show={show} onHide={handleClose} animation={false}>
-                    <Modal.Header closeButton>
-                      <Modal.Title>Add Images</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      Please choose your image to upload:
-                      <br></br>
-                      <label htmlFor="file">Image(s): </label>
-                      <input 
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        name="file"
-                        id="file"
-                        onChange={handleImageChange}
-                      />
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="secondary" onClick={handleClose}>
-                        Close
-                      </Button>
-                      
-                      
-                      
-                    </Modal.Footer>
-                  </Modal>
-                </>
-                <Button
-                  variant="warning"
-                  type="submit"
-                  className="form-control"
-                  style={{ marginTop: '5px' }}
-                >Update
-                </Button>
+
+                
               </Form>
             </Col>
+
+            <Col md="4">
+              <Form  
+                className="updateForm" 
+                onSubmit={handleUpdate} >
+                <h2>Social Media</h2>
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label>Instagram</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Instagram user"
+                    name="instagram"
+                    onChange={handleChange}
+                    value={instagram}
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label>Facebook</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Facebook user"
+                    name="facebook"
+                    onChange={handleChange}
+                    value={facebook}
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label>Twitter</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Twitter user"
+                    name="twitter"
+                    onChange={handleChange}
+                    value={twitter}
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label>Whatsapp</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Whatsapp"
+                    name="whatsapp"
+                    onChange={handleChange}
+                    value={whatsapp}
+                  />
+                </Form.Group>
+              </Form>
+
+              <Col md="12">
+                <Form  
+                   
+                  onSubmit={handleUpdate} >
+                    <div>
+                      <Button 
+                        variant="primary" 
+                        className="form-control" 
+                        style={{ marginTop: '5px' }} onClick={handleShow}>
+                        Add Images
+                      </Button>
+                      <Modal 
+                        show={show} 
+                        onHide={handleClose} 
+                        animation={false}>
+                        <Modal.Header closeButton>
+                          <Modal.Title>Add Images</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                          Please choose your image to upload:
+                          <br></br>
+                          <label htmlFor="file">Image(s): </label>
+                          <input 
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            name="file"
+                            id="file"
+                            onChange={handleImageChange}
+                          />
+                        </Modal.Body>
+                        <Modal.Footer>
+                          <Button 
+                            variant="secondary" 
+                            onClick={handleClose}>
+                            Close
+                          </Button>
+                        </Modal.Footer>
+                      </Modal>
+                    </div>
+                    <Button
+                      variant="warning"
+                      type="submit"
+                      className="form-control"
+                      style={{ marginTop: '5px' }}
+                    >Update
+                    </Button>
+                </Form>
+              </Col>
+
+            </Col>
+
+            
+
           </Row>
         </Container>
       </div>

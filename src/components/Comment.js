@@ -1,4 +1,4 @@
-import { dateOfComment } from '../utils/dates'
+import { dateOfAction } from '../utils/dates'
 import { format } from 'timeago.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from "react-router-dom";
@@ -11,7 +11,7 @@ import { UpdateCommentForm } from './UpdateCommentForm'
 
 export function Comment({ id, note, from, date }) {
 
-  const dateComment = dateOfComment(date)
+  const dateComment = dateOfAction(date)
 
   const dispatch = useDispatch()
 
@@ -95,3 +95,5 @@ export function Comment({ id, note, from, date }) {
     </>
   )
 }
+
+
