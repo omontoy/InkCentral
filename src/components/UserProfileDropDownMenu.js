@@ -69,24 +69,32 @@ export function UserProfileDropDownMenu({ user, handleLogOut }) {
       variant="dark"
     >
       <Dropdown.Item eventKey="1" >
-        <LinkContainer to={`/${user}-form`} style={{ color: "black" }} >
-          <Nav.Link><i className="fas fa-user-edit"></i>   Edit Profile</Nav.Link>
+        <LinkContainer to={`/${user}-form`} style={{ color: "black" }}>
+          <Nav.Link>
+            <i className="fas fa-user-edit"></i>   Edit Profile
+          </Nav.Link>
         </LinkContainer>
       </Dropdown.Item>
       <Dropdown.Item eventKey="2">
-        <LinkContainer to="/transactions" style={{ color: "black" }}  >
-          <Nav.Link onClick={handleClick}><i className="fas fa-columns"></i>   Transactions</Nav.Link>
+        <LinkContainer to="/transactions" style={{ color: "black" }}>
+          <Nav.Link onClick={handleClick}>
+            <i className="fas fa-columns"></i>   Transactions
+          </Nav.Link>
         </LinkContainer>
       </Dropdown.Item>
       <Dropdown.Item eventKey="3">
-        <LinkContainer to="/customize-profile" style={{ color: "black" }}  >
-          <Nav.Link><i className="fas fa-magic"></i>  Customize Profile</Nav.Link>
+        <LinkContainer to="/customize-profile" style={{ color: "black" }}>
+          <Nav.Link>
+            <i className="fas fa-magic"></i>  Customize Profile
+          </Nav.Link>
         </LinkContainer>
       </Dropdown.Item>
       <Dropdown.Divider />
-      <Dropdown.Item eventKey="4"  >
-        <LinkContainer to="/login" onClick={handleLogOut} style={{ color: "black" }}  >
-          <Nav.Link><i className="fas fa-sign-out-alt"></i>   Log Out</Nav.Link>
+      <Dropdown.Item eventKey="4">
+        <LinkContainer to="/login" onClick={handleLogOut} style={{ color: "black" }}>
+          <Nav.Link>
+            <i className="fas fa-sign-out-alt"></i>   Log Out
+          </Nav.Link>
         </LinkContainer>
       </Dropdown.Item>
 
