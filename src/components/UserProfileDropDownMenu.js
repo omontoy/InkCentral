@@ -11,6 +11,7 @@ import { resetUserType } from '../store/registerReducer';
 import { logoutArtist, getLoggedArtist } from '../store/artistReducer';
 import { logoutClient, getLoggedClient } from '../store/clientReducer';
 import { deleteArtist } from '../store/actions/artist'
+import { deleteClient } from '../store/actions/client'
 
 export function UserProfileDropDownMenu({ user, handleLogOut }) {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ export function UserProfileDropDownMenu({ user, handleLogOut }) {
 
   const history = useHistory()
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
 
     const token = sessionStorage.getItem('token')
     const decoded = jwt_decode(token);
@@ -37,21 +38,27 @@ export function UserProfileDropDownMenu({ user, handleLogOut }) {
       buttons: true,
       dangerMode: true,
     })
-      .then(async (willDelete) => {
-        if (willDelete && user === 'client') {
-          console.log(decoded.id)
-        } else if (willDelete && user === 'artist') {
-          await dispatch(deleteArtist(decoded.id))
+      .then((willDelete) => {
+        if (willDelete && user === 'artist') {        
+          dispatch(deleteArtist(decoded.id))
           sessionStorage.clear();
-          await dispatch(cleanLogin())
-          await dispatch(resetUserType())
-          await dispatch(logoutArtist())
-          await dispatch(logoutClient())
+          dispatch(cleanLogin())
+          dispatch(resetUserType())
+          dispatch(logoutArtist())
+          dispatch(logoutClient())
+          history.push('/register')
+        } else if (willDelete && user === 'client') {          
+          dispatch(deleteClient(decoded.id))
+          sessionStorage.clear();
+          dispatch(cleanLogin())
+          dispatch(resetUserType())
+          dispatch(logoutArtist())
+          dispatch(logoutClient())
           history.push('/register')
         } else {
           swal("Your profile are safe here")
-        }        
-      })    
+        }
+      })
   }
 
   return (
