@@ -1,4 +1,9 @@
 import { inkCentralServer } from '../utils/apiaxios'
+import {
+  CLIENT_DELLOAD,
+  CLIENT_DELISOK,
+  CLIENT_DELFAIL,
+} from './actions/client'
 
 const CLIENT_LOADING = 'CLIENT_LOADING'
 const CLIENT_SUCCESS = 'CLIENT_SUCCESS'
@@ -17,8 +22,8 @@ const CLEAN_ERROR = 'CLEAN_ERROR'
 const CLEAN_ISUPDATE = 'CLEAN_ISUPDATE'
 const LOGOUT_CLIENT = 'LOGOUT_CLIENT'
 
-export function getClient(clientId){
-  return async function(dispatch) {
+export function getClient(clientId) {
+  return async function (dispatch) {
     dispatch({ type: CLIENT_LOADING })
     try {
       const token = sessionStorage.getItem('token')
@@ -32,8 +37,8 @@ export function getClient(clientId){
       const { data } = response.data;
       dispatch({ type: CLIENT_SUCCESS, payload: data })
     }
-    catch(error){
-      if(error.response.status === 401) {
+    catch (error) {
+      if (error.response.status === 401) {
         sessionStorage.removeItem('token')
       }
       dispatch({ type: CLIENT_FAILURE, payload: error })
@@ -41,8 +46,8 @@ export function getClient(clientId){
   }
 }
 
-export function getLoggedClient(){
-  return async function(dispatch){
+export function getLoggedClient() {
+  return async function (dispatch) {
     dispatch({ type: CLIENT_LOGGED_LOADING })
     try {
       const token = sessionStorage.getItem('token')
@@ -56,8 +61,8 @@ export function getLoggedClient(){
       const { data } = response.data
       dispatch({ type: CLIENT_LOGGED_SUCCESS, payload: data })
     }
-    catch(error){
-      if(error.response.status === 401) {
+    catch (error) {
+      if (error.response.status === 401) {
         sessionStorage.removeItem('token')
       }
       dispatch({ type: CLIENT_LOGGED_FAILED, payload: error })
@@ -66,7 +71,7 @@ export function getLoggedClient(){
 }
 
 export function updateClient(name) {
-  return async function(dispatch) {
+  return async function (dispatch) {
     try {
       dispatch({ type: CLIENT_UPDATE_LOADING })
       const token = sessionStorage.getItem('token')
@@ -81,15 +86,15 @@ export function updateClient(name) {
       const { message } = response.data
       dispatch({ type: CLIENT_UPDATE_SUCCESS, payload: message })
     }
-    catch(error){
+    catch (error) {
       dispatch({ type: CLIENT_UPDATE_FAILED, payload: error })
     }
   }
 }
 
 export function changeInput(target, client) {
-  return function(dispatch) {
-    let data = Object.assign({}, client, { [target.name]: target.value } )
+  return function (dispatch) {
+    let data = Object.assign({}, client, { [target.name]: target.value })
     dispatch({
       type: CHANGE_INPUT,
       payload: data
@@ -97,20 +102,20 @@ export function changeInput(target, client) {
   }
 }
 
-export function cleanuperror(){
-  return async function(dispatch) {
-    dispatch({ type: CLEAN_ERROR  })
+export function cleanuperror() {
+  return async function (dispatch) {
+    dispatch({ type: CLEAN_ERROR })
   }
 }
 
-export function cleanIsUpdate(){
-  return async function(dispatch) {
+export function cleanIsUpdate() {
+  return async function (dispatch) {
     dispatch({ type: CLEAN_ISUPDATE })
   }
 }
 
 export function logoutClient() {
-  return async function(dispatch) {
+  return async function (dispatch) {
     dispatch({ type: LOGOUT_CLIENT })
   }
 }
@@ -123,7 +128,7 @@ const initialState = {
 }
 
 function clientReducer(state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case CLIENT_LOADING:
       return {
         ...state,
@@ -188,6 +193,21 @@ function clientReducer(state = initialState, action) {
       }
     case LOGOUT_CLIENT:
       return initialState
+    case CLIENT_DELLOAD:
+      return {
+        ...state,
+        loadingClient: true,
+      }
+    case CLIENT_DELISOK:
+      return {
+        ...state,
+        loadingClient: false
+      }
+    case CLIENT_DELFAIL:
+      return {
+        ...state,
+        error_client: action.payload
+      }
     default:
       return state
   }
