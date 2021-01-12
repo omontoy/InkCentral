@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
   getLoggedArtist,
+  getArtist,
   updateArtist,
   changeInput,
   changeImageInput,
@@ -25,22 +26,22 @@ export function ArtistForm() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const { artist, isUpdate, error_artist, isUpdating } = useSelector(
-    ({ artistReducer: { artist, isUpdate, error_artist, isUpdating } }) => {
-      return { artist, isUpdate, error_artist, isUpdating }
+  const { loggedArtist, isUpdate, error_artist, isUpdating } = useSelector(
+    ({ artistReducer: { loggedArtist, isUpdate, error_artist, isUpdating } }) => {
+      return { loggedArtist, isUpdate, error_artist, isUpdating }
     }
   )
   const handleImageChange = e => {
-    dispatch(changeImageInput( e.target.files, artist ))
+    dispatch(changeImageInput( e.target.files, loggedArtist ))
   }
   const handleChange = e => {
-    dispatch(changeInput(e.target, artist))
+    dispatch(changeInput(e.target, loggedArtist))
   }
   const handleUpdate = async e =>{
     e.preventDefault()
     
     const { name, nickname, phone, location, instagram, 
-            facebook, twitter, whatsapp, image } = artist
+            facebook, twitter, whatsapp, image } = loggedArtist
     
     const data = new FormData()
     data.append('name', name);
@@ -57,9 +58,17 @@ export function ArtistForm() {
 
   useEffect(() => {
       if(isUpdate){
-        swal("Your data has been updated",`${artist.name}`,"success")
-        dispatch(cleanIsUpdate())
-        history.push('/')
+        swal({
+          title: "Your data has been updated",
+          text:`${loggedArtist.name}`,
+          icon:"success",
+          buttons: true
+        })
+        .then(()=>{
+          dispatch(cleanIsUpdate())
+          dispatch(getArtist(loggedArtist._id))
+          history.push(`/artists/${loggedArtist._id}`)
+        })
       }
       else {
         dispatch(getLoggedArtist())
@@ -76,7 +85,7 @@ export function ArtistForm() {
   }, [error_artist])
 
   const { name, email, nickname, phone, instagram, 
-          facebook, twitter, whatsapp, location } = artist
+          facebook, twitter, whatsapp, location } = loggedArtist
 
   if (isUpdating) return (
     <Container>
