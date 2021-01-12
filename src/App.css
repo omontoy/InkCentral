@@ -21,6 +21,10 @@
   border-radius: 20px;
   padding: 25px;
 }
+.updateButton {
+  display: flex; 
+  justify-content: center;
+}
 
 .userTypeRadio {
   display: flex;
@@ -58,6 +62,7 @@
 
 .jumbo {
   background-image: url('./images/cartographer.png');
+  height: 100px;
 }
 
 .artistProfileContainer {
@@ -66,10 +71,6 @@
   justify-content: center;
   margin: 56px 115px 115px;
   width: 85%;
-}
-
-.jumbo {
-  background-image: url('./images/cartographer.png');
 }
 
 .loader{

@@ -51,7 +51,7 @@ export function ArtistProfile() {
   )
 
     const { nickname, image, name, phone, location, email,
-            whatsapp, instagram, twitter, facebook } = artist
+            whatsapp, instagram, twitter, facebook, quote } = artist
   return (
     <div className='artistProfileContainer'>
       <Jumbotron className="jumbo" fluid >
@@ -65,7 +65,7 @@ export function ArtistProfile() {
         </Card>
         <Card className="p-3">
           <blockquote className="blockquote mb-0 card-body">
-            <p><em>The human body is the ultimate canvas...</em></p>
+            <p><em>{ quote }</em></p>
             <footer className="blockquote-footer">
               <small className="text-muted">
                 {name}

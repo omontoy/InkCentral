@@ -93,7 +93,7 @@ export function ArtistForm() {
       <Loader />
     </Container>
   )
-
+  console.dir(artist)
   return(
     <div >
       <div className="main">
