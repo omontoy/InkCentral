@@ -1,6 +1,3 @@
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';

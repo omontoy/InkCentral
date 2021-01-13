@@ -1,13 +1,12 @@
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { 
   getLoggedArtist,
+  getArtist,
   updateArtist,
   changeInput,
   changeImageInput,
@@ -15,14 +14,8 @@ import {
   cleanuperror 
 } from '../store/artistReducer';
 import swal from 'sweetalert';
-import Modal from 'react-bootstrap/Modal';
 import { Loader } from '../components/Loader';
-import { Jumbotron } from 'react-bootstrap';
-import Card from 'react-bootstrap/Card';
 import CardColumns from 'react-bootstrap/CardColumns';
-import ListGroup from 'react-bootstrap/ListGroup';
-import ReactWhatsapp from 'react-whatsapp';
-
 import { NicknameInput } from '../components/NicknameInput';
 import { ImageInput } from '../components/ImageInput';
 import { QuoteInput } from '../components/QuoteInput';
@@ -30,35 +23,27 @@ import { SocialMediaInput } from '../components/SocialMediaInput';
 import { ContactInformationInput } from '../components/ContactInformationInput';
 import { Cover } from '../components/Cover';
 
-
-
-
-
-
-
 export function CustomizeProfile() { 
   const history = useHistory();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const { artist, isUpdate, error_artist, isUpdating } = useSelector(
-    ({ artistReducer: { artist, isUpdate, error_artist, isUpdating } }) => {
-      return { artist, isUpdate, error_artist, isUpdating }
+  const { loggedArtist, isUpdate, error_artist, isUpdating } = useSelector(
+    ({ artistReducer: { loggedArtist, isUpdate, error_artist, isUpdating } }) => {
+      return { loggedArtist, isUpdate, error_artist, isUpdating }
     }
   )
   const handleImageChange = e => {
-    dispatch(changeImageInput(e.target.files, artist ))
+    dispatch(changeImageInput(e.target.files, loggedArtist ))
   }
   const handleChange = e => {
-    dispatch(changeInput(e.target, artist ))
+    dispatch(changeInput(e.target, loggedArtist ))
   }
   const handleUpdate = async e => {
     e.preventDefault()
-
     const { name, nickname, phone, location, instagram,
-            facebook, twitter, whatsapp, image, quote } = artist
-
+            facebook, twitter, whatsapp, image, quote } = loggedArtist
     const data = new FormData()
     data.append('name', name)
     data.append('nickname', nickname)
@@ -72,19 +57,26 @@ export function CustomizeProfile() {
     data.append('image', image)
     dispatch(updateArtist( data ))
 }
-
   useEffect(() => {
     if(isUpdate){
-      swal("Your data has been updated", `${artist.name}`,"success")
-      dispatch(cleanIsUpdate())
-      history.push('/')
+      swal({
+        title: "Your data has been updated",
+        text:`${loggedArtist.name}`,
+        icon:"success",
+        buttons: true
+      })
+      .then(()=>{
+        dispatch(cleanIsUpdate())
+        dispatch(getArtist(loggedArtist._id))
+        history.push(`/artists/${loggedArtist._id}`)
+      })
     }
     else {
       dispatch(getLoggedArtist())
     }
-  }, [isUpdate, dispatch, history] );
+}, [isUpdate, dispatch, history] );
 
-  useEffect(()=> {
+  useEffect(() => {
     if(error_artist){
       const statusError = error_artist. response.statusText
       swal("Sorry!!!",`${statusError} Please Login again`, "error")
@@ -94,7 +86,7 @@ export function CustomizeProfile() {
   },[error_artist])
 
   const { name, email, nickname, phone, instagram,
-          facebook, twitter, whatsapp, location, quote, image } = artist
+          facebook, twitter, whatsapp, location, quote, image } = loggedArtist
 
   if(isUpdating) return (
     <Container>
@@ -102,7 +94,6 @@ export function CustomizeProfile() {
       <Loader />
     </Container>
   )
-  
   return (
     <div className="artistProfileContainer">
         <Form  onSubmit={handleUpdate}>
@@ -146,7 +137,6 @@ export function CustomizeProfile() {
             >Update
             </Button>
           </Container>
-          
         </Form>
     </div>
   )

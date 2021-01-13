@@ -1,7 +1,5 @@
 import { Jumbotron } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
 
 export function Cover(){
   return(
