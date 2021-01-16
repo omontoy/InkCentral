@@ -7,6 +7,7 @@ import '../App.css';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useState } from 'react';
 import { inkCentralServer } from '../utils/apiaxios'
+import swal from 'sweetalert';
 
 
 
@@ -30,7 +31,6 @@ export function ForgotPassword(){
     e.preventDefault();
     let urlRoute = '';
     const { email, userType } = resetForm;
-    console.log(resetForm.userType);
     if(userType === "Client"){
       urlRoute = '/clients/forgotPassword'
     }
@@ -48,7 +48,11 @@ export function ForgotPassword(){
 
     }
     catch (error) {
-      console.log(error);
+      const { data } = error.response
+      swal("Sorry!!",
+           `${data.message} Try again`,
+           "error"
+           )
     }
   }
 
