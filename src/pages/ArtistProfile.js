@@ -61,7 +61,7 @@ export function ArtistProfile() {
       </Jumbotron>
       <CardColumns>
         <Card className="bg-dark text-white">
-          <Card.Img src={image} className="artistProfileImage" alt="main tattoo" />
+          <Card.Img src={image[0]} className="artistProfileImage" alt="main tattoo" />
         </Card>
         <Card className="p-3">
           <blockquote className="blockquote mb-0 card-body">
