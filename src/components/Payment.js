@@ -13,7 +13,7 @@ const handler = window.ePayco.checkout.configure({
   test: true,
 });
 
-export function Payment({ artist }) {
+export function Payment({ artist, service, amount, schedule }) {
   const invoice_number = uuid_v4();
   const dispatch = useDispatch();
   const { client } = useSelector(
@@ -39,9 +39,9 @@ export function Payment({ artist }) {
       external: 'false',
       autoclick: false,
 
-      amount: '100000',
-      name: 'Tatuaje',
-      description: 'Small tattoo design ',
+      amount: amount,
+      name: 'Tattoo',
+      description: service,
       currency: 'cop',
 
       country: 'CO',
@@ -51,8 +51,9 @@ export function Payment({ artist }) {
 
       invoice: invoice_number,
       extra1: artist.name,
-      extra2: client.name,
+      extra2: client.name || client.email,
       extra3: artist._id,
+      extra4: schedule,
 
       response: `${process.env.REACT_APP_BASE_URL}/response`,
 
@@ -69,10 +70,8 @@ export function Payment({ artist }) {
       <Row className="justify-content-sm-center">
         <Col sm="4">
           <button
-            variant="warning"
-            className="form-control"
+            className="form-control btn btn-success"
             type="button"
-            variant="primary"
             onClick={handleClick}
           >
             Pay

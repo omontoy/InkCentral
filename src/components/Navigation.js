@@ -7,14 +7,13 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { cleanLogin } from '../store/loginReducer';
 import { resetUserType } from '../store/registerReducer';
-import { logoutArtist } from '../store/artistReducer';
+import { logoutArtist, searchInputBar } from '../store/artistReducer';
 import { logoutClient } from '../store/clientReducer';
 import { UserProfileDropDownMenu } from '../components/UserProfileDropDownMenu';
 
 
-
-
 export function Navigation() {
+
   const dispatch = useDispatch()
   const token = sessionStorage.getItem('token');
 
@@ -35,7 +34,12 @@ export function Navigation() {
     dispatch( logoutArtist() )
     dispatch( logoutClient() )
   }
-  
+
+  const handleSearchChange = (e) => {
+    const { value } = e.target
+    dispatch(searchInputBar(value))
+  }
+
   let user = userType || userTypeR
 
   return(
@@ -44,33 +48,41 @@ export function Navigation() {
         <Navbar.Brand>InkCentral</Navbar.Brand>
       </LinkContainer>
       <Navbar.Toggle />
-      <Navbar.Collapse> 
-        
+
+      <Navbar.Collapse>
         <Nav className="mr-auto">
           { token ? (
             <>
-              < UserProfileDropDownMenu 
-                user= { user }
-                handleLogOut = { handleLogOut } 
+              < UserProfileDropDownMenu
+                user = { user }
+                handleLogOut = { handleLogOut }
                 className="dropdown"
               />
             </> ) :
             (
               <>
                 <LinkContainer to="/login" >
-                  <Nav.Link><i className="fas fa-sign-in-alt"></i>   Login</Nav.Link>
+                  <Nav.Link>
+                    <i className="fas fa-sign-in-alt"></i> Login
+                  </Nav.Link>
                 </LinkContainer>
 
                 <LinkContainer to="/register">
-                  <Nav.Link><i className="fas fa-user-plus"></i>   Register</Nav.Link>
+                  <Nav.Link>
+                    <i className="fas fa-user-plus"></i> Register
+                  </Nav.Link>
                 </LinkContainer>
               </>
             )
           }
-        </Nav>   
-          <Form inline className="searchform">  
-            <FormControl type="text" placeholder="Search tattoos"  className="mr-sm-2" /> 
-            <Button variant="outline-light" className="searchButton"><i className="fas fa-search"></i></Button>        
+        </Nav>
+          <Form inline className="searchform">
+            <FormControl
+              type="text"
+              placeholder="Search by location"
+              className="mr-sm-2"
+              onChange={handleSearchChange}
+            />
           </Form>
       </Navbar.Collapse>
     </Navbar>

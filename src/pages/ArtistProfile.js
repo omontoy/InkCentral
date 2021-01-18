@@ -10,10 +10,9 @@ import Container from 'react-bootstrap/Container';
 import swal from 'sweetalert';
 import { Comments } from '../components/Comments'
 import { CommentForm } from '../components/CommentForm'
-import { Payment } from '../components/Payment'
 import { Loader } from '../components/Loader'
 import ReactWhatsapp from 'react-whatsapp';
-
+import { Appointment } from '../components/Appointment'
 
 export function ArtistProfile() {
   const dispatch = useDispatch()
@@ -75,7 +74,7 @@ export function ArtistProfile() {
         </Card>
 
         <Card className="p-6 cardTitle" >
-          <div class="card-body">
+          <div className="card-body">
             <Card.Body>
               <Card.Title>{name}</Card.Title>
               <Card.Text className="network-title">
@@ -143,10 +142,14 @@ export function ArtistProfile() {
       </CardColumns>     
       
       { user === "client" ? (
-        <>
-          <Payment artist={ artist } />
-          <CommentForm />
-        </>
+        <div className="card">
+          <div className="card-body">
+            <Appointment />                    
+          </div>
+          <div className="card-body">
+            <CommentForm />
+          </div>
+        </div>
         ) : (<></>)
       }
       

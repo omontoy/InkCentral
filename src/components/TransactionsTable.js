@@ -10,9 +10,10 @@ export function TransactionsTable({ userType, payments }){
           <th> Invoice #</th>
           <th>Amount (COP)</th>
           <th>Service</th>
+          <th>Schedule</th>
           <th>{ userType === 'artist' ? 'Client' : 'Artist' } </th>
           <th>Email</th>
-          <th>Date</th>
+          <th>Paid on</th>
         </tr>
       </thead>
       <tbody>
@@ -21,7 +22,8 @@ export function TransactionsTable({ userType, payments }){
           payments.length > 0 && 
           payments.map(({_id, 
                          amount, 
-                         service, 
+                         service,
+                         schedule,
                          consumer, 
                          invoiceNumber,
                          createdAt }) => {
@@ -31,9 +33,10 @@ export function TransactionsTable({ userType, payments }){
                id={_id}
                amount={amount}
                service={service}
+               schedule={schedule}
                consumer={consumer}
                invoiceNumber={invoiceNumber}
-               date={createdAt} 
+               date={createdAt}               
              />
            )
           })
@@ -42,7 +45,8 @@ export function TransactionsTable({ userType, payments }){
           payments.length > 0 && 
           payments.map(({_id, 
                          amount, 
-                         service, 
+                         service,
+                         schedule,
                          provider, 
                          invoiceNumber,
                          createdAt }) => {
@@ -52,9 +56,10 @@ export function TransactionsTable({ userType, payments }){
                id={_id}
                amount={amount}
                service={service}
+               schedule={schedule}
                provider={provider}
                invoiceNumber={invoiceNumber}
-               date={createdAt} 
+               date={createdAt}
              />
            )
           })

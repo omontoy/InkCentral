@@ -20,19 +20,25 @@ const ARTIST_LOGGED_FAILED = 'ARTIST_LOGGED_FAILED'
 const ARTIST_UPDATE_LOADING = 'ARTIST_UPDATE_LOADING'
 const ARTIST_UPDATE_SUCCESS = 'ARTIST_UPDATE_SUCCESS'
 const ARTIST_UPDATE_FAILED = 'ARTIST_UPDATE_FAILED'
+
 const CHANGE_INPUT = 'CHANGE_INPUT'
 const CHANGE_IMAGE_INPUT = 'CHANGE_IMAGE_INPUT'
+
 const CLEAN_ERROR = 'CLEAN_ERROR'
 const CLEAN_ISUPDATE = 'CLEAN_ISUPDATE'
 const LOGOUT_ARTIST = 'LOGOUT_ARTIST'
 
-export function getArtists() {
+const SEARCH_VALUE = 'SEARCH_VALUE'
+
+export function getArtists(searchValue) {
+  const path = searchValue !== '' ? `?inputSearch=${searchValue}` : ''
+
   return async function(dispatch) {
     dispatch({ type: ARTISTS_LOADING })
     try {
       const response = await inkCentralServer({
         method: 'GET',
-        url: '/artists'
+        url: `/artists${path}`
       })
       const { data } = response.data
       dispatch({ type: ARTISTS_SUCCESS, payload: data })
@@ -66,6 +72,7 @@ export function getArtist(artistId){
     }
   }
 }
+
 export function getLoggedArtist(){
   return async function(dispatch){
     dispatch({ type: ARTIST_LOGGED_LOADING })
@@ -89,6 +96,7 @@ export function getLoggedArtist(){
     }
   }
 }
+
 export function updateArtist( data ){
   return async function(dispatch) {
     try {
@@ -111,6 +119,7 @@ export function updateArtist( data ){
     }
   }
 }
+
 export function changeImageInput(target, loggedArtist){
   return function (dispatch){
     let data = Object.assign( {}, loggedArtist, { 'image': target } )
@@ -120,6 +129,7 @@ export function changeImageInput(target, loggedArtist){
     })
   }
 }
+
 export function changeInput(target, loggedArtist){
   return function (dispatch){
     let data = Object.assign( {}, loggedArtist, { [target.name]: target.value })
@@ -129,11 +139,13 @@ export function changeInput(target, loggedArtist){
     })
   }
 }
+
 export function cleanuperror(){
   return async function(dispatch) {
     dispatch({ type: CLEAN_ERROR  })
   }
 }
+
 export function cleanIsUpdate(){
   return async function(dispatch) {
     dispatch({ type: CLEAN_ISUPDATE })
@@ -143,6 +155,12 @@ export function cleanIsUpdate(){
 export function logoutArtist() {
   return async function(dispatch) {
     dispatch({ type: LOGOUT_ARTIST })
+  }
+}
+
+export function searchInputBar(value) {
+  return async function(dispatch) {
+    dispatch({ type: SEARCH_VALUE, payload: value})
   }
 }
 
@@ -157,6 +175,7 @@ const initialState = {
   isUpdate: false,
   isUpdating: false,
   delMessage: null,
+  searchValue: ''
 }
 
 function artistReducer(state = initialState, action) {
@@ -265,6 +284,11 @@ function artistReducer(state = initialState, action) {
       return {
         ...state,
         error_artist: action.payload
+      }
+    case SEARCH_VALUE:
+      return {
+        ...state,
+        searchValue: action.payload
       }
     default:
       return state
