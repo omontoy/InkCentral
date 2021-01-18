@@ -13,6 +13,9 @@ import { CommentForm } from '../components/CommentForm'
 import { Loader } from '../components/Loader'
 import ReactWhatsapp from 'react-whatsapp';
 import { Appointment } from '../components/Appointment'
+import { ImageSlider } from '../components/ImageSlider'
+
+
 
 export function ArtistProfile() {
   const dispatch = useDispatch()
@@ -32,8 +35,8 @@ export function ArtistProfile() {
       return { userTypeR }
     })
 
-  let user = userType || userTypeR
-
+  let user = userType || userTypeR   
+  
   useEffect(() => {
     if (error_artist) {
       swal("Sorry!!", `${error_artist.response.statusText} Please Login again`, "error")
@@ -41,7 +44,6 @@ export function ArtistProfile() {
       history.push('/login');
     }
   }, [error_artist])
-
   if(loading) return (
     <Container>
       <h1 className="main">Artist data is loading...</h1>
@@ -51,6 +53,7 @@ export function ArtistProfile() {
 
     const { nickname, image, name, phone, location, email,
             whatsapp, instagram, twitter, facebook, quote } = artist
+    console.log(artist)
   return (
     <div className='artistProfileContainer'>
       <Jumbotron className="jumbo" fluid >
@@ -60,7 +63,9 @@ export function ArtistProfile() {
       </Jumbotron>
       <CardColumns>
         <Card className="bg-dark text-white">
-          <Card.Img src={image[0]} className="artistProfileImage" alt="main tattoo" />
+          <ImageSlider
+            images = { image }
+          />
         </Card>
         <Card className="p-3">
           <blockquote className="blockquote mb-0 card-body">
