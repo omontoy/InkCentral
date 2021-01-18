@@ -32,7 +32,7 @@ export function Artist ({ id, name, nickname, email, image}) {
       >
         <Card.Img 
           variant="bottom" 
-          src={image} 
+          src={image[0]} 
           className="cardImage"
           style={{ borderRadius: "25px", borderBottomLeftRadius: "0px", borderBottomRightRadius:"0px" }}
         />
