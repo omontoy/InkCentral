@@ -5,15 +5,13 @@ export function ImageSlider( {images} ){
     
   return(
     <Carousel>
-      {images.map(( image ) => {
+      {images.map(( image, index ) => {
         return(
           <Carousel.Item>
-          <Card.Img src={ image } className="artistProfileImage" alt="main tattoo" />
-
-          {/* <Carousel.Caption>
-          <h1>Ink life</h1>
-          </Carousel.Caption> */}
-
+            <Card.Img src={ image } className="artistProfileImage" alt="main tattoo" />
+            <Carousel.Caption>
+              <h3> {index+1} </h3>
+            </Carousel.Caption>
           </Carousel.Item>
         )      
       })}  
