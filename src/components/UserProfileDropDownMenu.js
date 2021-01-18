@@ -68,13 +68,16 @@ export function UserProfileDropDownMenu({ user, handleLogOut }) {
       id="dropdown-menu-align-right"
       variant="dark"
     >
-      <Dropdown.Item eventKey="1" >
-        <LinkContainer to={`/${user}-form`} style={{ color: "black" }}>
-          <Nav.Link>
-            <i className="fas fa-user-edit"></i>   Edit Profile
-          </Nav.Link>
-        </LinkContainer>
-      </Dropdown.Item>
+      {
+        user === "client" &&
+          <Dropdown.Item eventKey="1" >
+            <LinkContainer to={`/${user}-form`} style={{ color: "black" }}>
+              <Nav.Link>
+                <i className="fas fa-user-edit"></i>   Edit Profile
+              </Nav.Link>
+            </LinkContainer>
+          </Dropdown.Item>
+      }
       <Dropdown.Item eventKey="2">
         <LinkContainer to="/transactions" style={{ color: "black" }}>
           <Nav.Link onClick={handleClick}>
@@ -82,13 +85,16 @@ export function UserProfileDropDownMenu({ user, handleLogOut }) {
           </Nav.Link>
         </LinkContainer>
       </Dropdown.Item>
-      <Dropdown.Item eventKey="3">
-        <LinkContainer to="/customize-profile" style={{ color: "black" }}>
-          <Nav.Link>
-            <i className="fas fa-magic"></i>  Customize Profile
-          </Nav.Link>
-        </LinkContainer>
-      </Dropdown.Item>
+      { 
+        user === "artist" && 
+          <Dropdown.Item eventKey="3">
+            <LinkContainer to="/customize-profile" style={{ color: "black" }}>
+              <Nav.Link>
+                <i className="fas fa-magic"></i>  Customize Profile
+              </Nav.Link>
+            </LinkContainer> 
+          </Dropdown.Item> 
+      } 
       <Dropdown.Divider />
       <Dropdown.Item eventKey="4">
         <LinkContainer to="/login" onClick={handleLogOut} style={{ color: "black" }}>

@@ -7,6 +7,9 @@ import {
 import Home from './pages/Home.js'
 import { Login } from './pages/Login.js'
 import { Register } from './pages/Register.js'
+import { ForgotPassword } from './pages/ForgotPassword.js'
+import { ResetPasswordClient } from './pages/ResetPasswordClient.js'
+import { ResetPasswordArtist } from './pages/ResetPasswordArtist.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navigation } from './components/Navigation'
 import { ArtistForm }  from './pages/ArtistForm'
@@ -32,6 +35,9 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+          <Route exaxt path="/forgot-password" component={ForgotPassword}/>
+          <Route exaxt path="/clients/reset/:token" component={ResetPasswordClient}/>
+          <Route exaxt path="/artists/reset/:token" component={ResetPasswordArtist}/>
           <PrivateRoute exact path="/artist-form" component={ArtistForm} />
           <PrivateRoute exact path="/artists/:artistId" component={ArtistProfile} />
           <PrivateRoute exact path="/client-form" component={ClientForm} />

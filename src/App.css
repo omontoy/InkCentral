@@ -5,7 +5,7 @@
   margin-top: 80px;
 }
 
-.loginForm, .registerForm {
+.loginForm, .registerForm, .passwordResetForm, .passwordResetSuccess{
   background-color: darkgrey;
   border-radius: 20px;
   height: 482px;
@@ -14,6 +14,12 @@
 
 .registerForm {
   height: 530px;
+}
+.passwordResetForm {
+  height: 350px;
+}
+.passwordResetSuccess {
+  height: 230px;
 }
 
 .updateForm {

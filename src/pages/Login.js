@@ -118,8 +118,9 @@ export function Login(){
                 disabled={loading}
                 >Login
               </Button>
-
-              <Button variant="link">Forgot your password?</Button>
+              <LinkContainer to='/forgot-password'>
+                <Button variant="link">Forgot your password?</Button>
+              </LinkContainer>
               <br></br>
               <br></br>
               <hr></hr>
