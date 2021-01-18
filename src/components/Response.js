@@ -9,7 +9,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import { Loader } from './Loader';
-
+import moment from 'moment'
 
 export function Response() {
   const location = useLocation();
@@ -41,13 +41,16 @@ export function Response() {
   const artistName = payResponse['x_extra1'];
   const clientName = payResponse['x_extra2'];
   const artistId = payResponse['x_extra3'];
+  const schedule = payResponse['x_extra4'];
   const service = payResponse['x_description'];
   const amount = payResponse['x_amount'];
   const invoiceNumber = payResponse['x_ref_payco'];
 
+  const when = moment(schedule).format('ddd, MMM D, yyyy h:mma')
+
   useEffect(()=>{
       if(!payLoading){
-        dispatch(createPayment( artistId, amount, service, invoiceNumber )) 
+        dispatch(createPayment( artistId, amount, service, invoiceNumber, schedule )) 
       } 
   }, [payLoading])
 
@@ -65,6 +68,7 @@ export function Response() {
           <ListGroup.Item>{clientName}, you have purchased a: { service } </ListGroup.Item>
           <ListGroup.Item>For the amount of: ${ amount } COP </ListGroup.Item>
           <ListGroup.Item>To be completed by: { artistName } </ListGroup.Item>
+          <ListGroup.Item>On: { when } </ListGroup.Item>
           <ListGroup.Item>Your transaction invoice number is: { invoiceNumber } </ListGroup.Item>
         </ListGroup>
     </Jumbotron>
