@@ -9,12 +9,11 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { inkCentralServer } from '../utils/apiaxios'
 import swal from 'sweetalert';
-import { useSelector } from 'react-redux';
 import { Loader } from '../components/Loader';
 
 
 
-export function ResetPassword(){
+export function ResetPasswordArtist(){
   const [ isLoading, setIsLoading ] = useState(true)
   const [ email, setEmail ] = useState()
   const [ password, setPassword ] = useState()
@@ -26,49 +25,38 @@ export function ResetPassword(){
     try{
       const response = await inkCentralServer({
         method: 'GET',
-        url:`/clients/reset/${token}`
+        url:`/artists/reset/${token}`
       })
       const { data } = response.data;
-      console.dir(data)
       setEmail(data)
       setIsLoading(false)
     }
     catch(error){
-      console.dir(error);
       setError(true)
     }
   }, []);
 
   const handleChange = e => {
-    // setPassword({
-    //   ...password,
-    //   [e.target.name]: e.target.value
-    // })
     setPassword(e.target.value)
   }
 
   const updatePassword = async e => {
     e.preventDefault();
-    console.log('password', password);
-    console.log('email', email);
     try{
       const response = await inkCentralServer({
         method: 'PUT',
-        url: 'clients/updatePassword',
+        url: 'artists/updatePassword',
         data: { 
           email,
           password
         }
       })
-      console.dir(response)
       setIsUpdated(true)
     }
     catch (error) {
-      console.dir(error);
+     setError(true)
     }
   }
-
-  console.log(isLoading);
   if(error){
     return(
       <div className="main">

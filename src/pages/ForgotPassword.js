@@ -44,8 +44,6 @@ export function ForgotPassword(){
         url: urlRoute,
         data: { email }
       })
-      console.log(response.data);
-
     }
     catch (error) {
       const { data } = error.response
@@ -55,8 +53,6 @@ export function ForgotPassword(){
            )
     }
   }
-
-
 
   return(
     <div className="main">
@@ -71,7 +67,6 @@ export function ForgotPassword(){
                   type="email"
                   placeholder="Enter email"
                   name="email"
-                  // value={resetEmail}
                   required
                   onChange={handleChange}
                 />
@@ -95,7 +90,6 @@ export function ForgotPassword(){
                 className="form-control"
                 variant="primary"
                 type="submit"
-                // disabled={loading}
                 >Send Reset Email
               </Button>
               <br></br>
