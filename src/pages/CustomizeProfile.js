@@ -53,8 +53,10 @@ export function CustomizeProfile() {
     data.append('facebook', facebook)
     data.append('twitter', twitter)
     data.append('whatsapp', whatsapp)
-    data.append('quote', quote)
-    data.append('image', image)
+    data.append('quote', quote)  
+    for(let i=0; i < image.length; i++){
+      data.append('image', image[i])
+    } 
     dispatch(updateArtist( data ))
 }
   useEffect(() => {

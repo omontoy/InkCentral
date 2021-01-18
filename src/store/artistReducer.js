@@ -122,7 +122,7 @@ export function updateArtist( data ){
 
 export function changeImageInput(target, loggedArtist){
   return function (dispatch){
-    let data = Object.assign( {}, loggedArtist, { 'image': target[0] } )
+    let data = Object.assign( {}, loggedArtist, { 'image': target } )
     dispatch({
       type: CHANGE_IMAGE_INPUT,
       payload: data
