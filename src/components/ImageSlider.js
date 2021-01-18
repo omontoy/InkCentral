@@ -1,8 +1,6 @@
 import Carousel from 'react-bootstrap/Carousel';
 import Card from 'react-bootstrap/Card';
-
-export function ImageSlider( {images} ){ 
-    
+export function ImageSlider( {images} ){   
   return(
     <Carousel>
       {images.map(( image, index ) => {

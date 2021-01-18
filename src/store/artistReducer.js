@@ -63,7 +63,6 @@ export function getArtist(artistId){
       })
       const { data } = response.data;
       dispatch({ type: ARTIST_SUCCESS, payload: data })
-      console.log(response.data)
     }
     catch(error){
       if(error.response.status === 401) {

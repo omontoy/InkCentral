@@ -53,7 +53,7 @@ export function ArtistProfile() {
 
     const { nickname, image, name, phone, location, email,
             whatsapp, instagram, twitter, facebook, quote } = artist
-    console.log(artist)
+
   return (
     <div className='artistProfileContainer'>
       <Jumbotron className="jumbo" fluid >
