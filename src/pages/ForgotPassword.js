@@ -44,6 +44,7 @@ export function ForgotPassword(){
         url: urlRoute,
         data: { email }
       })
+      swal("Excellent!","Email has been sent","success")
     }
     catch (error) {
       const { data } = error.response
