@@ -27,6 +27,11 @@ export function Navigation() {
         return { userTypeR }
     })
 
+  const { searchValue } = useSelector(
+    ({ artistReducer: { searchValue }}) => {
+        return { searchValue }
+    })
+
   const handleLogOut = () => {
     sessionStorage.clear();
     dispatch( cleanLogin() )
@@ -40,12 +45,20 @@ export function Navigation() {
     dispatch(searchInputBar(value))
   }
 
+  const handleBrandClick = () => {
+    dispatch(searchInputBar(''))
+  }
+
   let user = userType || userTypeR
 
   return(
     <Navbar collapseOnSelect expand="lg" fixed="top" bg="dark" variant="dark">
       <LinkContainer to="/" className="brand">
-        <Navbar.Brand>InkCentral</Navbar.Brand>
+        <Navbar.Brand
+          onClick={handleBrandClick}
+        >
+          InkCentral
+        </Navbar.Brand>
       </LinkContainer>
       <Navbar.Toggle />
 
@@ -82,6 +95,7 @@ export function Navigation() {
               placeholder="Search by location"
               className="mr-sm-2"
               onChange={handleSearchChange}
+              value={searchValue}
             />
           </Form>
       </Navbar.Collapse>
