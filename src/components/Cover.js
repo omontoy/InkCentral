@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 
 export function Cover(){
   return(
-    <Jumbotron className="jumbo" fluid>
+    <Jumbotron data-testid="jumbotron" className="jumbo" fluid >
       <Container>
       <h1>Update your profile information </h1>
       </Container>

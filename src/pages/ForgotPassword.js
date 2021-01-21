@@ -60,9 +60,9 @@ export function ForgotPassword(){
       <Container >
         <Row className="justify-content-md-center">
           <Col md="4">
-            <Form className="passwordResetForm" onSubmit={sendEmail}>
+            <Form className="passwordResetForm" onSubmit={sendEmail} data-testid="forgotPasswordForm">
               <h1>Password Reset</h1>
-              <Form.Group controlId="formBasicEmail">
+              <Form.Group controlId="formBasicEmail" >
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
                   type="email"
@@ -70,9 +70,10 @@ export function ForgotPassword(){
                   name="email"
                   required
                   onChange={handleChange}
+                  data-testid="email"
                 />
               </Form.Group>
-              <Form.Group controlId="formBasicCheckBox" className="userTypeRadio" >
+              <Form.Group controlId="formBasicCheckBox" className="userTypeRadio"  >
                 <Form.Check
                   type="radio"
                   label="Artist"
@@ -80,6 +81,7 @@ export function ForgotPassword(){
                   value="Artist"
                   onChange={handleChange}/>
                 <Form.Check
+                  data-testid="userType"
                   type="radio"
                   label="Client"
                   name="userType"
@@ -91,6 +93,7 @@ export function ForgotPassword(){
                 className="form-control"
                 variant="primary"
                 type="submit"
+                data-testid="forgotPasswordButton"
                 >Send Reset Email
               </Button>
               <br></br>

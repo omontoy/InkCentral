@@ -12,6 +12,7 @@ export function NicknameInput( { nickname, handleChange }){
           name="nickname"
           onChange={handleChange}
           value={nickname}
+          data-testid="nickname"
         />
       </Form.Group>
     </Card>

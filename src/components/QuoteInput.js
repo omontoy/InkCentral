@@ -8,6 +8,7 @@ export function QuoteInput( { quote, handleChange }){
         <Form.Label>Share a quote with the world: </Form.Label>
         <Form.Control
           type="text"
+          data-testid="quote"
           placeholder="Share a quote with the world"
           name="quote"
           onChange={handleChange}

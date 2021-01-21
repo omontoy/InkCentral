@@ -15,7 +15,8 @@ export function SocialMediaInput(
       <div className="card-body">
         <Card.Body>
           <Card.Text >
-            <h2>My Social Networks</h2>
+            {/* <h2>My Social Networks</h2> */}
+            My Social Networks
           </Card.Text>
         </Card.Body>
         <Form.Group controlId="formBasicEmail">
@@ -26,6 +27,7 @@ export function SocialMediaInput(
               name="instagram"
               onChange={handleChange}
               value={instagram}
+              data-testid="instagram"
             />
         </Form.Group>
         <Form.Group controlId="formBasicEmail">
@@ -36,6 +38,7 @@ export function SocialMediaInput(
             name="facebook"
             onChange={handleChange}
             value={facebook}
+            data-testid="facebook"
           />
         </Form.Group>
         <Form.Group controlId="formBasicEmail">
@@ -46,6 +49,7 @@ export function SocialMediaInput(
             name="twitter"
             onChange={handleChange}
             value={twitter}
+            data-testid="twitter"
           />
         </Form.Group>
         <Form.Group controlId="formBasicEmail">
@@ -56,6 +60,7 @@ export function SocialMediaInput(
             name="whatsapp"
             onChange={handleChange}
             value={whatsapp}
+            data-testid="whatsapp"
           />
         </Form.Group>
       </div>

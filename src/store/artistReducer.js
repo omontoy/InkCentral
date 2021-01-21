@@ -5,8 +5,8 @@ import {
   ARTIST_DELFAIL,
 } from './actions/artist'
 
-const ARTISTS_LOADING = 'ARTISTS_LOADING'
-const ARTISTS_SUCCESS = 'ARTISTS_SUCCESS'
+export const ARTISTS_LOADING = 'ARTISTS_LOADING'
+export const ARTISTS_SUCCESS = 'ARTISTS_SUCCESS'
 const ARTISTS_FAILURE = 'ARTISTS_FAILURE'
 
 const ARTIST_LOADING = 'ARTIST_LOADING'
@@ -32,10 +32,11 @@ const SEARCH_VALUE = 'SEARCH_VALUE'
 
 export function getArtists(searchValue) {
   const path = searchValue !== '' ? `?inputSearch=${searchValue}` : ''
-
+  
   return async function(dispatch) {
     dispatch({ type: ARTISTS_LOADING })
     try {
+  
       const response = await inkCentralServer({
         method: 'GET',
         url: `/artists${path}`
