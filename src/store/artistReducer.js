@@ -264,7 +264,8 @@ function artistReducer(state = initialState, action) {
     case CLEAN_ISUPDATE:
       return {
         ...state,
-        isUpdate: false
+        isUpdate: false,
+        isUpdating: false
       }
     case LOGOUT_ARTIST:
       return initialState
