@@ -57,7 +57,7 @@ export function Navigation() {
         <Navbar.Brand
           onClick={handleBrandClick}
         >
-          InkCentral
+          Tatuajes
         </Navbar.Brand>
       </LinkContainer>
       <Navbar.Toggle />
