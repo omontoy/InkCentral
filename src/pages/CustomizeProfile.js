@@ -74,6 +74,7 @@ export function CustomizeProfile() {
       })
     }
     else {
+      dispatch(cleanIsUpdate())
       dispatch(getLoggedArtist())
     }
 }, [isUpdate, dispatch, history] );
