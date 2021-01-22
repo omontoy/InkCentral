@@ -22,6 +22,7 @@ import { QuoteInput } from '../components/QuoteInput';
 import { SocialMediaInput } from '../components/SocialMediaInput';
 import { ContactInformationInput } from '../components/ContactInformationInput';
 import { Cover } from '../components/Cover';
+import { EnableProfile } from '../components/EnableProfile';
 
 export function CustomizeProfile() { 
   const history = useHistory();
@@ -67,7 +68,6 @@ export function CustomizeProfile() {
         title: "Your data has been updated",
         text:`${loggedArtist.name}`,
         icon:"success",
-        buttons: true
       })
       .then(()=>{
         dispatch(cleanIsUpdate())
@@ -90,7 +90,7 @@ export function CustomizeProfile() {
     }
   },[error_artist])
 
-  const { name, email, nickname, phone, instagram,
+  const { name, email, nickname, phone, instagram, enable,
           facebook, twitter, whatsapp, location, quote, image } = loggedArtist
 
   if(isUpdating) return (
@@ -143,6 +143,11 @@ export function CustomizeProfile() {
             </Button>
           </Container>
         </Form>
+        <div className="p-3 d-flex justify-content-center">
+          <EnableProfile 
+            artist={enable}
+          />
+        </div>
     </div>
   )
 }

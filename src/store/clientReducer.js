@@ -1,9 +1,4 @@
 import { inkCentralServer } from '../utils/apiaxios'
-import {
-  CLIENT_DELLOAD,
-  CLIENT_DELISOK,
-  CLIENT_DELFAIL,
-} from './actions/client'
 
 const CLIENT_LOADING = 'CLIENT_LOADING'
 const CLIENT_SUCCESS = 'CLIENT_SUCCESS'
@@ -193,21 +188,6 @@ function clientReducer(state = initialState, action) {
       }
     case LOGOUT_CLIENT:
       return initialState
-    case CLIENT_DELLOAD:
-      return {
-        ...state,
-        loadingClient: true,
-      }
-    case CLIENT_DELISOK:
-      return {
-        ...state,
-        loadingClient: false
-      }
-    case CLIENT_DELFAIL:
-      return {
-        ...state,
-        error_client: action.payload
-      }
     default:
       return state
   }
