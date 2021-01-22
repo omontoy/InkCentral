@@ -18,7 +18,7 @@ export function Comments({ notes }) {
 
   return (
     <>
-      { notes.length ?
+      { !!notes && notes.length ?
         <h5 className="text-muted mb-4">
           <> Comments <Badge variant="secondary">{notes.length}</Badge> </> 
         </h5> : null

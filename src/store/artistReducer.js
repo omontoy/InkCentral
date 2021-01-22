@@ -1,8 +1,7 @@
 import { inkCentralServer } from '../utils/apiaxios'
 import {
-  ARTIST_DELLOAD,
-  ARTIST_DELISOK,
-  ARTIST_DELFAIL,
+  ARTIST_HIDELOAD, ARTIST_HIDEISOK, ARTIST_HIDEFAIL,
+  ARTIST_SHOWLOAD, ARTIST_SHOWISOK, ARTIST_SHOWFAIL,
 } from './actions/artist'
 
 const ARTISTS_LOADING = 'ARTISTS_LOADING'
@@ -269,18 +268,34 @@ function artistReducer(state = initialState, action) {
       }
     case LOGOUT_ARTIST:
       return initialState
-    case ARTIST_DELLOAD:
+    case ARTIST_HIDELOAD:
       return {
         ...state,
         loading: true,
       }
-    case ARTIST_DELISOK:
+    case ARTIST_HIDEISOK:
       return {
         ...state,
         delMessage: action.payload,
         loading: false
       }
-    case ARTIST_DELFAIL:
+    case ARTIST_HIDEFAIL:
+      return {
+        ...state,
+        error_artist: action.payload
+      }
+    case ARTIST_SHOWLOAD:
+      return {
+        ...state,
+        loading: true,
+      }
+    case ARTIST_SHOWISOK:
+      return {
+        ...state,
+        delMessage: action.payload,
+        loading: false
+      }
+    case ARTIST_SHOWFAIL:
       return {
         ...state,
         error_artist: action.payload
