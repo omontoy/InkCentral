@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 export function ImageSlider( {images} ){   
   return(
     <Carousel>
-      {images.map(( image, index ) => {
+      {!!images && images.map(( image, index ) => {
         return(
           <Carousel.Item>
             <Card.Img src={ image } className="artistProfileImage" alt="main tattoo" />
