@@ -52,43 +52,29 @@ export function Navigation() {
   let user = userType || userTypeR
 
   return(
-    <Navbar collapseOnSelect expand="lg" fixed="top" bg="dark" variant="dark">
-      <LinkContainer to="/" className="brand">
-        <Navbar.Brand
-          onClick={handleBrandClick}
-        >
-          InkCentral
-        </Navbar.Brand>
-      </LinkContainer>
+    <Navbar 
+      collapseOnSelect 
+      expand="lg" 
+      fixed="top" 
+      bg="dark"  
+      variant="dark"
+      className="ensayo"
+      >
+      <div className="col-sm-8">
+        <LinkContainer to="/" className="brand">
+          <Navbar.Brand
+            onClick={handleBrandClick}
+          >
+            InkCentral
+          </Navbar.Brand>
+        </LinkContainer>
+      </div>
+      
       <Navbar.Toggle />
 
       <Navbar.Collapse>
-        <Nav className="mr-auto">
-          { token ? (
-            <>
-              < UserProfileDropDownMenu
-                user = { user }
-                handleLogOut = { handleLogOut }
-                className="dropdown"
-              />
-            </> ) :
-            (
-              <>
-                <LinkContainer to="/login" >
-                  <Nav.Link>
-                    <i className="fas fa-sign-in-alt"></i> Login
-                  </Nav.Link>
-                </LinkContainer>
 
-                <LinkContainer to="/register">
-                  <Nav.Link>
-                    <i className="fas fa-user-plus"></i> Register
-                  </Nav.Link>
-                </LinkContainer>
-              </>
-            )
-          }
-        </Nav>
+        <div className="col-sm-8">
           <Form inline className="searchform">
             <FormControl
               type="text"
@@ -98,6 +84,37 @@ export function Navigation() {
               value={searchValue}
             />
           </Form>
+        </div>
+          
+          <div className="col-sm-4 pull-right">
+              <Nav className="mr-auto">
+              { token ? (
+                <>
+                  < UserProfileDropDownMenu
+                    user = { user }
+                    handleLogOut = { handleLogOut }
+                    className="dropdown"
+                  />
+                </> ) :
+                (
+                  <>
+                    <LinkContainer to="/login" >
+                      <Nav.Link>
+                        <i className="fas fa-sign-in-alt"></i> Login
+                      </Nav.Link>
+                    </LinkContainer>
+
+                    <LinkContainer to="/register">
+                      <Nav.Link>
+                        <i className="fas fa-user-plus"></i> Register
+                      </Nav.Link>
+                    </LinkContainer>
+                  </>
+                )
+              }
+            </Nav>
+          </div>
+          
       </Navbar.Collapse>
     </Navbar>
   )
