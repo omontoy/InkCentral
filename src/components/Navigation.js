@@ -1,6 +1,7 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -58,64 +59,54 @@ export function Navigation() {
       fixed="top" 
       bg="dark"  
       variant="dark"
-      className="ensayo"
       >
-      <div className="col-sm-8">
-        <LinkContainer to="/" className="brand">
-          <Navbar.Brand
-            onClick={handleBrandClick}
-          >
-            InkCentral
-          </Navbar.Brand>
-        </LinkContainer>
-      </div>
+        <Col>
+          <LinkContainer to="/" className="brand">
+            <Navbar.Brand
+              onClick={handleBrandClick}
+            >
+              InkCentral
+            </Navbar.Brand>
+          </LinkContainer>
+        </Col>
       
-      <Navbar.Toggle />
-
-      <Navbar.Collapse>
-
-        <div className="col-sm-8">
-          <Form inline className="searchform">
-            <FormControl
-              type="text"
-              placeholder="Search by location"
-              className="mr-sm-2"
-              onChange={handleSearchChange}
-              value={searchValue}
+        {token ?
+        <Form inline className="searchform">
+          <FormControl
+            type="text"
+            placeholder="Search by location"
+            className="mr-sm-2"
+            onChange={handleSearchChange}
+            value={searchValue}
+          />
+        </Form> : null }
+          
+        <Nav className="mr-auto">
+        { token ? (
+          <>
+            < UserProfileDropDownMenu
+              user = { user }
+              handleLogOut = { handleLogOut }
+              className="dropdown"
             />
-          </Form>
-        </div>
-          
-          <div className="col-sm-4 pull-right">
-              <Nav className="mr-auto">
-              { token ? (
-                <>
-                  < UserProfileDropDownMenu
-                    user = { user }
-                    handleLogOut = { handleLogOut }
-                    className="dropdown"
-                  />
-                </> ) :
-                (
-                  <>
-                    <LinkContainer to="/login" >
-                      <Nav.Link>
-                        <i className="fas fa-sign-in-alt"></i> Login
-                      </Nav.Link>
-                    </LinkContainer>
+          </> ) :
+          (
+            <>
+              <LinkContainer to="/login" >
+                <Nav.Link>
+                  <i className="fas fa-sign-in-alt"></i> Login
+                </Nav.Link>
+              </LinkContainer>
 
-                    <LinkContainer to="/register">
-                      <Nav.Link>
-                        <i className="fas fa-user-plus"></i> Register
-                      </Nav.Link>
-                    </LinkContainer>
-                  </>
-                )
-              }
-            </Nav>
-          </div>
-          
-      </Navbar.Collapse>
+              <LinkContainer to="/register">
+                <Nav.Link>
+                  <i className="fas fa-user-plus"></i> Register
+                </Nav.Link>
+              </LinkContainer>
+            </>
+          )
+        }
+      </Nav>
     </Navbar>
   )
 }
