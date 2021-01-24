@@ -126,7 +126,7 @@ export function ArtistProfile() {
                     number={`+57 ${whatsapp}`} 
                     message="Hola cómo estás ?">
                     <i className="fa-2x fa fa-whatsapp contactar" />
-                    Contáctame 
+                    Contact me
                   </ReactWhatsapp>     
                 </Card.Body>
               }
